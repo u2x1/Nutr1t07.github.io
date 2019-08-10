@@ -77,6 +77,44 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/07/10/hello-world/" class="article-date">
+  <time datetime="2019-07-10T08:45:09.000Z" itemprop="datePublished">2019-07-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/07/10/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我的U盘被我表弟搞丢了，而我的博客源文件夹正好放在里头。所以只能重新写一次了。</p>
+<p>突然发现其实Hexo的默认主题landscape已经很好看了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-uefi-boot-failed" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/06/16/uefi-boot-failed/" class="article-date">
@@ -257,11 +295,14 @@ ga('send', 'pageview');
 <li><strong>Remote port forwarding</strong>: Forward server request to local on <strong>specify</strong> port. Useful when remote client access local service.</li>
 <li><strong>Dynamic port forwarding</strong>: Forward local request to server on <strong>various</strong> port. Useful for proxy.</li>
 </ol>
-<h2 id="Secure-Shell-SSH"><a href="#Secure-Shell-SSH" class="headerlink" title="Secure Shell (SSH)"></a>Secure Shell (SSH)</h2><p><strong>SSH</strong> is a network <strong>protocol</strong> used for encrypted logins between computers. It implements the connection between the SSH client and the server by creating a secure <strong>tunnel</strong> in the network.</p>
+<h2 id="secure-shell-ssh"><a class="header-anchor" href="#secure-shell-ssh">¶</a>Secure Shell (SSH)</h2>
+<p><strong>SSH</strong> is a network <strong>protocol</strong> used for encrypted logins between computers. It implements the connection between the SSH client and the server by creating a secure <strong>tunnel</strong> in the network.</p>
 <p>Because of its high security, SSH quickly gains in popularity and becomes a most important protocol in Internet communication.</p>
 <p>SSH is typically used to log into a remote machine and execute commands, but it also supports <strong>tunneling</strong>, <strong>TCP ports forwarding</strong> and <strong>X11 connections</strong>.</p>
-<h3 id="SSH-Port-Forwarding"><a href="#SSH-Port-Forwarding" class="headerlink" title="SSH Port Forwarding"></a>SSH Port Forwarding</h3><p><strong>Note</strong>: It’s useful to use -N argument on OpenSSH to not excuse any command when just for port forwarding.</p>
-<h4 id="Local-Port-Forwarding"><a href="#Local-Port-Forwarding" class="headerlink" title="Local Port Forwarding"></a>Local Port Forwarding</h4><p><strong>Local port forwarding</strong> is usually used to bypass the firewall of the server.</p>
+<h3 id="ssh-port-forwarding"><a class="header-anchor" href="#ssh-port-forwarding">¶</a>SSH Port Forwarding</h3>
+<p><strong>Note</strong>: It’s useful to use -N argument on OpenSSH to not excuse any command when just for port forwarding.</p>
+<h4 id="local-port-forwarding"><a class="header-anchor" href="#local-port-forwarding">¶</a>Local Port Forwarding</h4>
+<p><strong>Local port forwarding</strong> is usually used to bypass the firewall of the server.</p>
 <p>Normally, the server’s firewall <strong>only</strong> has the port <strong>22</strong> (the first SSH port) open by default. But after logging in the server through SSH, we are able to use <strong>any</strong> port in it.</p>
 <p>For instance, there is a service running on the server whose address is <strong>134.78.92.35</strong>. This service listens the port <strong>3000</strong> while the <strong>firewall</strong> blocks any port except 22. How can we use the only open port 22 to send requests to the service?</p>
 <p>Let’s see what local port forwarding does.</p>
@@ -272,22 +313,21 @@ ga('send', 'pageview');
 <p>Then send requests to the <strong>local port</strong> we just specify (2000). What you send to the port will be <strong>forwarded</strong> to the <strong>server’s port</strong> (3000) and the reply will be <strong>send back to local port</strong>.</p>
 <p>For OpenSSH users, enter:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -L 2000:134.78.92.35:3000 localhost (-N)</span><br></pre></td></tr></table></figure>
-
 <p>(ssh -L &lt;<strong>local port</strong>&gt;:&lt;<strong>destination server</strong>&gt;:&lt;<strong>destination port</strong>&gt; &lt;<strong>local host</strong>&gt;)</p>
 <p>(Use <strong>-N</strong> if you <strong>only</strong> use it for port forwarding)</p>
 <p>So <code>localhost:2000</code> == <code>134.78.92.35:3000</code>.</p>
-<h4 id="Remote-Port-Forwarding"><a href="#Remote-Port-Forwarding" class="headerlink" title="Remote Port Forwarding"></a>Remote Port Forwarding</h4><p>Remote port forwarding is <strong>similar</strong> to local port forwarding. But now it is <strong>server</strong> who wants to <strong>access local services</strong>.</p>
+<h4 id="remote-port-forwarding"><a class="header-anchor" href="#remote-port-forwarding">¶</a>Remote Port Forwarding</h4>
+<p>Remote port forwarding is <strong>similar</strong> to local port forwarding. But now it is <strong>server</strong> who wants to <strong>access local services</strong>.</p>
 <p>For example, there is a service running on localhost:2000, and your friend(134.78.92.35) wants to use the service.</p>
 <p>Now we forward requests <strong>from remote</strong> port 3000 <strong>to local</strong> port 2000.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -R 3000:localhost:2000 root@134.78.92.35</span><br></pre></td></tr></table></figure>
-
 <p>(ssh -R &lt;<strong>destination port</strong>&gt;:&lt;<strong>local host</strong>&gt;:&lt;<strong>local port</strong>&gt; <user>@&lt;<strong>destination server</strong>&gt;)</user></p>
 <p>So now your friend just need to send request to <strong>his</strong> localhost:3000(134.78.92.35:3000) for using this service.</p>
-<h4 id="Dynamic-Port-Forwarding"><a href="#Dynamic-Port-Forwarding" class="headerlink" title="Dynamic Port Forwarding"></a>Dynamic Port Forwarding</h4><p>Dynamic port forwarding turns your <strong>SSH client</strong> into a <strong>SOCKS proxy server</strong>. It can forwards <strong>any</strong> request from a <strong>specify</strong> local port to <strong>any</strong> server port.</p>
+<h4 id="dynamic-port-forwarding"><a class="header-anchor" href="#dynamic-port-forwarding">¶</a>Dynamic Port Forwarding</h4>
+<p>Dynamic port forwarding turns your <strong>SSH client</strong> into a <strong>SOCKS proxy server</strong>. It can forwards <strong>any</strong> request from a <strong>specify</strong> local port to <strong>any</strong> server port.</p>
 <p>Now, let’s try breaking free from the firewall that blocks plenty of hosts. Assuming you have had a server(134.78.92.35) that haven’t gotten blocked.</p>
 <p>Make the SSH client listen at the port 1080, dynamic forward all requests from the port to destination server. Now it’s the server who <strong>truly</strong> sending requests to the Internet.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -D 1080 root@134.78.92.35</span><br></pre></td></tr></table></figure>
-
 <p>(ssh -D &lt;<strong>local port</strong>&gt; <user>@&lt;<strong>destination server</strong>&gt;)</user></p>
 <p>Next tell the <strong>program</strong> to use proxy. Configure the proxy tab, using SOCKS5 to proxy. Enter “<strong>localhost</strong>“ into “<strong>SOCKS5 Host</strong>“ and “<strong>1080</strong>“ into “<strong>SOCKS5 Port</strong>“.</p>
 <p>Now all the requests from the program should be forwarded to the port 1080, then through SSH client forwarded to the server.</p>
@@ -332,7 +372,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Archlinux/" style="font-size: 20px;">Archlinux</a> <a href="/tags/Boot/" style="font-size: 10px;">Boot</a> <a href="/tags/Brightness/" style="font-size: 10px;">Brightness</a> <a href="/tags/EFI/" style="font-size: 10px;">EFI</a> <a href="/tags/Feelings/" style="font-size: 10px;">Feelings</a> <a href="/tags/Friends-Network/" style="font-size: 10px;">Friends Network</a> <a href="/tags/Function/" style="font-size: 10px;">Function</a> <a href="/tags/GFW/" style="font-size: 10px;">GFW</a> <a href="/tags/Haskell/" style="font-size: 20px;">Haskell</a> <a href="/tags/Indentation/" style="font-size: 10px;">Indentation</a> <a href="/tags/Intel/" style="font-size: 10px;">Intel</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/Math/" style="font-size: 10px;">Math</a> <a href="/tags/Minecraft/" style="font-size: 10px;">Minecraft</a> <a href="/tags/Mirror/" style="font-size: 10px;">Mirror</a> <a href="/tags/Monoid/" style="font-size: 10px;">Monoid</a> <a href="/tags/Music/" style="font-size: 10px;">Music</a> <a href="/tags/NVIDIA/" style="font-size: 10px;">NVIDIA</a> <a href="/tags/Nihilism/" style="font-size: 10px;">Nihilism</a> <a href="/tags/Nihilist/" style="font-size: 10px;">Nihilist</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Semigroup/" style="font-size: 10px;">Semigroup</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Steam/" style="font-size: 10px;">Steam</a> <a href="/tags/Touchpad/" style="font-size: 10px;">Touchpad</a> <a href="/tags/UEFI/" style="font-size: 10px;">UEFI</a> <a href="/tags/WIFI/" style="font-size: 10px;">WIFI</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a>
+      <a href="/tags/Account-lock/" style="font-size: 10px;">Account lock</a> <a href="/tags/Archlinux/" style="font-size: 20px;">Archlinux</a> <a href="/tags/Boot/" style="font-size: 10px;">Boot</a> <a href="/tags/Bootloader/" style="font-size: 10px;">Bootloader</a> <a href="/tags/Brightness/" style="font-size: 10px;">Brightness</a> <a href="/tags/EFI/" style="font-size: 10px;">EFI</a> <a href="/tags/Feelings/" style="font-size: 10px;">Feelings</a> <a href="/tags/Friends-Network/" style="font-size: 10px;">Friends Network</a> <a href="/tags/Function/" style="font-size: 10px;">Function</a> <a href="/tags/GFW/" style="font-size: 10px;">GFW</a> <a href="/tags/Haskell/" style="font-size: 20px;">Haskell</a> <a href="/tags/Indentation/" style="font-size: 10px;">Indentation</a> <a href="/tags/Intel/" style="font-size: 10px;">Intel</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/Math/" style="font-size: 10px;">Math</a> <a href="/tags/Minecraft/" style="font-size: 10px;">Minecraft</a> <a href="/tags/Mirror/" style="font-size: 10px;">Mirror</a> <a href="/tags/Monoid/" style="font-size: 10px;">Monoid</a> <a href="/tags/Music/" style="font-size: 10px;">Music</a> <a href="/tags/NVIDIA/" style="font-size: 10px;">NVIDIA</a> <a href="/tags/Nihilism/" style="font-size: 10px;">Nihilism</a> <a href="/tags/Nihilist/" style="font-size: 10px;">Nihilist</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Semigroup/" style="font-size: 10px;">Semigroup</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Steam/" style="font-size: 10px;">Steam</a> <a href="/tags/Touchpad/" style="font-size: 10px;">Touchpad</a> <a href="/tags/UEFI/" style="font-size: 10px;">UEFI</a> <a href="/tags/WIFI/" style="font-size: 10px;">WIFI</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/Xiaomi-Phone/" style="font-size: 10px;">Xiaomi Phone</a>
     </div>
   </div>
 

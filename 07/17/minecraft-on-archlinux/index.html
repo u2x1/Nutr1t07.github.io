@@ -20,18 +20,18 @@ ga('send', 'pageview');
   
   <title>Run Minecraft on Archlinux | Nutr1t07&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="To run Minecraft on Archlinux, you need JRE(Java Runtime Environment), JavaFX, and a Minecraft Launcher. Install Java EnvironmentOpen-source implementFor most users who dont play with java programming">
+  <meta name="description" content="To run Minecraft on Archlinux, you need JRE(Java Runtime Environment), JavaFX, and a Minecraft Launcher. Install Java Environment ¶Open-source implement For most users who dont play with java programm">
 <meta name="keywords" content="Archlinux,Minecraft">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Run Minecraft on Archlinux">
 <meta property="og:url" content="https://Nutr1t07.github.io/07/17/minecraft-on-archlinux/index.html">
 <meta property="og:site_name" content="Nutr1t07&#39;s Blog">
-<meta property="og:description" content="To run Minecraft on Archlinux, you need JRE(Java Runtime Environment), JavaFX, and a Minecraft Launcher. Install Java EnvironmentOpen-source implementFor most users who dont play with java programming">
+<meta property="og:description" content="To run Minecraft on Archlinux, you need JRE(Java Runtime Environment), JavaFX, and a Minecraft Launcher. Install Java Environment ¶Open-source implement For most users who dont play with java programm">
 <meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2019-08-01T14:05:41.118Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Run Minecraft on Archlinux">
-<meta name="twitter:description" content="To run Minecraft on Archlinux, you need JRE(Java Runtime Environment), JavaFX, and a Minecraft Launcher. Install Java EnvironmentOpen-source implementFor most users who dont play with java programming">
+<meta name="twitter:description" content="To run Minecraft on Archlinux, you need JRE(Java Runtime Environment), JavaFX, and a Minecraft Launcher. Install Java Environment ¶Open-source implement For most users who dont play with java programm">
   
   
     <link rel="icon" href="/favicon.png">
@@ -103,13 +103,23 @@ ga('send', 'pageview');
     <div class="article-entry" itemprop="articleBody">
       
         <p>To run Minecraft on Archlinux, you need JRE(Java Runtime Environment), JavaFX, and a Minecraft Launcher.</p>
-<h1 id="Install-Java-Environment"><a href="#Install-Java-Environment" class="headerlink" title="Install Java Environment"></a>Install Java Environment</h1><h3 id="Open-source-implement"><a href="#Open-source-implement" class="headerlink" title="Open-source implement"></a>Open-source implement</h3><p>For most users who dont play with java programming, open-source version is enough for gaming.<br>Using package: <code>jre8-openjdk</code>, <code>java-openjfx</code><br><code>pacman -S jre-openjdk java-openjfx</code></p>
-<h3 id="Oracle-implement"><a href="#Oracle-implement" class="headerlink" title="Oracle implement"></a>Oracle implement</h3><p>Generally, closed-source implement often has better performance than open-source.<br>Using package: <code>jre8</code>(in <em>aur</em>)<br><code>yay -S jre8</code></p>
-<h3 id="Change-environment-between-installed-jre"><a href="#Change-environment-between-installed-jre" class="headerlink" title="Change environment between installed jre"></a>Change environment between installed jre</h3><p>Use <code>archlinux-java</code></p>
-<h1 id="Install-Minecraft-Launcher"><a href="#Install-Minecraft-Launcher" class="headerlink" title="Install Minecraft Launcher"></a>Install Minecraft Launcher</h1><p>Using package: <code>hmcl</code><br><code>pacman -S hmcl</code></p>
-<h3 id="Install-GTK2"><a href="#Install-GTK2" class="headerlink" title="Install GTK2"></a>Install GTK2</h3><p>If you dont get GTK2 installed, then when you try to starting <code>hmcl</code>, it will output an exception, such like:</p>
+<h1>Install Java Environment</h1>
+<h3 id="open-source-implement"><a class="header-anchor" href="#open-source-implement">¶</a>Open-source implement</h3>
+<p>For most users who dont play with java programming, open-source version is enough for gaming.<br>
+Using package: <code>jre8-openjdk</code>, <code>java-openjfx</code><br>
+<code>pacman -S jre-openjdk java-openjfx</code></p>
+<h3 id="oracle-implement"><a class="header-anchor" href="#oracle-implement">¶</a>Oracle implement</h3>
+<p>Generally, closed-source implement often has better performance than open-source.<br>
+Using package: <code>jre8</code>(in <em>aur</em>)<br>
+<code>yay -S jre8</code></p>
+<h3 id="change-environment-between-installed-jre"><a class="header-anchor" href="#change-environment-between-installed-jre">¶</a>Change environment between installed jre</h3>
+<p>Use <code>archlinux-java</code></p>
+<h1>Install Minecraft Launcher</h1>
+<p>Using package: <code>hmcl</code><br>
+<code>pacman -S hmcl</code></p>
+<h3 id="install-gtk2"><a class="header-anchor" href="#install-gtk2">¶</a>Install GTK2</h3>
+<p>If you dont get GTK2 installed, then when you try to starting <code>hmcl</code>, it will output an exception, such like:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Graphics Device initialization failed for :  es2, sw</span><br><span class="line">Error initializing QuantumRenderer: no suitable pipeline found</span><br></pre></td></tr></table></figure>
-
 <p>Just simply install the package <code>gtk2</code> can solve the problem.</p>
 
       
@@ -164,7 +174,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Archlinux/" style="font-size: 20px;">Archlinux</a> <a href="/tags/Boot/" style="font-size: 10px;">Boot</a> <a href="/tags/Brightness/" style="font-size: 10px;">Brightness</a> <a href="/tags/EFI/" style="font-size: 10px;">EFI</a> <a href="/tags/Feelings/" style="font-size: 10px;">Feelings</a> <a href="/tags/Friends-Network/" style="font-size: 10px;">Friends Network</a> <a href="/tags/Function/" style="font-size: 10px;">Function</a> <a href="/tags/GFW/" style="font-size: 10px;">GFW</a> <a href="/tags/Haskell/" style="font-size: 20px;">Haskell</a> <a href="/tags/Indentation/" style="font-size: 10px;">Indentation</a> <a href="/tags/Intel/" style="font-size: 10px;">Intel</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/Math/" style="font-size: 10px;">Math</a> <a href="/tags/Minecraft/" style="font-size: 10px;">Minecraft</a> <a href="/tags/Mirror/" style="font-size: 10px;">Mirror</a> <a href="/tags/Monoid/" style="font-size: 10px;">Monoid</a> <a href="/tags/Music/" style="font-size: 10px;">Music</a> <a href="/tags/NVIDIA/" style="font-size: 10px;">NVIDIA</a> <a href="/tags/Nihilism/" style="font-size: 10px;">Nihilism</a> <a href="/tags/Nihilist/" style="font-size: 10px;">Nihilist</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Semigroup/" style="font-size: 10px;">Semigroup</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Steam/" style="font-size: 10px;">Steam</a> <a href="/tags/Touchpad/" style="font-size: 10px;">Touchpad</a> <a href="/tags/UEFI/" style="font-size: 10px;">UEFI</a> <a href="/tags/WIFI/" style="font-size: 10px;">WIFI</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a>
+      <a href="/tags/Account-lock/" style="font-size: 10px;">Account lock</a> <a href="/tags/Archlinux/" style="font-size: 20px;">Archlinux</a> <a href="/tags/Boot/" style="font-size: 10px;">Boot</a> <a href="/tags/Bootloader/" style="font-size: 10px;">Bootloader</a> <a href="/tags/Brightness/" style="font-size: 10px;">Brightness</a> <a href="/tags/EFI/" style="font-size: 10px;">EFI</a> <a href="/tags/Feelings/" style="font-size: 10px;">Feelings</a> <a href="/tags/Friends-Network/" style="font-size: 10px;">Friends Network</a> <a href="/tags/Function/" style="font-size: 10px;">Function</a> <a href="/tags/GFW/" style="font-size: 10px;">GFW</a> <a href="/tags/Haskell/" style="font-size: 20px;">Haskell</a> <a href="/tags/Indentation/" style="font-size: 10px;">Indentation</a> <a href="/tags/Intel/" style="font-size: 10px;">Intel</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/Math/" style="font-size: 10px;">Math</a> <a href="/tags/Minecraft/" style="font-size: 10px;">Minecraft</a> <a href="/tags/Mirror/" style="font-size: 10px;">Mirror</a> <a href="/tags/Monoid/" style="font-size: 10px;">Monoid</a> <a href="/tags/Music/" style="font-size: 10px;">Music</a> <a href="/tags/NVIDIA/" style="font-size: 10px;">NVIDIA</a> <a href="/tags/Nihilism/" style="font-size: 10px;">Nihilism</a> <a href="/tags/Nihilist/" style="font-size: 10px;">Nihilist</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Semigroup/" style="font-size: 10px;">Semigroup</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Steam/" style="font-size: 10px;">Steam</a> <a href="/tags/Touchpad/" style="font-size: 10px;">Touchpad</a> <a href="/tags/UEFI/" style="font-size: 10px;">UEFI</a> <a href="/tags/WIFI/" style="font-size: 10px;">WIFI</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/Xiaomi-Phone/" style="font-size: 10px;">Xiaomi Phone</a>
     </div>
   </div>
 
