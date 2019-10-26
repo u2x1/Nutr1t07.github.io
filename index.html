@@ -161,7 +161,9 @@ ga('send', 'pageview');
     <div class="article-entry" itemprop="articleBody">
       
         <h1>Xorg</h1>
-<p>There is no direct option for <em>Night Color</em> On KDE Plasma 5.16.4. You need to get the dependence <code>redshift</code> installed.</p>
+<p>(2019.10.25 Update)<br>
+The Night Color settings are now available on X11 since Plasma 5.16.90.<br>
+<del>There is no direct option for <em>Night Color</em> On KDE Plasma 5.16.4. You need to get the dependence <code>redshift</code> installed.</del></p>
 <h2 id="location-service"><a class="header-anchor" href="#location-service">¶</a>Location Service</h2>
 <h3 id="run-geoclue"><a class="header-anchor" href="#run-geoclue">¶</a>Run geoclue</h3>
 <p>Run <em>redshift</em> for the first time in terminal. If you get the following output:</p>
@@ -178,7 +180,8 @@ ga('send', 'pageview');
 <li>Open KDE <em>Software Center</em>(org.kde.discover). Search “Redshift Control” and install it.</li>
 <li>Add the widget “Redshift Control” on desktop or anywhere you want to put it on.</li>
 <li>Right-click the widget, configure the <code>redshift</code>.</li>
-<li>Left-click, open <em>Night Color</em>.</li>
+<li>Left-click, open <em>Night Color</em>.<br>
+</li>
 </ol>
 <h1>Wayland</h1>
 <p>There’s a direct option for <em>Night Color</em> for Wayland.</p>
@@ -724,7 +727,7 @@ Using package: <code>jre8</code>(in <em>aur</em>)<br>
       
         <p>For users who live in China or are unable to reach amazon server, try changing the mirror <em>stack</em> uses. For more details, see <a href="https://mirrors.tuna.tsinghua.edu.cn/help/stackage/" target="_blank" rel="noopener">stackage</a>.</p>
 <ul>
-<li>Windows: <code>config.yaml</code> is under <code>%STACK_TOOL%</code> but NOT <code>%APPDATA%\stack</code>.</li>
+<li>Windows: <code>config.yaml</code> is under <code>%STACK_ROOT%</code> but NOT <code>%APPDATA%\stack</code>.</li>
 <li>Archlinux: Install <code>stack-static</code> in aur instead of <code>stack</code> in offical repo mirror. Till now, the version of <code>stack</code> in normal <em>community</em> repository is 1.9.3.1 while <code>stack-static</code> in aur is of 2.1.3.</li>
 </ul>
 
