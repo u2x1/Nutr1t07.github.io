@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://Nutr1t07.github.io/"/>
-  <updated>2019-10-27T06:14:58.741Z</updated>
+  <updated>2019-11-02T11:13:09.043Z</updated>
   <id>https://Nutr1t07.github.io/</id>
   
   <author>
@@ -17,17 +17,30 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>set-proxy-for-vcpkg</title>
+    <title>Set Proxy for vcpkg</title>
     <link href="https://Nutr1t07.github.io/10/27/set-proxy-for-vcpkg/"/>
     <id>https://Nutr1t07.github.io/10/27/set-proxy-for-vcpkg/</id>
     <published>2019-10-27T06:14:58.000Z</published>
-    <updated>2019-10-27T06:14:58.741Z</updated>
+    <updated>2019-11-02T11:13:09.043Z</updated>
+    
+    <content type="html"><![CDATA[<p><em>vcpkg</em> use CMake to perform the downloads for building libraries. This function is backed by <code>curl</code>, which doesn’t use Windows’ system-wide proxy settings.</p><p>If we want to perform these downloads under proxy, we need to specify some environment variables (http_proxy, https_proxy).</p><p>For <em>shadowsocks-windows</em>, the listening proxy port has been converted to <em>HTTP</em> proxy from <em>SOCKS</em>. Enter the following commands to <code>cmd</code>:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set http_proxy=http://127.0.0.1:1080</span><br><span class="line">set https_proxy=http://127.0.0.1:1080</span><br></pre></td></tr></table></figure><p>Check the environment variables using:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;em&gt;vcpkg&lt;/em&gt; use CMake to perform the downloads for building libraries. This function is backed by &lt;code&gt;curl&lt;/code&gt;, which doesn’t use
+      
     
     </summary>
     
     
+    
+      <category term="vcpkg" scheme="https://Nutr1t07.github.io/tags/vcpkg/"/>
+    
+      <category term="Proxy" scheme="https://Nutr1t07.github.io/tags/Proxy/"/>
+    
+      <category term="Socks" scheme="https://Nutr1t07.github.io/tags/Socks/"/>
     
   </entry>
   
@@ -67,18 +80,19 @@
     <link href="https://Nutr1t07.github.io/08/17/Enable-Night-Color-for-KDE-on-Archlinux/"/>
     <id>https://Nutr1t07.github.io/08/17/Enable-Night-Color-for-KDE-on-Archlinux/</id>
     <published>2019-08-17T04:58:29.000Z</published>
-    <updated>2019-10-26T12:50:35.883Z</updated>
+    <updated>2019-11-02T11:14:55.529Z</updated>
     
-    <content type="html"><![CDATA[<h1>Xorg</h1><p>(2019.10.25 Update)<br>The Night Color settings are now available on X11 since Plasma 5.16.90.<br><del>There is no direct option for <em>Night Color</em> On KDE Plasma 5.16.4. You need to get the dependence <code>redshift</code> installed.</del></p><h2 id="location-service"><a class="header-anchor" href="#location-service">¶</a>Location Service</h2><h3 id="run-geoclue"><a class="header-anchor" href="#run-geoclue">¶</a>Run geoclue</h3><p>Run <em>redshift</em> for the first time in terminal. If you get the following output:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Trying location provider `geoclue2&apos;...</span><br><span class="line">Using provider `geoclue2&apos;.</span><br><span class="line">Using method `randr&apos;.</span><br><span class="line">Waiting for initial location to become available...</span><br></pre></td></tr></table></figure><p>Then you need to ensure <code>geoclue</code> is running without error. AFAIK, <code>geoclue.service</code> is depended on <code>avahi-daemon.service</code> and <code>ModemManager.service</code>, you should start the services to make <code>geoclue</code> run:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start avahi-daemon.service</span><br><span class="line">sudo systemctl start ModemManager.service</span><br><span class="line">sudo systemctl restart geoclue.service</span><br></pre></td></tr></table></figure><h3 id="allow-redshift-to-access-geoclue-service"><a class="header-anchor" href="#allow-redshift-to-access-geoclue-service">¶</a>Allow <code>redshift</code> to access <code>geoclue</code> service <sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></h3><p>Add following text to <code>/etc/geoclue/geoclue.conf</code>:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[redshift]</span><br><span class="line">allowed=true</span><br><span class="line">system=false</span><br><span class="line">users=</span><br></pre></td></tr></table></figure><p>Then restart <code>geoclue.service</code>.</p><h2 id="kde-addon"><a class="header-anchor" href="#kde-addon">¶</a>KDE Addon</h2><p>To make it easier for settings on <code>redshift</code>, an addon is necessary.</p><ol><li>Open KDE <em>Software Center</em>(org.kde.discover). Search “Redshift Control” and install it.</li><li>Add the widget “Redshift Control” on desktop or anywhere you want to put it on.</li><li>Right-click the widget, configure the <code>redshift</code>.</li><li>Left-click, open <em>Night Color</em>.<br></li></ol><h1>Wayland</h1><p>There’s a direct option for <em>Night Color</em> for Wayland.</p><hr class="footnotes-sep"><section class="footnotes"><ol class="footnotes-list"><li id="fn1" class="footnote-item"><p><a href="https://github.com/jonls/redshift/issues/158" target="_blank" rel="noopener">https://github.com/jonls/redshift/issues/158</a> <a href="#fnref1" class="footnote-backref">↩</a></p></li></ol></section>]]></content>
+    <content type="html"><![CDATA[<h1>Xorg</h1><blockquote><p>(2019.10.25 Update) The Night Color settings are now available on X11 since Plasma 5.16.90.</p></blockquote><p><del>There is no direct option for <em>Night Color</em> On KDE Plasma 5.16.4. You need to get the dependence <code>redshift</code> installed.</del></p><h2 id="location-service"><a class="header-anchor" href="#location-service">¶</a>Location Service</h2><h3 id="run-geoclue"><a class="header-anchor" href="#run-geoclue">¶</a>Run geoclue</h3><p>Run <em>redshift</em> for the first time in terminal. If you get the following output:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Trying location provider `geoclue2&apos;...</span><br><span class="line">Using provider `geoclue2&apos;.</span><br><span class="line">Using method `randr&apos;.</span><br><span class="line">Waiting for initial location to become available...</span><br></pre></td></tr></table></figure><p>Then you need to ensure <code>geoclue</code> is running without error. AFAIK, <code>geoclue.service</code> is depended on <code>avahi-daemon.service</code> and <code>ModemManager.service</code>, you should start the services to make <code>geoclue</code> run:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start avahi-daemon.service</span><br><span class="line">sudo systemctl start ModemManager.service</span><br><span class="line">sudo systemctl restart geoclue.service</span><br></pre></td></tr></table></figure><h3 id="allow-redshift-to-access-geoclue-service"><a class="header-anchor" href="#allow-redshift-to-access-geoclue-service">¶</a>Allow <code>redshift</code> to access <code>geoclue</code> service <sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></h3><p>Add following text to <code>/etc/geoclue/geoclue.conf</code>:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[redshift]</span><br><span class="line">allowed=true</span><br><span class="line">system=false</span><br><span class="line">users=</span><br></pre></td></tr></table></figure><p>Then restart <code>geoclue.service</code>.</p><h2 id="kde-addon"><a class="header-anchor" href="#kde-addon">¶</a>KDE Addon</h2><p>To make it easier for settings on <code>redshift</code>, an addon is necessary.</p><ol><li>Open KDE <em>Software Center</em>(org.kde.discover). Search “Redshift Control” and install it.</li><li>Add the widget “Redshift Control” on desktop or anywhere you want to put it on.</li><li>Right-click the widget, configure the <code>redshift</code>.</li><li>Left-click, open <em>Night Color</em>.</li></ol><h1>Wayland</h1><p>There’s a direct option for <em>Night Color</em> for Wayland.</p><hr class="footnotes-sep"><section class="footnotes"><ol class="footnotes-list"><li id="fn1" class="footnote-item"><p><a href="https://github.com/jonls/redshift/issues/158" target="_blank" rel="noopener">https://github.com/jonls/redshift/issues/158</a> <a href="#fnref1" class="footnote-backref">↩</a></p></li></ol></section>]]></content>
     
     <summary type="html">
     
       
       
         &lt;h1&gt;Xorg&lt;/h1&gt;
-&lt;p&gt;(2019.10.25 Update)&lt;br&gt;
-The Night Color settings are now available on X11 since Plasma 5.16.90.&lt;br&gt;
-&lt;del&gt;There is no direct
+&lt;blockquote&gt;
+&lt;p&gt;(2019.10.25 Update) The Night Color settings are now available on X11 since Plasma 5.16.90.&lt;/p&gt;
+&lt;/blockquote&gt;
+
       
     
     </summary>
@@ -329,9 +343,9 @@ The Night Color settings are now available on X11 since Plasma 5.16.90.&lt;br&gt
     
     
     
-      <category term="Archlinux" scheme="https://Nutr1t07.github.io/tags/Archlinux/"/>
-    
       <category term="Haskell" scheme="https://Nutr1t07.github.io/tags/Haskell/"/>
+    
+      <category term="Archlinux" scheme="https://Nutr1t07.github.io/tags/Archlinux/"/>
     
       <category term="Stack" scheme="https://Nutr1t07.github.io/tags/Stack/"/>
     
@@ -534,9 +548,9 @@ The Night Color settings are now available on X11 since Plasma 5.16.90.&lt;br&gt
       <category term="Tech" scheme="https://Nutr1t07.github.io/categories/Tech/"/>
     
     
-      <category term="SSH" scheme="https://Nutr1t07.github.io/tags/SSH/"/>
-    
       <category term="Proxy" scheme="https://Nutr1t07.github.io/tags/Proxy/"/>
+    
+      <category term="SSH" scheme="https://Nutr1t07.github.io/tags/SSH/"/>
     
       <category term="GFW" scheme="https://Nutr1t07.github.io/tags/GFW/"/>
     
