@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://Nutr1t07.github.io/"/>
-  <updated>2019-08-31T07:09:51.512Z</updated>
+  <updated>2019-10-27T06:14:58.741Z</updated>
   <id>https://Nutr1t07.github.io/</id>
   
   <author>
@@ -15,6 +15,21 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>set-proxy-for-vcpkg</title>
+    <link href="https://Nutr1t07.github.io/10/27/set-proxy-for-vcpkg/"/>
+    <id>https://Nutr1t07.github.io/10/27/set-proxy-for-vcpkg/</id>
+    <published>2019-10-27T06:14:58.000Z</published>
+    <updated>2019-10-27T06:14:58.741Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>多巴胺与近视发展</title>
@@ -314,9 +329,9 @@ The Night Color settings are now available on X11 since Plasma 5.16.90.&lt;br&gt
     
     
     
-      <category term="Haskell" scheme="https://Nutr1t07.github.io/tags/Haskell/"/>
-    
       <category term="Archlinux" scheme="https://Nutr1t07.github.io/tags/Archlinux/"/>
+    
+      <category term="Haskell" scheme="https://Nutr1t07.github.io/tags/Haskell/"/>
     
       <category term="Stack" scheme="https://Nutr1t07.github.io/tags/Stack/"/>
     
