@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://Nutr1t07.github.io/"/>
-  <updated>2019-12-19T07:44:45.753Z</updated>
+  <updated>2020-01-16T08:45:47.638Z</updated>
   <id>https://Nutr1t07.github.io/</id>
   
   <author>
@@ -17,9 +17,32 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>2019总结</title>
+    <link href="https://Nutr1t07.github.io/2019/"/>
+    <id>https://Nutr1t07.github.io/2019/</id>
+    <published>2020-01-16T06:43:35.000Z</published>
+    <updated>2020-01-16T08:45:47.638Z</updated>
+    
+    <content type="html"><![CDATA[<p>2019年对我来说是意义重大的一年。</p><a id="more"></a><p>在这一年里，我完成了我应受的义务教育，在旷课将近三个月的情况下考上了一所不错的市重点高中。我的初三班主任是一个非常典型的老教师，认为自己拥有极大的权力，并坚信好学生是靠骂出来的。在他的管理以及我们火箭班各科任的打压下，我们班这一整学年都被一种极度压抑的气氛笼罩。虽然这并不是完全不能接受，但在这一年里由于我把自己封闭起来，我得以拥有许多时间重新开始审视周遭的一切。这使得我的旧世界观崩塌，促使我以新的方式看待一切。于是我走上了虚无主义的道路。</p><p>你应该清楚这意味着什么。我已经失去梦想了。但这并不是故事的结尾，因为我没办法自杀，不仅现在，将来也是如此。</p><p>我想，既然一切都没有意义，那为什么不搏一把呢？既然挑战能为我带来快感那又何乐而不为呢？事到如今我已经没有什么不可失去的了，我可以做任何事而不计较最终的结果。即便几兆兆亿年以后我们都将终归虚无，我们仍需面对当下的一分一秒。我不满中国的教育与生活，为什么不拼搏一把出国呢？</p><p>所以我决定，将来一定要坐上那架飞往国外的飞机，带着我的信仰，不再回头。</p><h1>2019年我做了什么</h1><p>总之很颓废就是了，什么也没做。</p><h3 id="写作"><a class="header-anchor" href="#写作">¶</a>写作</h3><ul><li>搭建了自己的博客</li></ul><h3 id="学业"><a class="header-anchor" href="#学业">¶</a>学业</h3><ul><li><em>逃学</em></li><li>完成义务教育并进入市重点高中重点班</li></ul><h3 id="技术"><a class="header-anchor" href="#技术">¶</a>技术</h3><ul><li>学会了Haskell的基本语法并写了一个功能不完善的机器人</li><li>破解了学校的水卡</li></ul><h3 id="阅读"><a class="header-anchor" href="#阅读">¶</a>阅读</h3><ul><li>读了以下书籍（按书籍类型排序）：<ul><li><em>Haskell Programming from first principles</em>（第一本读完的英文原著）</li><li>《乌合之众》</li><li>《意志力》</li><li>《1984》</li><li>《百年孤独》</li><li>《动物庄园》</li><li>《海伯利安》</li><li>《人间失格》</li><li>《麦田里的守望者》</li><li>《彷徨》</li></ul></li></ul><h3 id="败家"><a class="header-anchor" href="#败家">¶</a>败家</h3><ul><li>拥有了一台属于自己的笔记本电脑</li><li>拥有了一台Kindle PaperWhite 4</li><li>拥有了一块轻智能表Withings Pop</li><li>拥有了一台Ipod 4</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;2019年对我来说是意义重大的一年。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Life" scheme="https://Nutr1t07.github.io/categories/Life/"/>
+    
+    
+      <category term="2019-summary" scheme="https://Nutr1t07.github.io/tags/2019-summary/"/>
+    
+  </entry>
+  
+  <entry>
     <title>HIE in nvim on Archlinux</title>
-    <link href="https://Nutr1t07.github.io/11/03/hie-on-nvim/"/>
-    <id>https://Nutr1t07.github.io/11/03/hie-on-nvim/</id>
+    <link href="https://Nutr1t07.github.io/hie-on-nvim/"/>
+    <id>https://Nutr1t07.github.io/hie-on-nvim/</id>
     <published>2019-11-03T00:26:09.000Z</published>
     <updated>2019-12-19T07:44:45.753Z</updated>
     
@@ -40,13 +63,13 @@
     
       <category term="Archlinux" scheme="https://Nutr1t07.github.io/tags/Archlinux/"/>
     
+      <category term="Haskell" scheme="https://Nutr1t07.github.io/tags/Haskell/"/>
+    
       <category term="HIE" scheme="https://Nutr1t07.github.io/tags/HIE/"/>
     
       <category term="ALE" scheme="https://Nutr1t07.github.io/tags/ALE/"/>
     
       <category term="Haskell Ide Engine" scheme="https://Nutr1t07.github.io/tags/Haskell-Ide-Engine/"/>
-    
-      <category term="Haskell" scheme="https://Nutr1t07.github.io/tags/Haskell/"/>
     
       <category term="nvim" scheme="https://Nutr1t07.github.io/tags/nvim/"/>
     
@@ -60,8 +83,8 @@
   
   <entry>
     <title>Set Proxy for vcpkg</title>
-    <link href="https://Nutr1t07.github.io/10/27/set-proxy-for-vcpkg/"/>
-    <id>https://Nutr1t07.github.io/10/27/set-proxy-for-vcpkg/</id>
+    <link href="https://Nutr1t07.github.io/set-proxy-for-vcpkg/"/>
+    <id>https://Nutr1t07.github.io/set-proxy-for-vcpkg/</id>
     <published>2019-10-27T06:14:58.000Z</published>
     <updated>2019-11-03T02:12:11.246Z</updated>
     
@@ -90,8 +113,8 @@
   
   <entry>
     <title>多巴胺与近视发展</title>
-    <link href="https://Nutr1t07.github.io/08/31/Dopamine-and-Myopia-Development/"/>
-    <id>https://Nutr1t07.github.io/08/31/Dopamine-and-Myopia-Development/</id>
+    <link href="https://Nutr1t07.github.io/Dopamine-and-Myopia-Development/"/>
+    <id>https://Nutr1t07.github.io/Dopamine-and-Myopia-Development/</id>
     <published>2019-08-31T02:29:05.000Z</published>
     <updated>2019-08-31T07:09:51.512Z</updated>
     
@@ -121,8 +144,8 @@
   
   <entry>
     <title>Enable Night Color for KDE on Archlinux</title>
-    <link href="https://Nutr1t07.github.io/08/17/Enable-Night-Color-for-KDE-on-Archlinux/"/>
-    <id>https://Nutr1t07.github.io/08/17/Enable-Night-Color-for-KDE-on-Archlinux/</id>
+    <link href="https://Nutr1t07.github.io/Enable-Night-Color-for-KDE-on-Archlinux/"/>
+    <id>https://Nutr1t07.github.io/Enable-Night-Color-for-KDE-on-Archlinux/</id>
     <published>2019-08-17T04:58:29.000Z</published>
     <updated>2019-11-02T11:14:55.529Z</updated>
     
@@ -157,8 +180,8 @@
   
   <entry>
     <title>解决小米Max账户锁问题</title>
-    <link href="https://Nutr1t07.github.io/08/09/mi-max-account-locked/"/>
-    <id>https://Nutr1t07.github.io/08/09/mi-max-account-locked/</id>
+    <link href="https://Nutr1t07.github.io/mi-max-account-locked/"/>
+    <id>https://Nutr1t07.github.io/mi-max-account-locked/</id>
     <published>2019-08-09T10:00:24.000Z</published>
     <updated>2019-08-17T04:57:07.553Z</updated>
     
@@ -188,8 +211,8 @@
   
   <entry>
     <title>完美中的不完美</title>
-    <link href="https://Nutr1t07.github.io/08/03/there-is-no-perfect/"/>
-    <id>https://Nutr1t07.github.io/08/03/there-is-no-perfect/</id>
+    <link href="https://Nutr1t07.github.io/there-is-no-perfect/"/>
+    <id>https://Nutr1t07.github.io/there-is-no-perfect/</id>
     <published>2019-08-03T00:26:49.000Z</published>
     <updated>2019-08-03T01:51:09.092Z</updated>
     
@@ -215,8 +238,8 @@
   
   <entry>
     <title>Semigroup is a Superclass of Monoid</title>
-    <link href="https://Nutr1t07.github.io/08/01/semigroup-is-superclass-of-monoid/"/>
-    <id>https://Nutr1t07.github.io/08/01/semigroup-is-superclass-of-monoid/</id>
+    <link href="https://Nutr1t07.github.io/semigroup-is-superclass-of-monoid/"/>
+    <id>https://Nutr1t07.github.io/semigroup-is-superclass-of-monoid/</id>
     <published>2019-08-01T01:55:14.000Z</published>
     <updated>2019-08-03T04:13:58.772Z</updated>
     
@@ -246,8 +269,8 @@
   
   <entry>
     <title>Haskell Indentation</title>
-    <link href="https://Nutr1t07.github.io/07/28/haskell-indentation/"/>
-    <id>https://Nutr1t07.github.io/07/28/haskell-indentation/</id>
+    <link href="https://Nutr1t07.github.io/haskell-indentation/"/>
+    <id>https://Nutr1t07.github.io/haskell-indentation/</id>
     <published>2019-07-28T03:14:06.000Z</published>
     <updated>2019-08-03T04:32:24.294Z</updated>
     
@@ -276,8 +299,8 @@
   
   <entry>
     <title>How to Understand &quot;Function type is exponential&quot;</title>
-    <link href="https://Nutr1t07.github.io/07/20/how-to-understand-exponential-function-in-haskell/"/>
-    <id>https://Nutr1t07.github.io/07/20/how-to-understand-exponential-function-in-haskell/</id>
+    <link href="https://Nutr1t07.github.io/how-to-understand-exponential-function-in-haskell/"/>
+    <id>https://Nutr1t07.github.io/how-to-understand-exponential-function-in-haskell/</id>
     <published>2019-07-20T11:57:12.000Z</published>
     <updated>2019-08-03T04:40:58.069Z</updated>
     
@@ -308,8 +331,8 @@
   
   <entry>
     <title>Graphics Driver Configuration on NVIDIA and Intel</title>
-    <link href="https://Nutr1t07.github.io/07/19/nvidia-optimus/"/>
-    <id>https://Nutr1t07.github.io/07/19/nvidia-optimus/</id>
+    <link href="https://Nutr1t07.github.io/nvidia-optimus/"/>
+    <id>https://Nutr1t07.github.io/nvidia-optimus/</id>
     <published>2019-07-19T09:41:55.000Z</published>
     <updated>2019-11-10T07:13:15.588Z</updated>
     
@@ -340,8 +363,8 @@
   
   <entry>
     <title>Run Minecraft on Archlinux</title>
-    <link href="https://Nutr1t07.github.io/07/17/minecraft-on-archlinux/"/>
-    <id>https://Nutr1t07.github.io/07/17/minecraft-on-archlinux/</id>
+    <link href="https://Nutr1t07.github.io/minecraft-on-archlinux/"/>
+    <id>https://Nutr1t07.github.io/minecraft-on-archlinux/</id>
     <published>2019-07-17T14:46:16.000Z</published>
     <updated>2019-08-17T05:43:02.416Z</updated>
     
@@ -369,8 +392,8 @@
   
   <entry>
     <title>Stack Installation</title>
-    <link href="https://Nutr1t07.github.io/07/17/stack-installations/"/>
-    <id>https://Nutr1t07.github.io/07/17/stack-installations/</id>
+    <link href="https://Nutr1t07.github.io/stack-installations/"/>
+    <id>https://Nutr1t07.github.io/stack-installations/</id>
     <published>2019-07-17T12:18:27.000Z</published>
     <updated>2019-10-06T23:42:50.881Z</updated>
     
@@ -401,8 +424,8 @@
   
   <entry>
     <title>Archlinux Configurations on Laptops</title>
-    <link href="https://Nutr1t07.github.io/07/12/linux-configurations-on-laptop/"/>
-    <id>https://Nutr1t07.github.io/07/12/linux-configurations-on-laptop/</id>
+    <link href="https://Nutr1t07.github.io/linux-configurations-on-laptop/"/>
+    <id>https://Nutr1t07.github.io/linux-configurations-on-laptop/</id>
     <published>2019-07-12T12:02:41.000Z</published>
     <updated>2019-08-01T14:05:41.118Z</updated>
     
@@ -437,8 +460,8 @@
   
   <entry>
     <title>Disable Steam Friends Network</title>
-    <link href="https://Nutr1t07.github.io/07/10/disable-steam-friends-network/"/>
-    <id>https://Nutr1t07.github.io/07/10/disable-steam-friends-network/</id>
+    <link href="https://Nutr1t07.github.io/disable-steam-friends-network/"/>
+    <id>https://Nutr1t07.github.io/disable-steam-friends-network/</id>
     <published>2019-07-10T08:57:25.000Z</published>
     <updated>2019-08-01T14:05:41.115Z</updated>
     
@@ -465,8 +488,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="https://Nutr1t07.github.io/07/10/hello-world/"/>
-    <id>https://Nutr1t07.github.io/07/10/hello-world/</id>
+    <link href="https://Nutr1t07.github.io/hello-world/"/>
+    <id>https://Nutr1t07.github.io/hello-world/</id>
     <published>2019-07-10T08:45:09.000Z</published>
     <updated>2019-08-01T14:05:41.115Z</updated>
     
@@ -489,8 +512,8 @@
   
   <entry>
     <title>UEFI Boot on Old Computers</title>
-    <link href="https://Nutr1t07.github.io/06/16/uefi-boot-failed/"/>
-    <id>https://Nutr1t07.github.io/06/16/uefi-boot-failed/</id>
+    <link href="https://Nutr1t07.github.io/uefi-boot-failed/"/>
+    <id>https://Nutr1t07.github.io/uefi-boot-failed/</id>
     <published>2019-06-16T05:02:43.000Z</published>
     <updated>2019-08-01T14:05:41.118Z</updated>
     
@@ -522,8 +545,8 @@
   
   <entry>
     <title>失败的虚无主义者</title>
-    <link href="https://Nutr1t07.github.io/06/12/nihilist/"/>
-    <id>https://Nutr1t07.github.io/06/12/nihilist/</id>
+    <link href="https://Nutr1t07.github.io/nihilist/"/>
+    <id>https://Nutr1t07.github.io/nihilist/</id>
     <published>2019-06-12T02:32:01.000Z</published>
     <updated>2019-08-01T14:05:41.118Z</updated>
     
@@ -547,8 +570,8 @@
   
   <entry>
     <title>音乐术语</title>
-    <link href="https://Nutr1t07.github.io/06/10/music-terms/"/>
-    <id>https://Nutr1t07.github.io/06/10/music-terms/</id>
+    <link href="https://Nutr1t07.github.io/music-terms/"/>
+    <id>https://Nutr1t07.github.io/music-terms/</id>
     <published>2019-06-10T04:34:37.000Z</published>
     <updated>2019-08-01T14:05:41.115Z</updated>
     
@@ -570,8 +593,8 @@
   
   <entry>
     <title>SSH Tunnel</title>
-    <link href="https://Nutr1t07.github.io/06/03/ssh-tunnel/"/>
-    <id>https://Nutr1t07.github.io/06/03/ssh-tunnel/</id>
+    <link href="https://Nutr1t07.github.io/ssh-tunnel/"/>
+    <id>https://Nutr1t07.github.io/ssh-tunnel/</id>
     <published>2019-06-03T02:58:07.000Z</published>
     <updated>2019-08-01T14:05:41.118Z</updated>
     
