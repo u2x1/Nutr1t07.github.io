@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://Nutr1t07.github.io/"/>
-  <updated>2020-01-16T08:45:47.638Z</updated>
+  <updated>2019-12-19T07:44:45.753Z</updated>
   <id>https://Nutr1t07.github.io/</id>
   
   <author>
@@ -15,29 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>2019总结</title>
-    <link href="https://Nutr1t07.github.io/2019/"/>
-    <id>https://Nutr1t07.github.io/2019/</id>
-    <published>2020-01-16T06:43:35.000Z</published>
-    <updated>2020-01-16T08:45:47.638Z</updated>
-    
-    <content type="html"><![CDATA[<p>2019年对我来说是意义重大的一年。</p><a id="more"></a><p>在这一年里，我完成了我应受的义务教育，在旷课将近三个月的情况下考上了一所不错的市重点高中。我的初三班主任是一个非常典型的老教师，认为自己拥有极大的权力，并坚信好学生是靠骂出来的。在他的管理以及我们火箭班各科任的打压下，我们班这一整学年都被一种极度压抑的气氛笼罩。虽然这并不是完全不能接受，但在这一年里由于我把自己封闭起来，我得以拥有许多时间重新开始审视周遭的一切。这使得我的旧世界观崩塌，促使我以新的方式看待一切。于是我走上了虚无主义的道路。</p><p>你应该清楚这意味着什么。我已经失去梦想了。但这并不是故事的结尾，因为我没办法自杀，不仅现在，将来也是如此。</p><p>我想，既然一切都没有意义，那为什么不搏一把呢？既然挑战能为我带来快感那又何乐而不为呢？事到如今我已经没有什么不可失去的了，我可以做任何事而不计较最终的结果。即便几兆兆亿年以后我们都将终归虚无，我们仍需面对当下的一分一秒。我不满中国的教育与生活，为什么不拼搏一把出国呢？</p><p>所以我决定，将来一定要坐上那架飞往国外的飞机，带着我的信仰，不再回头。</p><h1>2019年我做了什么</h1><p>总之很颓废就是了，什么也没做。</p><h3 id="写作"><a class="header-anchor" href="#写作">¶</a>写作</h3><ul><li>搭建了自己的博客</li></ul><h3 id="学业"><a class="header-anchor" href="#学业">¶</a>学业</h3><ul><li><em>逃学</em></li><li>完成义务教育并进入市重点高中重点班</li></ul><h3 id="技术"><a class="header-anchor" href="#技术">¶</a>技术</h3><ul><li>学会了Haskell的基本语法并写了一个功能不完善的机器人</li><li>破解了学校的水卡</li></ul><h3 id="阅读"><a class="header-anchor" href="#阅读">¶</a>阅读</h3><ul><li>读了以下书籍（按书籍类型排序）：<ul><li><em>Haskell Programming from first principles</em>（第一本读完的英文原著）</li><li>《乌合之众》</li><li>《意志力》</li><li>《1984》</li><li>《百年孤独》</li><li>《动物庄园》</li><li>《海伯利安》</li><li>《人间失格》</li><li>《麦田里的守望者》</li><li>《彷徨》</li></ul></li></ul><h3 id="败家"><a class="header-anchor" href="#败家">¶</a>败家</h3><ul><li>拥有了一台属于自己的笔记本电脑</li><li>拥有了一台Kindle PaperWhite 4</li><li>拥有了一块轻智能表Withings Pop</li><li>拥有了一台Ipod 4</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;2019年对我来说是意义重大的一年。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Life" scheme="https://Nutr1t07.github.io/categories/Life/"/>
-    
-    
-      <category term="2019-summary" scheme="https://Nutr1t07.github.io/tags/2019-summary/"/>
-    
-  </entry>
   
   <entry>
     <title>HIE in nvim on Archlinux</title>
@@ -206,33 +183,6 @@
       <category term="Bootloader" scheme="https://Nutr1t07.github.io/tags/Bootloader/"/>
     
       <category term="Account lock" scheme="https://Nutr1t07.github.io/tags/Account-lock/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>完美中的不完美</title>
-    <link href="https://Nutr1t07.github.io/there-is-no-perfect/"/>
-    <id>https://Nutr1t07.github.io/there-is-no-perfect/</id>
-    <published>2019-08-03T00:26:49.000Z</published>
-    <updated>2019-08-03T01:51:09.092Z</updated>
-    
-    <content type="html"><![CDATA[<p>我曾不断地重新安装系统，只因错误的安装步骤所遗留的垃圾文件令我难以接受。我不止一次地试着更换用户名，以图在网络上重新开始，一洗以往之黑历史。</p><p>这些行为在别人眼里当然是非常毫无意义且令人瞧不起的。然而我，非常蛋疼地，在做着这些事情的同时，也十分鄙视自己。只是，完美主义在其中作祟，使我不得不做这种事情，使我的“完美”心理得到满足。</p><p>诚然，这种心理并非什么能给人带来好处的东西，得改。但是几十次的尝试经历告诉我，这种改变并不简单。</p><p>那么总结一下前几次的经验，我的问题主要在于：急于求成–太过于追求即时反馈。</p><p>想要洗净以往的黑历史，毫无疑问的，是一件持久而困难的事情。于是我放弃这种做法，选择了另一条安逸的道路——重新开始。新道路无疑是极简单的，可以轻而易举改变他人对自己看法的一条捷径。然而，这其中有一个很大的问题。</p><p>是的，那并不是自己。在一次一次地改变自己用户名后，会渐渐依赖上这种做法。于是人们见到的只是一个又一个在网络上短暂出现一段时间后又永远消失的用户。这种做法本身便等同于消失。</p><p>与之不相同但类似的是，我常常试图不使用各类IM软件以图不在社交上浪费更多时间的事情。在操作上，我常常是先卸载这些软件。这样做，给我带来了许多即时快感，包括：完美主义对干净的追求、卸载后存储空间的释放等一系列的满足感。事实上，我必须先意识到，逃离IM软件其实并不会给我多大的快感，这过程本身是痛苦而煎熬的（不过这过程之后就应另当别论了），然后再下定决心去做这样的事情。</p><p>所以，现在我要做的事情就是，不再过于追求即时反馈，或者更近一点，不再更换这用户名。是的，这将不会是短暂而毫无痛苦的一段过程。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;我曾不断地重新安装系统，只因错误的安装步骤所遗留的垃圾文件令我难以接受。我不止一次地试着更换用户名，以图在网络上重新开始，一洗以往之黑历史。&lt;/p&gt;
-&lt;p&gt;这些行为在别人眼里当然是非常毫无意义且令人瞧不起的。然而我，非常蛋疼地，在做着这些事情的同时，也十分鄙视自己。只是，完
-      
-    
-    </summary>
-    
-    
-      <category term="Thoughts" scheme="https://Nutr1t07.github.io/categories/Thoughts/"/>
-    
-    
-      <category term="Feelings" scheme="https://Nutr1t07.github.io/tags/Feelings/"/>
     
   </entry>
   
@@ -487,30 +437,6 @@
   </entry>
   
   <entry>
-    <title>Hello World</title>
-    <link href="https://Nutr1t07.github.io/hello-world/"/>
-    <id>https://Nutr1t07.github.io/hello-world/</id>
-    <published>2019-07-10T08:45:09.000Z</published>
-    <updated>2019-08-01T14:05:41.115Z</updated>
-    
-    <content type="html"><![CDATA[<p>我的U盘被我表弟搞丢了，而我的博客源文件夹正好放在里头。所以只能重新写一次了。</p><p>突然发现其实Hexo的默认主题landscape已经很好看了。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;我的U盘被我表弟搞丢了，而我的博客源文件夹正好放在里头。所以只能重新写一次了。&lt;/p&gt;
-&lt;p&gt;突然发现其实Hexo的默认主题landscape已经很好看了。&lt;/p&gt;
-
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>UEFI Boot on Old Computers</title>
     <link href="https://Nutr1t07.github.io/uefi-boot-failed/"/>
     <id>https://Nutr1t07.github.io/uefi-boot-failed/</id>
@@ -540,31 +466,6 @@
       <category term="EFI" scheme="https://Nutr1t07.github.io/tags/EFI/"/>
     
       <category term="Boot" scheme="https://Nutr1t07.github.io/tags/Boot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>失败的虚无主义者</title>
-    <link href="https://Nutr1t07.github.io/nihilist/"/>
-    <id>https://Nutr1t07.github.io/nihilist/</id>
-    <published>2019-06-12T02:32:01.000Z</published>
-    <updated>2019-08-01T14:05:41.118Z</updated>
-    
-    <content type="html"><![CDATA[<p>虚无主义者认为万物皆虚，一切事物的存在都是无意义的。虚无主义者认为自己已看透一切，“日光之下，并无新事”。</p><a id="more"></a><p>虚无主义者仍能感受情绪，他们对消极情绪的感受更加强烈。愤怒、怨恨、悲伤、恐惧是他们心情的主旋律，然而他们痛恨这些情绪，因为这些情绪支撑着他们，让他们仍然存活。虚无主义者不害怕死亡，但并不意味着不害怕痛苦。事实上，成为虚无主义者本身给他们带来了极大的痛苦，极端情况下，他们会毫不犹豫地选择死亡。</p><p>虚无主义者往往玩世不恭，用冷眼旁观一切。在他们看来，自己是高人一等，也是低人一等的。但他们无欲改变“低人一等”的状态，也不在乎他人的看法。只可惜人类永远无法相互理解，于是他们干脆把嘴闭上，不再向任何人袒露自己的心声。他们交友不再深入，不再信任除自己外的任何人。这就造成了他们内心深处的极度孤独。</p><p>在人间过得一塌糊涂，将是大多虚无主义者的下场。他们会感叹，若是自己不曾想到世间毫无意义该多好——像世俗之人般活着，为自己的下一刻忧愁，该是多么幸福的一件事。</p><p>不，已经迟了。从他们成为虚无主义者的那一刻起，便再无回头路。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;虚无主义者认为万物皆虚，一切事物的存在都是无意义的。虚无主义者认为自己已看透一切，“日光之下，并无新事”。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Thoughts" scheme="https://Nutr1t07.github.io/categories/Thoughts/"/>
-    
-    
-      <category term="Nihilism" scheme="https://Nutr1t07.github.io/tags/Nihilism/"/>
-    
-      <category term="Nihilist" scheme="https://Nutr1t07.github.io/tags/Nihilist/"/>
     
   </entry>
   
