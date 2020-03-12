@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://Nutr1t07.github.io/"/>
-  <updated>2019-12-19T07:44:45.753Z</updated>
+  <updated>2020-03-12T06:45:42.985Z</updated>
   <id>https://Nutr1t07.github.io/</id>
   
   <author>
@@ -15,6 +15,42 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Compiling Statically with glibc Raises segfault at Runtime</title>
+    <link href="https://Nutr1t07.github.io/Compiling-Statically-with-glibc-Raises-segfault-at-Runtime/"/>
+    <id>https://Nutr1t07.github.io/Compiling-Statically-with-glibc-Raises-segfault-at-Runtime/</id>
+    <published>2020-03-12T03:25:12.000Z</published>
+    <updated>2020-03-12T06:45:42.985Z</updated>
+    
+    <content type="html"><![CDATA[<p>I’m writing a chatting bot with Haskell and I need to statically compile my program, run it on the server which is running on <strong>Ubuntu 18.04 bionic</strong>. When I built my <em>stack</em> project with GHC option <code>-optl-static</code>, running it, I got a <em>segfault</em>. Checking the core dump file and I got this:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Stack trace of thread 26051:</span><br><span class="line">#0  0x00007f5ce4cef448 n/a (/lib/x86_64-linux-gnu/libnss_files-2.27.so)</span><br><span class="line">#1  0x00007f5ce4cf08bd _nss_files_gethostbyname4_r (/lib/x86_64-linux-gnu/libnss_files-2.27.so)</span><br><span class="line">#2  0x0000000001a41d66 n/a (/home/nutr1t07/wl)</span><br><span class="line">#3  0x0000000001a42c39 n/a (/home/nutr1t07/wl)</span><br><span class="line">#4  0x0000000000ddcf91 n/a (/home/nutr1t07/wl)</span><br></pre></td></tr></table></figure><p>I ran the same program on my PC, it raised a <em>segfault</em> as well. The core dump info was as follow:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Stack trace of thread 38504:</span><br><span class="line">#0  0x00007f6c7165ef43 n/a (/usr/lib/libnss_resolve.so.2 + 0x6f43)</span><br><span class="line">#1  0x00007f6c7166b47e n/a (/usr/lib/libnss_resolve.so.2 + 0x1347e)</span><br><span class="line">#2  0x00007f6c7168a119 n/a (/usr/lib/libnss_resolve.so.2 + 0x32119)</span><br><span class="line">#3  0x00007f6c7168a3a5 n/a (/usr/lib/libnss_resolve.so.2 + 0x323a5)</span><br><span class="line">#4  0x00007f6c7168a976 n/a (/usr/lib/libnss_resolve.so.2 + 0x32976)</span><br><span class="line">#5  0x00007f6c7168e7e7 _nss_resolve_gethostbyname4_r (/usr/lib/libnss_resolve.so.2 + 0x367e7)</span><br><span class="line">#6  0x000000000197dd96 n/a (/home/nutr1t07/wl-bot/.stack-work/install/x86_64-linux-tinfo6/7c9765861f2b111532edba40b3a00a85ac41e39dc6945f6238a49b1465764ba9/8.6.5/bin/wl-bot-exe + 0x157dd96)</span><br></pre></td></tr></table></figure><h1>NSS (Name Service Switch)</h1><p><strong>29.2.1 Services in the NSS configuration File</strong> (from <a href="https://www.gnu.org/software/libc/manual/html_node/Services-in-the-NSS-configuration.html#Services-in-the-NSS-configuration" target="_blank" rel="noopener">glibc manual</a>):<br>&quot;Assume the service name shall be used for a lookup. The code for this service is implemented in a module called <code>libnss_name</code>. On a system supporting shared libraries this is in fact a shared library with the name (for example) <code>libnss_name.so.2.</code>&quot;</p><p>So we can conjecture that there should be something wrong with <a href="https://en.wikipedia.org/wiki/Name_Service_Switch" target="_blank" rel="noopener">NSS</a>.</p><p>The <strong>Name Service Switch</strong> (NSS) is a facility that provides a variety of sources for common configuration databases and name resolution mechanisms.<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup> Here is what a part of its configuration file(<code>/etc/nsswitch.conf</code>) looks like:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">passwd: files mymachines systemd</span><br><span class="line">group: files mymachines systemd</span><br><span class="line">shadow: files</span><br><span class="line"></span><br><span class="line">publickey: files</span><br><span class="line"></span><br><span class="line">hosts: files mymachines myhostname resolve [!UNAVAIL=return] dns</span><br><span class="line">networks: files</span><br></pre></td></tr></table></figure><p>Its configuration is of the pattern <code>database: &lt;service&gt;</code>. <em>NSS</em> would attempt to use the services in order of them to resolve queries on the specified database. Check <a href="http://man7.org/linux/man-pages/man5/nsswitch.conf.5.html" target="_blank" rel="noopener">this manual</a> for more details.</p><h1>glibc</h1><p><em>glibc</em> uses <a href="http://man7.org/linux/man-pages/man3/dlopen.3.html" target="_blank" rel="noopener">dlopen(3)</a>, which is used to load <strong>dynamic shared</strong> objects, to load NSS modules. This requires <strong>at runtime</strong> the shared libraries from the glibc version used for linking, which makes the program need <em>a second copy</em> of the C library. It means the statically linked program has <strong>two</strong> copies of the C library in its <strong>address space</strong>, and they might fight over whose <code>stdout</code> buffer is to be used, who gets to call <code>sbrk</code> with a nonzero argument, that sort of thing.<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup></p><p>There is also <a href="https://sourceware.org/glibc/wiki/FAQ#Even_statically_linked_programs_need_some_shared_libraries_which_is_not_acceptable_for_me.__What_can_I_do.3F" target="_blank" rel="noopener">a FAQ</a> on glibc wiki that explained why statically linked programs need shared libraries.</p><p>There must be some advantages for doing so. And the mechanism of <strong>NSS</strong> is also a feature of <code>glibc</code>. I have nothing to say about that.</p><h1>Any Solutions?</h1><p>However, NSS doesn’t seem to be very necessary for me. Another libc <code>musl</code> which does not have NSS<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup> is likely an alternative of <code>glibc</code>. A docker image <a href="https://github.com/utdemir/ghc-musl" target="_blank" rel="noopener">ghc-musl</a> provides <em>GHC</em> compiled with <code>musl</code>, which can be <a href="https://github.com/utdemir/ghc-musl#stack" target="_blank" rel="noopener">easily used on <em>stack</em> projects</a>.</p><p>Or use an awesome project <a href="https://github.com/nh2/static-haskell-nix/" target="_blank" rel="noopener">static-haskell-nix</a> to build static binaries with <a href="https://nixos.org/nix/" target="_blank" rel="noopener">Nix</a>.</p><hr class="footnotes-sep"><section class="footnotes"><ol class="footnotes-list"><li id="fn1" class="footnote-item"><p><a href="https://en.wikipedia.org/wiki/Name_Service_Switch" target="_blank" rel="noopener">Name Service Switch</a> <a href="#fnref1" class="footnote-backref">↩</a></p></li><li id="fn2" class="footnote-item"><p><a href="https://stackoverflow.com/a/57478728/12279828" target="_blank" rel="noopener">Why is statically linking glibc discouraged?</a> <a href="#fnref2" class="footnote-backref">↩</a></p></li><li id="fn3" class="footnote-item"><p><a href="https://wiki.musl-libc.org/future-ideas.html" target="_blank" rel="noopener">Future Ideas of musl</a> <a href="#fnref3" class="footnote-backref">↩</a></p></li></ol></section>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;I’m writing a chatting bot with Haskell and I need to statically compile my program, run it on the server which is running on &lt;strong&gt;Ubu
+      
+    
+    </summary>
+    
+    
+      <category term="Tech" scheme="https://Nutr1t07.github.io/categories/Tech/"/>
+    
+    
+      <category term="Haskell" scheme="https://Nutr1t07.github.io/tags/Haskell/"/>
+    
+      <category term="static compiling" scheme="https://Nutr1t07.github.io/tags/static-compiling/"/>
+    
+      <category term="glibc" scheme="https://Nutr1t07.github.io/tags/glibc/"/>
+    
+      <category term="stack" scheme="https://Nutr1t07.github.io/tags/stack/"/>
+    
+      <category term="segfault" scheme="https://Nutr1t07.github.io/tags/segfault/"/>
+    
+      <category term="NSS" scheme="https://Nutr1t07.github.io/tags/NSS/"/>
+    
+  </entry>
   
   <entry>
     <title>HIE in nvim on Archlinux</title>
