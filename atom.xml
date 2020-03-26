@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://Nutr1t07.github.io/"/>
-  <updated>2020-03-12T07:17:52.814Z</updated>
+  <updated>2020-03-26T12:54:37.012Z</updated>
   <id>https://Nutr1t07.github.io/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>用例子理解批处理脚本</title>
+    <link href="https://Nutr1t07.github.io/understand-windows-batch-with-example/"/>
+    <id>https://Nutr1t07.github.io/understand-windows-batch-with-example/</id>
+    <published>2020-03-26T12:16:34.000Z</published>
+    <updated>2020-03-26T12:54:37.012Z</updated>
+    
+    <content type="html"><![CDATA[<p>我们来看看如何将目录下的每一个文件加上原目录名的前缀：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> /f <span class="string">"delims="</span> %%i <span class="keyword">in</span> (<span class="string">'dir /ad/b'</span>) <span class="keyword">do</span> (</span><br><span class="line">  :: 遍历子目录</span><br><span class="line">  <span class="keyword">for</span> /f <span class="string">"delims="</span> %%j <span class="keyword">in</span> (<span class="string">'dir /b %%i'</span>) <span class="keyword">do</span> (</span><br><span class="line">      :: 遍历子目录下文件</span><br><span class="line">      <span class="built_in">echo</span> %%j | findstr <span class="string">"^%%i"</span> &amp;&amp; (<span class="built_in">echo</span> No need to rename.) || (move <span class="string">"%%i\%%j"</span> <span class="string">"%%i\%%i-%%j"</span>)</span><br><span class="line">  )</span><br><span class="line">)</span><br></pre></td></tr></table></figure><h1>解释</h1><p>看看上面的脚本中的这一句：</p><h2 id="for-循环"><a class="header-anchor" href="#for-循环">¶</a>for 循环</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> /f <span class="string">"delims="</span> %%i <span class="keyword">in</span> (<span class="string">'dir /ad/b'</span>) <span class="keyword">do</span> (</span><br></pre></td></tr></table></figure><p>此处for语句的结构是 <code>FOR %variable IN (set) DO command [command-parameters]</code> 。参数的说明如下：</p><ul><li><strong>%variable</strong>: 在遍历中每个(set)中文件的替代符号(只能使用<strong>一个</strong>字母，否则多余部分会被当成字符串处理)</li><li><strong>(set)</strong>: 表示一个或多个<strong>文件</strong> (括号<strong>不能</strong>省去)</li><li><strong>command</strong>: 对于每一个(set)中的文件所要执行的操作</li><li><strong>[command-parameters]</strong>: <strong>可选</strong>的，上述<code>command</code>所要带的参数</li></ul><p>当你在脚本文件中声明(%variable)时，请使用<code>%%i</code>而非<code>%i</code>。并注意变量名是<strong>区分大小写</strong>的(如<code>%%i</code>与<code>%%I</code>是两个不同的替代符)。你可以用<code>Win+R</code>打开<code>cmd</code>,在其中输入<code>语句+空格+/?</code>(如<code>for /?</code>)查询帮助文档。</p><p>但是你可能还发现在<code>for</code>的后面还跟着一串<code>/f &quot;delims=&quot;</code>。这里<code>/f</code>是一个指令拓展(此外有/d,/r,/l三种)，当你使用<code>/f</code>时，你可以以如下的结构来使用 <code>for</code> 循环：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FOR /F [<span class="string">"options"</span>] %variable IN (file-set) DO <span class="built_in">command</span> [<span class="built_in">command</span>-parameters]</span><br><span class="line">FOR /F [<span class="string">"options"</span>] %variable IN (<span class="string">'string'</span>) DO <span class="built_in">command</span> [<span class="built_in">command</span>-parameters]</span><br><span class="line">FOR /F [<span class="string">"options"</span>] %variable IN (`<span class="built_in">command</span>`) DO <span class="built_in">command</span> [<span class="built_in">command</span>-parameters]</span><br></pre></td></tr></table></figure><p>上面的语句使用 <code>&quot;delims=&quot;</code> ，其目的是将_定界符_设为空，以防止文件名被默认的定界符(空格)分开。我们使用 <code>('dir /ad/b')</code> 作为 <code>(set)</code> ， <code>dir</code> 的用处是获取当前目录及子目录内所有的文件，其选项 <code>/ad</code> 代表我们只需要文件夹， <code>/b</code> 则意味者我们只需要获取文件(夹)名。你可以在cmd中键入 <code>dir /?</code> 查看详细。</p><h2 id="执行命令"><a class="header-anchor" href="#执行命令">¶</a>执行命令</h2><p>接下来把注意力放在 <code>do</code> 之后的这一行语句：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> %%j | findstr <span class="string">"^%%i"</span> &amp;&amp; (<span class="built_in">echo</span> No need to rename.) || (move <span class="string">"%%i\%%j"</span> <span class="string">"%%i\%%i-%%j"</span>)</span><br></pre></td></tr></table></figure><p>它实际上是多条命令组合在一起的。我们来看看一些特殊符号的作用：</p><ul><li><strong>&amp;&amp;</strong>: 按顺序执行前后两条命令，当前一条命令<strong>出错</strong>时将<strong>不执行</strong>后面的命令</li><li><strong>||</strong>: 按顺序执行前后两条命令，当前一条命令<strong>正确执行</strong>后将<strong>不执行</strong>后面的命令</li><li><strong>|</strong>: 将前一命令的<strong>输出</strong>作为后一指令的<strong>输入</strong></li></ul><p>此外还有一些别的符号:</p><ul><li><strong>&amp;</strong>: 按顺序执行多条命令，<strong>不论</strong>命令是否执行成功</li><li><strong>&gt;</strong>: 将前一指令的输出<strong>覆盖</strong>写入后面的文件</li><li><strong>&gt;&gt;</strong>: 将前一指令的输出<strong>追加</strong>写入后面的文件</li></ul><p>所以我们可以知道上面的那一行语句的意思大概是：<br>用 <code>echo</code> 将 <code>%%j</code> 的内容通过 <code>|</code> 传递给 <code>findstr &quot;^%%i&quot;</code> ，并且如果 <code>findstr</code> 在 <code>%%j</code> 中能够找到以 <code>%%i</code> 开头的内容，那么用 <code>echo</code> 在屏幕上打印&quot;No need to rename.&quot;的辅助信息，否则将位于 <code>&quot;%%i</code> 目录下的文件 <code>%%j</code> 移动到 <code>%%i</code> 目录下并重命名为<code>%%i-%%j</code>。</p><p>非常简单。</p><h1>一些细节</h1><p>让我们来看看每一条命令的详细：</p><ul><li><em>echo [message]</em>: 将 <code>[message]</code> 输出</li><li><em>findstr strings</em>: 查找字符串 <code>strings</code> (支持正则表达式符号 <code>.*^$等等</code> ，使用 <code>findstr /?</code> 查看详细)</li><li><em>move filename destination</em>: 移动并重命名文件或文件夹</li></ul><p>对于 <code>%%j</code> 和 <code>%%i</code> ，我们知道，它是 <code>(set)</code> 中每一元素的代替符号，意思是说，我们对 <code>%%j</code> ( <code>%%i</code> )进行任何操作，就相当于对其所指代的<code>(set)</code>的每一个元素进行同样的操作。</p><p>举个例子，我们写出一个<em>for</em>循环：<code>for /f &quot;delims=&quot; %%i in ('dir /ad/b') do move %%i %%iCopy</code>中，我们用<code>dir /ad/b</code>得到以下输出(每一行是文件夹的相对路径)</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">文件夹一</span><br><span class="line">文件夹二</span><br></pre></td></tr></table></figure><p>那么 <code>文件夹一</code> 、 <code>文件夹二</code> 会分别被代入到 <code>%%i</code> 中，执行相应的命令(这里是<code>move %%i %%iCopy</code>)：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">move 文件夹一 文件夹一Copy</span><br><span class="line">move 文件夹二 文件夹二Copy</span><br></pre></td></tr></table></figure><p>上面的两条命令都会被执行，结果是 <code>文件夹一</code> 被重命名为 <code>文件夹一Copy</code> ，<code>文件夹二</code> 被重命名为 <code>文件夹二Copy</code>。</p><h1>参考资料</h1><ul><li><a href="https://bbs.csdn.net/topics/390202675" target="_blank" rel="noopener">用批处理(bat)如何实现读取文件名?-CSDN论坛</a></li><li><a href="http://bbs.bathome.net/thread-15153-1-1.html" target="_blank" rel="noopener">批处理命令findstr如何提取以“我”开头,以“的”结尾部分并保存?</a></li><li><a href="https://blog.csdn.net/iloli/article/details/44339893" target="_blank" rel="noopener">批处理中的&amp;、&amp;&amp;、|、||、&gt;、&gt;&gt;符号-iloli的专栏-CSDN博客</a></li></ul><h1>致谢</h1><p>感谢 @丶慕忻 提供的想法，本文中的例子出自于他。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;我们来看看如何将目录下的每一个文件加上原目录名的前缀：&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span cl
+      
+    
+    </summary>
+    
+    
+      <category term="Tech" scheme="https://Nutr1t07.github.io/categories/Tech/"/>
+    
+    
+      <category term="Windows" scheme="https://Nutr1t07.github.io/tags/Windows/"/>
+    
+      <category term="Batch" scheme="https://Nutr1t07.github.io/tags/Batch/"/>
+    
+      <category term="Bat" scheme="https://Nutr1t07.github.io/tags/Bat/"/>
+    
+      <category term="Script" scheme="https://Nutr1t07.github.io/tags/Script/"/>
+    
+  </entry>
   
   <entry>
     <title>Compiling Statically with glibc Raises segfault at Runtime</title>
@@ -400,11 +433,11 @@
     
       <category term="Archlinux" scheme="https://Nutr1t07.github.io/tags/Archlinux/"/>
     
+      <category term="Windows" scheme="https://Nutr1t07.github.io/tags/Windows/"/>
+    
       <category term="Stack" scheme="https://Nutr1t07.github.io/tags/Stack/"/>
     
       <category term="Mirror" scheme="https://Nutr1t07.github.io/tags/Mirror/"/>
-    
-      <category term="Windows" scheme="https://Nutr1t07.github.io/tags/Windows/"/>
     
   </entry>
   

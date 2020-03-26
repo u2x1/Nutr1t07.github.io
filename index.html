@@ -83,6 +83,104 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-understand-windows-batch-with-example" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/understand-windows-batch-with-example/" class="article-date">
+  <time datetime="2020-03-26T12:16:34.000Z" itemprop="datePublished">2020-03-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Tech/">Tech</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/understand-windows-batch-with-example/">用例子理解批处理脚本</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我们来看看如何将目录下的每一个文件加上原目录名的前缀：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> /f <span class="string">"delims="</span> %%i <span class="keyword">in</span> (<span class="string">'dir /ad/b'</span>) <span class="keyword">do</span> (</span><br><span class="line">  :: 遍历子目录</span><br><span class="line">  <span class="keyword">for</span> /f <span class="string">"delims="</span> %%j <span class="keyword">in</span> (<span class="string">'dir /b %%i'</span>) <span class="keyword">do</span> (</span><br><span class="line">      :: 遍历子目录下文件</span><br><span class="line">      <span class="built_in">echo</span> %%j | findstr <span class="string">"^%%i"</span> &amp;&amp; (<span class="built_in">echo</span> No need to rename.) || (move <span class="string">"%%i\%%j"</span> <span class="string">"%%i\%%i-%%j"</span>)</span><br><span class="line">  )</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h1>解释</h1>
+<p>看看上面的脚本中的这一句：</p>
+<h2 id="for-循环"><a class="header-anchor" href="#for-循环">¶</a>for 循环</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> /f <span class="string">"delims="</span> %%i <span class="keyword">in</span> (<span class="string">'dir /ad/b'</span>) <span class="keyword">do</span> (</span><br></pre></td></tr></table></figure>
+<p>此处for语句的结构是 <code>FOR %variable IN (set) DO command [command-parameters]</code> 。参数的说明如下：</p>
+<ul>
+<li><strong>%variable</strong>: 在遍历中每个(set)中文件的替代符号(只能使用<strong>一个</strong>字母，否则多余部分会被当成字符串处理)</li>
+<li><strong>(set)</strong>: 表示一个或多个<strong>文件</strong> (括号<strong>不能</strong>省去)</li>
+<li><strong>command</strong>: 对于每一个(set)中的文件所要执行的操作</li>
+<li><strong>[command-parameters]</strong>: <strong>可选</strong>的，上述<code>command</code>所要带的参数</li>
+</ul>
+<p>当你在脚本文件中声明(%variable)时，请使用<code>%%i</code>而非<code>%i</code>。并注意变量名是<strong>区分大小写</strong>的(如<code>%%i</code>与<code>%%I</code>是两个不同的替代符)。你可以用<code>Win+R</code>打开<code>cmd</code>,在其中输入<code>语句+空格+/?</code>(如<code>for /?</code>)查询帮助文档。</p>
+<p>但是你可能还发现在<code>for</code>的后面还跟着一串<code>/f &quot;delims=&quot;</code>。这里<code>/f</code>是一个指令拓展(此外有/d,/r,/l三种)，当你使用<code>/f</code>时，你可以以如下的结构来使用 <code>for</code> 循环：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FOR /F [<span class="string">"options"</span>] %variable IN (file-set) DO <span class="built_in">command</span> [<span class="built_in">command</span>-parameters]</span><br><span class="line">FOR /F [<span class="string">"options"</span>] %variable IN (<span class="string">'string'</span>) DO <span class="built_in">command</span> [<span class="built_in">command</span>-parameters]</span><br><span class="line">FOR /F [<span class="string">"options"</span>] %variable IN (`<span class="built_in">command</span>`) DO <span class="built_in">command</span> [<span class="built_in">command</span>-parameters]</span><br></pre></td></tr></table></figure>
+<p>上面的语句使用 <code>&quot;delims=&quot;</code> ，其目的是将_定界符_设为空，以防止文件名被默认的定界符(空格)分开。我们使用 <code>('dir /ad/b')</code> 作为 <code>(set)</code> ， <code>dir</code> 的用处是获取当前目录及子目录内所有的文件，其选项 <code>/ad</code> 代表我们只需要文件夹， <code>/b</code> 则意味者我们只需要获取文件(夹)名。你可以在cmd中键入 <code>dir /?</code> 查看详细。</p>
+<h2 id="执行命令"><a class="header-anchor" href="#执行命令">¶</a>执行命令</h2>
+<p>接下来把注意力放在 <code>do</code> 之后的这一行语句：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> %%j | findstr <span class="string">"^%%i"</span> &amp;&amp; (<span class="built_in">echo</span> No need to rename.) || (move <span class="string">"%%i\%%j"</span> <span class="string">"%%i\%%i-%%j"</span>)</span><br></pre></td></tr></table></figure>
+<p>它实际上是多条命令组合在一起的。我们来看看一些特殊符号的作用：</p>
+<ul>
+<li><strong>&amp;&amp;</strong>: 按顺序执行前后两条命令，当前一条命令<strong>出错</strong>时将<strong>不执行</strong>后面的命令</li>
+<li><strong>||</strong>: 按顺序执行前后两条命令，当前一条命令<strong>正确执行</strong>后将<strong>不执行</strong>后面的命令</li>
+<li><strong>|</strong>: 将前一命令的<strong>输出</strong>作为后一指令的<strong>输入</strong></li>
+</ul>
+<p>此外还有一些别的符号:</p>
+<ul>
+<li><strong>&amp;</strong>: 按顺序执行多条命令，<strong>不论</strong>命令是否执行成功</li>
+<li><strong>&gt;</strong>: 将前一指令的输出<strong>覆盖</strong>写入后面的文件</li>
+<li><strong>&gt;&gt;</strong>: 将前一指令的输出<strong>追加</strong>写入后面的文件</li>
+</ul>
+<p>所以我们可以知道上面的那一行语句的意思大概是：<br>
+用 <code>echo</code> 将 <code>%%j</code> 的内容通过 <code>|</code> 传递给 <code>findstr &quot;^%%i&quot;</code> ，并且如果 <code>findstr</code> 在 <code>%%j</code> 中能够找到以 <code>%%i</code> 开头的内容，那么用 <code>echo</code> 在屏幕上打印&quot;No need to rename.&quot;的辅助信息，否则将位于 <code>&quot;%%i</code> 目录下的文件 <code>%%j</code> 移动到 <code>%%i</code> 目录下并重命名为<code>%%i-%%j</code>。</p>
+<p>非常简单。</p>
+<h1>一些细节</h1>
+<p>让我们来看看每一条命令的详细：</p>
+<ul>
+<li><em>echo [message]</em>: 将 <code>[message]</code> 输出</li>
+<li><em>findstr strings</em>: 查找字符串 <code>strings</code> (支持正则表达式符号 <code>.*^$等等</code> ，使用 <code>findstr /?</code> 查看详细)</li>
+<li><em>move filename destination</em>: 移动并重命名文件或文件夹</li>
+</ul>
+<p>对于 <code>%%j</code> 和 <code>%%i</code> ，我们知道，它是 <code>(set)</code> 中每一元素的代替符号，意思是说，我们对 <code>%%j</code> ( <code>%%i</code> )进行任何操作，就相当于对其所指代的<code>(set)</code>的每一个元素进行同样的操作。</p>
+<p>举个例子，我们写出一个<em>for</em>循环：<code>for /f &quot;delims=&quot; %%i in ('dir /ad/b') do move %%i %%iCopy</code>中，我们用<code>dir /ad/b</code>得到以下输出(每一行是文件夹的相对路径)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">文件夹一</span><br><span class="line">文件夹二</span><br></pre></td></tr></table></figure>
+<p>那么 <code>文件夹一</code> 、 <code>文件夹二</code> 会分别被代入到 <code>%%i</code> 中，执行相应的命令(这里是<code>move %%i %%iCopy</code>)：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">move 文件夹一 文件夹一Copy</span><br><span class="line">move 文件夹二 文件夹二Copy</span><br></pre></td></tr></table></figure>
+<p>上面的两条命令都会被执行，结果是 <code>文件夹一</code> 被重命名为 <code>文件夹一Copy</code> ，<code>文件夹二</code> 被重命名为 <code>文件夹二Copy</code>。</p>
+<h1>参考资料</h1>
+<ul>
+<li><a href="https://bbs.csdn.net/topics/390202675" target="_blank" rel="noopener">用批处理(bat)如何实现读取文件名?-CSDN论坛</a></li>
+<li><a href="http://bbs.bathome.net/thread-15153-1-1.html" target="_blank" rel="noopener">批处理命令findstr如何提取以“我”开头,以“的”结尾部分并保存?</a></li>
+<li><a href="https://blog.csdn.net/iloli/article/details/44339893" target="_blank" rel="noopener">批处理中的&amp;、&amp;&amp;、|、||、&gt;、&gt;&gt;符号-iloli的专栏-CSDN博客</a></li>
+</ul>
+<h1>致谢</h1>
+<p>感谢 @丶慕忻 提供的想法，本文中的例子出自于他。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bat/">Bat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Batch/">Batch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Script/">Script</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows/">Windows</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Compiling-Statically-with-glibc-Raises-segfault-at-Runtime" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/Compiling-Statically-with-glibc-Raises-segfault-at-Runtime/" class="article-date">
@@ -720,111 +818,6 @@ Add the following content to <code>init.vim</code>:</p>
 
 
   
-    <article id="post-nvidia-optimus" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/nvidia-optimus/" class="article-date">
-  <time datetime="2019-07-19T09:41:55.000Z" itemprop="datePublished">2019-07-19</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Tech/">Tech</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/nvidia-optimus/">Graphics Driver Configuration on NVIDIA and Intel</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>If you are installing Linux on computer which carries both NVIDIA GPU and Intel integrated GPU, then there are a lot things to do before you can enter GUI.<br>
-To start with, you must decide which GPU to use between the two, or enalbe the <em>NVIDIA Optimus</em> in order to use two GPUs at the same time.</p>
-<h1>Intel</h1>
-<p>Just remove all NVIDIA package and install <code>xf86-video-intel</code>.</p>
-<h1>NVIDIA</h1>
-<h2 id="proprietary-driver"><a class="header-anchor" href="#proprietary-driver">¶</a>Proprietary Driver</h2>
-<p>First, install package <code>nvidia</code>(for older cards, get it on <a href="https://wiki.archlinux.org/index.php/NVIDIA" target="_blank" rel="noopener">NVIDIA</a>) and <code>xorg-xrandr</code>.</p>
-<h3 id="1-configuration-xorg"><a class="header-anchor" href="#1-configuration-xorg">¶</a>1. Configuration Xorg</h3>
-<p>First we need to get BusID(PCI Address):<br>
-<code>$ lspci | egrep 'VGA|3D'</code><br>
-The PCI address is like <code>01:00.0</code> in the front of the line. Then turn it into BusId format <code>#:#:#</code>, for <code>01:00.0</code>, it is <code>1:0:0</code>.</p>
-<p>Edit <code>/etc/X11/xorg.conf</code>(replace the BusID field with your own):</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Section &quot;Module&quot;</span><br><span class="line">    Load &quot;modesetting&quot;</span><br><span class="line">EndSection</span><br><span class="line"></span><br><span class="line">Section &quot;Device&quot;</span><br><span class="line">    Identifier &quot;nvidia&quot;</span><br><span class="line">    Driver &quot;nvidia&quot;</span><br><span class="line">    BusID &quot;&lt;BusID for NVIDIA device here&gt;&quot;</span><br><span class="line">    Option &quot;AllowEmptyInitialConfiguration&quot;</span><br><span class="line">EndSection</span><br></pre></td></tr></table></figure>
-<p>Then add the following content to <code>~/.xinitrc</code>(optional if using display managers):</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xrandr --setprovideroutputsource modesetting NVIDIA-0</span><br><span class="line">xrandr --auto</span><br></pre></td></tr></table></figure>
-<h3 id="2-configure-display-managers-optional"><a class="header-anchor" href="#2-configure-display-managers-optional">¶</a>2. Configure Display Managers (Optional)</h3>
-<p>Add what you added to <code>~/.xinitrc</code> to DM’s startup shell.</p>
-<h2 id="open-source-driver"><a class="header-anchor" href="#open-source-driver">¶</a>Open-source Driver</h2>
-<p>Install package <code>xf86-video-nouveau</code>, follow the steps above  and change the “Driver” property in <code>/etc/X11/xorg.conf</code> to “nouveau”.</p>
-<h1>NVIDIA and Intel</h1>
-<p>If you wish to use the two GPUs mixly, there are three solutions to do that.</p>
-<h2 id="1-bumblebee-nvidia-nouveau-intel"><a class="header-anchor" href="#1-bumblebee-nvidia-nouveau-intel">¶</a>1. Bumblebee (nvidia, nouveau, intel)</h2>
-<p>Install package <code>bumblebee</code> <code>bbswitch</code> <code>mesa</code> and proper NVIDIA driver.</p>
-<ol>
-<li>Add users to <em>bumblebee</em> group.<br>
-<code>$ gpasswd -a user bumblebee</code></li>
-<li>Enable <code>bumblebeed.service</code>.<br>
-<code>$ systemctl enable bumblebeed.service</code></li>
-<li>Configure them in <code>/etc/bumblebee/bumblebee.conf</code>.<br>
-Modidy the <code>Driver</code> property optionally, then switch the <code>PMMethod</code> from <code>auto</code> to <code>bbswitch</code>.</li>
-<li>Reboot.<br>
-To enable NVIDIA card, enter:<br>
-<code>$ tee /proc/acpi/bbswitch &lt;&lt;&lt; ON</code><br>
-To turn off:<br>
-<code>$ tee /proc/acpi/bbswitch &lt;&lt;&lt; OFF</code></li>
-</ol>
-<h2 id="2-prime-nouveau-intel"><a class="header-anchor" href="#2-prime-nouveau-intel">¶</a>2. PRIME (nouveau, intel)</h2>
-<p>Install open-sourced driver <code>xf86-video-nouveau</code> <code>xf86-video-intel</code>.</p>
-<ol>
-<li>Get graphic drivers using now with their _id_s and _name_s.<br>
-<code>$ xrandr --listproviders</code><br>
-Example output:</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Providers: number : 2</span><br><span class="line">Provider 0: id: 0x7d cap: 0xb, Source Output, Sink Output, Sink Offload crtcs: 3 outputs: 4 associated providers: 1 name:Intel</span><br><span class="line">Provider 1: id: 0x56 cap: 0xf, Source Output, Sink Output, Source Offload, Sink Offload crtcs: 6 outputs: 1 associated providers: 1 name:radeon</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>
-<p>Set integrated graphic cards <em>offload</em>.<br>
-<code>$ xrandr --setprovideroffload &lt;name or id&gt;</code></p>
-</li>
-<li>
-<p>Then through <code>DRI_PRIME=1</code>, run applications on high performance cards:<br>
-<code>$ DRI_PRIME=1 &lt;program&gt;</code><br>
-Example: <code>$ DRI_PRIME=1 screenfetch</code></p>
-</li>
-</ol>
-<h2 id="3-nvidia-xrun"><a class="header-anchor" href="#3-nvidia-xrun">¶</a>3. nvidia-xrun</h2>
-<p>See <a href="https://wiki.archlinux.org/index.php/Nvidia-xrun" target="_blank" rel="noopener">nvidia-xrun</a>.</p>
-<h1>Troubleshooting</h1>
-<h2 id="hang-on-dm"><a class="header-anchor" href="#hang-on-dm">¶</a>Hang on DM</h2>
-<p>If Intel hangs on login manager with black screen, you may need to check if the BIOS driver is not compatible with Linux.<br>
-Try add <code>acpi_osi=&quot;!Windows 2015&quot;</code> or <code>acpi_osi=! acpi_osi=&quot;Windows 2009&quot;</code> to <code>GRUB_CMDLINE_LINUX</code> in <code>/etc/default/grub</code>.<br>
-Like this:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># GRUB boot loader configuration</span><br><span class="line">GRUB_DEFAULT=0</span><br><span class="line">GRUB_TIMEOUT=3</span><br><span class="line">GRUB_DISTRIBUTOR=&quot;Arch&quot;</span><br><span class="line">GRUB_CMDLINE_LINUX_DEFAULT=&quot;loglevel=3 quiet acpi_osi=! acpi_osi=&apos;Windows 2009&apos;&quot;</span><br><span class="line">GRUB_CMDLINE_LINUX=&quot;&quot;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Archlinux/">Archlinux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Intel/">Intel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NVIDIA/">NVIDIA</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -850,7 +843,7 @@ Like this:</p>
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ALE/" style="font-size: 10px;">ALE</a> <a href="/tags/Account-lock/" style="font-size: 10px;">Account lock</a> <a href="/tags/Archlinux/" style="font-size: 20px;">Archlinux</a> <a href="/tags/Boot/" style="font-size: 10px;">Boot</a> <a href="/tags/Bootloader/" style="font-size: 10px;">Bootloader</a> <a href="/tags/Brightness/" style="font-size: 10px;">Brightness</a> <a href="/tags/Dopamine/" style="font-size: 10px;">Dopamine</a> <a href="/tags/EFI/" style="font-size: 10px;">EFI</a> <a href="/tags/Friends-Network/" style="font-size: 10px;">Friends Network</a> <a href="/tags/Function/" style="font-size: 10px;">Function</a> <a href="/tags/GFW/" style="font-size: 10px;">GFW</a> <a href="/tags/HIE/" style="font-size: 10px;">HIE</a> <a href="/tags/Haskell/" style="font-size: 20px;">Haskell</a> <a href="/tags/Haskell-Ide-Engine/" style="font-size: 10px;">Haskell Ide Engine</a> <a href="/tags/Indentation/" style="font-size: 10px;">Indentation</a> <a href="/tags/Intel/" style="font-size: 10px;">Intel</a> <a href="/tags/KDE/" style="font-size: 10px;">KDE</a> <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/Math/" style="font-size: 10px;">Math</a> <a href="/tags/Minecraft/" style="font-size: 10px;">Minecraft</a> <a href="/tags/Mirror/" style="font-size: 10px;">Mirror</a> <a href="/tags/Monoid/" style="font-size: 10px;">Monoid</a> <a href="/tags/Music/" style="font-size: 10px;">Music</a> <a href="/tags/Myopia/" style="font-size: 10px;">Myopia</a> <a href="/tags/NSS/" style="font-size: 10px;">NSS</a> <a href="/tags/NVIDIA/" style="font-size: 10px;">NVIDIA</a> <a href="/tags/Night-color/" style="font-size: 10px;">Night color</a> <a href="/tags/Proxy/" style="font-size: 13.33px;">Proxy</a> <a href="/tags/Redshift/" style="font-size: 10px;">Redshift</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Semigroup/" style="font-size: 10px;">Semigroup</a> <a href="/tags/Socks/" style="font-size: 10px;">Socks</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Steam/" style="font-size: 10px;">Steam</a> <a href="/tags/Touchpad/" style="font-size: 10px;">Touchpad</a> <a href="/tags/UEFI/" style="font-size: 10px;">UEFI</a> <a href="/tags/WIFI/" style="font-size: 10px;">WIFI</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/Xiaomi-Phone/" style="font-size: 10px;">Xiaomi Phone</a> <a href="/tags/aur/" style="font-size: 10px;">aur</a> <a href="/tags/coc/" style="font-size: 10px;">coc</a> <a href="/tags/coc-nvim/" style="font-size: 10px;">coc.nvim</a> <a href="/tags/glibc/" style="font-size: 10px;">glibc</a> <a href="/tags/nvim/" style="font-size: 10px;">nvim</a> <a href="/tags/segfault/" style="font-size: 10px;">segfault</a> <a href="/tags/stack/" style="font-size: 10px;">stack</a> <a href="/tags/static-compiling/" style="font-size: 10px;">static compiling</a> <a href="/tags/vcpkg/" style="font-size: 10px;">vcpkg</a>
+      <a href="/tags/ALE/" style="font-size: 10px;">ALE</a> <a href="/tags/Account-lock/" style="font-size: 10px;">Account lock</a> <a href="/tags/Archlinux/" style="font-size: 20px;">Archlinux</a> <a href="/tags/Bat/" style="font-size: 10px;">Bat</a> <a href="/tags/Batch/" style="font-size: 10px;">Batch</a> <a href="/tags/Boot/" style="font-size: 10px;">Boot</a> <a href="/tags/Bootloader/" style="font-size: 10px;">Bootloader</a> <a href="/tags/Brightness/" style="font-size: 10px;">Brightness</a> <a href="/tags/Dopamine/" style="font-size: 10px;">Dopamine</a> <a href="/tags/EFI/" style="font-size: 10px;">EFI</a> <a href="/tags/Friends-Network/" style="font-size: 10px;">Friends Network</a> <a href="/tags/Function/" style="font-size: 10px;">Function</a> <a href="/tags/GFW/" style="font-size: 10px;">GFW</a> <a href="/tags/HIE/" style="font-size: 10px;">HIE</a> <a href="/tags/Haskell/" style="font-size: 20px;">Haskell</a> <a href="/tags/Haskell-Ide-Engine/" style="font-size: 10px;">Haskell Ide Engine</a> <a href="/tags/Indentation/" style="font-size: 10px;">Indentation</a> <a href="/tags/Intel/" style="font-size: 10px;">Intel</a> <a href="/tags/KDE/" style="font-size: 10px;">KDE</a> <a href="/tags/Linux/" style="font-size: 16.67px;">Linux</a> <a href="/tags/Math/" style="font-size: 10px;">Math</a> <a href="/tags/Minecraft/" style="font-size: 10px;">Minecraft</a> <a href="/tags/Mirror/" style="font-size: 10px;">Mirror</a> <a href="/tags/Monoid/" style="font-size: 10px;">Monoid</a> <a href="/tags/Music/" style="font-size: 10px;">Music</a> <a href="/tags/Myopia/" style="font-size: 10px;">Myopia</a> <a href="/tags/NSS/" style="font-size: 10px;">NSS</a> <a href="/tags/NVIDIA/" style="font-size: 10px;">NVIDIA</a> <a href="/tags/Night-color/" style="font-size: 10px;">Night color</a> <a href="/tags/Proxy/" style="font-size: 13.33px;">Proxy</a> <a href="/tags/Redshift/" style="font-size: 10px;">Redshift</a> <a href="/tags/SSH/" style="font-size: 10px;">SSH</a> <a href="/tags/Script/" style="font-size: 10px;">Script</a> <a href="/tags/Semigroup/" style="font-size: 10px;">Semigroup</a> <a href="/tags/Socks/" style="font-size: 10px;">Socks</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Steam/" style="font-size: 10px;">Steam</a> <a href="/tags/Touchpad/" style="font-size: 10px;">Touchpad</a> <a href="/tags/UEFI/" style="font-size: 10px;">UEFI</a> <a href="/tags/WIFI/" style="font-size: 10px;">WIFI</a> <a href="/tags/Windows/" style="font-size: 13.33px;">Windows</a> <a href="/tags/Xiaomi-Phone/" style="font-size: 10px;">Xiaomi Phone</a> <a href="/tags/aur/" style="font-size: 10px;">aur</a> <a href="/tags/coc/" style="font-size: 10px;">coc</a> <a href="/tags/coc-nvim/" style="font-size: 10px;">coc.nvim</a> <a href="/tags/glibc/" style="font-size: 10px;">glibc</a> <a href="/tags/nvim/" style="font-size: 10px;">nvim</a> <a href="/tags/segfault/" style="font-size: 10px;">segfault</a> <a href="/tags/stack/" style="font-size: 10px;">stack</a> <a href="/tags/static-compiling/" style="font-size: 10px;">static compiling</a> <a href="/tags/vcpkg/" style="font-size: 10px;">vcpkg</a>
     </div>
   </div>
 
