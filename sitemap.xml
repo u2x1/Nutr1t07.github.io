@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://Nutr1t07.github.io/friends/index.html</loc>
+    
+    <lastmod>2020-03-30T13:32:39.048Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://Nutr1t07.github.io/parsing-with-aeson/</loc>
     
     <lastmod>2020-03-29T02:56:10.899Z</lastmod>
@@ -19,13 +26,6 @@
     <loc>https://Nutr1t07.github.io/about/index.html</loc>
     
     <lastmod>2020-03-23T03:52:10.851Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://Nutr1t07.github.io/friends/index.html</loc>
-    
-    <lastmod>2020-03-18T05:33:35.237Z</lastmod>
     
   </url>
   
