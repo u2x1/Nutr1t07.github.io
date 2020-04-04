@@ -28,7 +28,7 @@ ga('send', 'pageview');
 <meta property="og:site_name" content="Nutr1t07&#39;s Blog">
 <meta property="og:description" content="Indentations are used to make codes shorter and beginners confused. The indentations in Haskell has the same effect as the {} parantheses in C++. Compare 12345-- Haskell:if a == b then putStrLn &amp;quot;">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-03T04:32:24.294Z">
+<meta property="og:updated_time" content="2020-04-02T02:20:56.609Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Haskell Indentation">
 <meta name="twitter:description" content="Indentations are used to make codes shorter and beginners confused. The indentations in Haskell has the same effect as the {} parantheses in C++. Compare 12345-- Haskell:if a == b then putStrLn &amp;quot;">
@@ -118,14 +118,14 @@ ga('send', 'pageview');
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-- Style [1]</span><br><span class="line">let</span><br><span class="line">  a = 1</span><br><span class="line">  b = 2</span><br><span class="line"></span><br><span class="line">-- Style [2]</span><br><span class="line">let c = 3</span><br><span class="line">    d = 4</span><br></pre></td></tr></table></figure>
 <p><code>a=1</code>,<code>b=2</code>… are the members of <strong>let</strong> block. Each statement in the block <em>must</em> have the same identation, that is, have the same characters before them <strong>no matter</strong> whether the characters are space or not.<br>
 Some wrong examples:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">-- Wrong [1]</span><br><span class="line">let a = 1</span><br><span class="line">  b = 2</span><br><span class="line"></span><br><span class="line">-- Wrong [2]</span><br><span class="line">let c = 3</span><br><span class="line">     d = 4</span><br><span class="line"></span><br><span class="line">-- Wrong [3]</span><br><span class="line">where len str =</span><br><span class="line">  let l = length str</span><br><span class="line">  in l &gt;= 5 &amp;&amp; l &lt; 9</span><br></pre></td></tr></table></figure>
-<p>In the above examples, let’s take a look at [3]. We can transform that into:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">where len str =</span><br><span class="line">  (length str &gt;= 5) &amp;&amp; (length str &lt; 9)</span><br></pre></td></tr></table></figure>
-<p>It seems that the previous writing isn’t wrong. But let’s see what is the correct answer like:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">-- Wrong [1]</span><br><span class="line">let a = 1</span><br><span class="line">  b = 2</span><br><span class="line"></span><br><span class="line">-- Wrong [2]</span><br><span class="line">let c = 3</span><br><span class="line">     d = 4</span><br><span class="line"></span><br><span class="line">-- Wrong [3]</span><br><span class="line">where len str =</span><br><span class="line">  let l = length str in</span><br><span class="line">  l &gt;= 5 &amp;&amp; l &lt; 9</span><br></pre></td></tr></table></figure>
+<p>In the above examples, let’s take a look at [3]. It seems that the previous one isn’t wrong. But let’s see what is the correct answer like:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">where len str =</span><br><span class="line">        let l = length str</span><br><span class="line">        in l &gt;= 5 &amp;&amp; l &lt; 9</span><br></pre></td></tr></table></figure>
-<p>Watch out, here the lines below are in block of <em>len</em> instead of where.</p>
+<p>Watch out, the codes should be in block of <code>len</code> instead the block of <code>where</code>.</p>
 <h1>References</h1>
-<p><em>Haskell/Indentation</em>.<a href="https://en.wikibooks.org/wiki/Haskell/Indentation" target="_blank" rel="noopener">https://en.wikibooks.org/wiki/Haskell/Indentation</a></p>
+<ul>
+<li><em>Haskell/Indentation</em>.<a href="https://en.wikibooks.org/wiki/Haskell/Indentation" target="_blank" rel="noopener">https://en.wikibooks.org/wiki/Haskell/Indentation</a></li>
+</ul>
 
       
     </div>
@@ -191,7 +191,7 @@ Some wrong examples:</p>
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2019 Nutr1t07<br>
+      &copy; 2019-2020 Nutr1t07 | Powered by Hexo<br>
     </div>
   </div>
 </footer>
