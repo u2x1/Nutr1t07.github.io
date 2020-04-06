@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/custom.css">
+    <link href="https://fonts.googleapis.com/css2?family=PT+Serif&family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <title>Aeson Parsing Tips | Nutr1t07&#39;s Blog</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="sidebar">
+            <nav>
+                <h3 id="logo">Nutr1t07</h3>
+                <ul>
+                    <li><a href="/">Index</a></li>
+                    
+                    <li><a href="/friends">Friends</a></li>
+                    
+                </ul>
+            </nav>
+            &nbsp;
+        </div>
+
+  <div class="content">
+  <h3>Aeson Parsing Tips</h3>
+
+  <h5 id="array-with-objects">Array with Objects</h5>
+<p>Suppose we have the JSON data:</p>
+<pre><code>{
+  &quot;media_id&quot;: &quot;981538&quot;,
+  &quot;tags&quot;: [ {
+      &quot;id&quot;: 12227,
+      &quot;name&quot;: &quot;english&quot;
+    }, {
+      &quot;id&quot;: 58971,
+      &quot;name&quot;: &quot;japanese&quot;
+    } ]
+}
+</code></pre><p>We want it to be parsed into the following structure, with the <code>r_tags</code> taking only the name field of tags.</p>
+<pre><code>data Result = Result {
+    r_id :: Text
+  , r_tags :: [Text]
+}
+</code></pre><p>The easiest way is to parse via <code>newtype</code> wrapper:</p>
+<pre><code>data Result = Result {
+    r_media_id :: Text
+  , r_tags :: [RTag]
+}
+instance FromJSON Result where
+  parseJSON = withObject &quot;Result&quot; $ \v -&gt; Result
+    &lt;$&gt; (v .: &quot;media_id&quot;)
+    &lt;*&gt; (v .: &quot;tags&quot;)
+
+newtype RTag = RTag { tag :: Text }
+instance FromJSON RTag where
+  parseJSON = withObject &quot;RTag&quot; $ \v -&gt;
+    RTag &lt;$&gt; ((v .: &quot;name&quot;))
+</code></pre><p>But we can simplify this by removing the <code>RTag</code> wrapper. But first let’s take a look at some <em>Aeson</em> types:</p>
+<pre><code>type Array = Vector Value
+type Object = HashMap Text Value
+parseJSON :: Value -&gt; Parser a
+(.:) :: FromJSON a =&gt; Object -&gt; Text -&gt; Parser a
+</code></pre><p>And we can infer that <code>(v .: &quot;tags&quot;)</code> parse tags into an Array(so has type Parser Array), inside which elements are parsed by the instance of <code>RTag</code>. Obviously, if we want to parse the tags directly into <em>[Text]</em>, we need to turn the type of <code>(v .: &quot;tags&quot;)</code>, <em>Parser Array</em>, into <em>Parser [Text]</em>.</p>
+<p>It can be done with a <em>do</em> block, and a little help from <code>toList</code>:</p>
+<pre><code>import Data.Foldable (toList)
+import Data.Aeson.Types (Parser)
+
+parseJSON = withObject &quot;Result&quot; $ \v -&gt; Result
+  &lt;$&gt; (v .: &quot;media_id&quot;)
+  &lt;*&gt; do
+    tagArray &lt;- (v .: &quot;tags&quot;) :: Parser Array
+    tagObjs &lt;- traverse (parseJSON :: Value -&gt; Parser Object) $ toList tagArray :: Parser [Object]
+    traverse (.: &quot;name&quot;) tagObjs
+</code></pre><p>Then remove <em>do</em> block:</p>
+<pre><code>(v .: &quot;tags&quot;) :: Parser Array &gt;&gt;= traverse parseJSON . toList &gt;&gt;= traverse (.: &quot;name&quot;)
+</code></pre><h5 id="field-with-different-types">Field with different types</h5>
+<pre><code>&quot;result&quot;: [ {
+    &quot;id&quot;: 1531017
+    &quot;media_id&quot;: &quot;148011&quot;
+  }, {
+    &quot;id&quot;: &quot;5137523&quot;
+    &quot;media_id&quot;: &quot;135611&quot;
+  } ]
+</code></pre><p>Look at the id field above, did you find that it can be either a <em>String</em> or <em>Int</em>? It can be parsed using a <code>parseId</code> function.</p>
+<pre><code>parseId :: Value -&gt; Parser Text
+parseId (Number o) = pure $ (fst . Text.breakOn &quot;.&quot;) $ Text.pack $ show o
+parseId (String o) = pure o
+parseId _ = mzero
+</code></pre><p>With structure:</p>
+<pre><code>data Result = Result {
+    r_wtf_id :: Text.Text
+  , r_media_id :: Text.Text
+}
+instance FromJSON Result where
+  parseJSON = withObject &quot;Result&quot; $ \v -&gt; Result
+    &lt;$&gt; ((v .: &quot;id&quot;) &gt;&gt;= parseId)
+    &lt;*&gt; (v .: &quot;media_id&quot;)
+</code></pre>
+
+  </div>
+
+</body>
+</html>

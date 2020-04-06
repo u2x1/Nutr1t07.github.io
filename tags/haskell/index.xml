@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Haskell on Nutr1t07&#39;s Blog</title>
+    <link>https://nutr1t07.github.io/tags/haskell/</link>
+    <description>Recent content in Haskell on Nutr1t07&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 04 Apr 2020 21:19:09 +0800</lastBuildDate>
+    
+	<atom:link href="https://nutr1t07.github.io/tags/haskell/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Aeson Parsing Tips</title>
+      <link>https://nutr1t07.github.io/post/aeson-parsing-tips/</link>
+      <pubDate>Sat, 04 Apr 2020 21:19:09 +0800</pubDate>
+      
+      <guid>https://nutr1t07.github.io/post/aeson-parsing-tips/</guid>
+      <description>Array with Objects Suppose we have the JSON data:
+{ &amp;quot;media_id&amp;quot;: &amp;quot;981538&amp;quot;, &amp;quot;tags&amp;quot;: [ { &amp;quot;id&amp;quot;: 12227, &amp;quot;name&amp;quot;: &amp;quot;english&amp;quot; }, { &amp;quot;id&amp;quot;: 58971, &amp;quot;name&amp;quot;: &amp;quot;japanese&amp;quot; } ] } We want it to be parsed into the following structure, with the r_tags taking only the name field of tags.
+data Result = Result { r_id :: Text , r_tags :: [Text] } The easiest way is to parse via newtype wrapper:</description>
+    </item>
+    
+  </channel>
+</rss>
