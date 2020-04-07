@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/custom.css">
+    <link href="https://fonts.googleapis.com/css2?family=PT+Serif&family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <title>HIE in Nvim on Archlinux | Nutr1t07&#39;s Blog</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="sidebar">
+            <nav>
+                <h3 id="logo">Nutr1t07</h3>
+                <ul>
+                    <li><a href="/">Index</a></li>
+                    
+                    <li><a href="/friends">Friends</a></li>
+                    
+                </ul>
+            </nav>
+            &nbsp;
+        </div>
+
+  <div class="content">
+  <h3>HIE in Nvim on Archlinux</h3>
+
+  <p><a href="https://github.com/haskell/haskell-ide-engine">HIE</a>(Haskell IDE Engine) is an engine for IDE/Editor integration and was first released on May 3, 2018. Before HIE, there was a project for Haskell programming enrichment which named <code>ghc-mod</code>. But that one was deprecated on Jan 25, 2019.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<p>As a modern integration tool for Haskell, <strong>HIE</strong> comes with a great number of features:</p>
+<ul>
+<li>Uses LSP, so should be easy to integrate with a wide selection of editors</li>
+<li>Diagnostics via <em>hlint</em> and GHC warnings/errors</li>
+<li>Code actions and quick fixes via <a href="https://github.com/mpickering/apply-refact">apply-refact</a></li>
+<li>Show type information and documentation(via <a href="https://github.com/haskell/haddock">haddock</a>) on hover</li>
+<li>List all top-level definitions</li>
+<li>Automatic completion</li>
+<li>Formatting via <a href="https://github.com/lspitzner/brittany">brittany</a></li>
+<li>Renaming via <a href="https://github.com/RefactoringTools/HaRe">HaRe</a></li>
+<li>Typo quick fixes</li>
+<li>Add missing imports (via <a href="https://github.com/dan-t/hsimport">hsimport</a>)</li>
+</ul>
+<p>In this article, I’ll show you how to use HIE with <a href="https://github.com/dense-analysis/ale">ALE</a>(Asynchronous Lint Engine) or <a href="https://github.com/neoclide/coc.nvim/">coc.nvim</a> in <strong>nvim</strong>.</p>
+<h4 id="hie">HIE</h4>
+<blockquote>
+<p>Please build HIE <strong>from source</strong> instead of installing it from AUR. If you really do that, you may get troubled with problems like <a href="https://github.com/haskell/haskell-ide-engine/issues/483">the missing of cabal-helper-wrapper</a>.</p>
+</blockquote>
+<h5 id="build-from-source">Build from source</h5>
+<h5 id="download-the-source-code">Download the source code</h5>
+<pre><code>git clone https://github.com/haskell/haskell-ide-engine --recurse-submodules
+cd haskell-ide-engine
+</code></pre><h4 id="build">Build</h4>
+<h5 id="download-a-stackage-lts-and-an-appropriate-ghc">Download a Stackage-LTS and an appropriate GHC.</h5>
+<pre><code>stack ./install.hs help
+</code></pre><h5 id="install-specific-ghc-version">Install specific GHC Version</h5>
+<p>Install HIE for GHC version 8.6.5 and get the required data-files for HIE (Hoogle DB)</p>
+<pre><code>stack ./install.hs hie-8.6.5
+stack ./install.hs build-data
+</code></pre><h4 id="1-cocnvim">1. coc.nvim</h4>
+<h5 id="install">Install</h5>
+<p>Use <a href="https://github.com/dense-analysis/ale#installation-with-vim-plug">Vim-Plug</a> to install the plugin.
+Add the following content to <code>init.vim</code>:</p>
+<pre><code>call plug#begin()
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+call plug#end()
+</code></pre><p>Then restart <em>nvim</em> and run <code>:PlugInstall</code>.</p>
+<h5 id="configuration">Configuration</h5>
+<p>Run <code>:CocConfig</code> in <em>nvim</em> and add the following to your <em>coc</em> config file.</p>
+<pre><code>{
+  &quot;languageserver&quot;: {
+    &quot;haskell&quot;: {
+      &quot;command&quot;: &quot;hie-wrapper&quot;,
+      &quot;rootPatterns&quot;: [
+        &quot;.stack.yaml&quot;,
+        &quot;cabal.config&quot;,
+        &quot;package.yaml&quot;
+      ],
+      &quot;filetypes&quot;: [
+        &quot;hs&quot;,
+        &quot;lhs&quot;,
+        &quot;haskell&quot;
+      ],
+      &quot;initializationOptions&quot;: {
+        &quot;languageServerHaskell&quot;: {
+        }
+      }
+    }
+  }
+}
+</code></pre><p>Restart <em>nvim</em>.</p>
+<h4 id="2-ale">2. ALE</h4>
+<h5 id="install-ale-and-languageclient-neovim">Install ALE and LanguageClient-neovim</h5>
+<p>Also using <code>Vim-Plug</code> to install the two plugins:</p>
+<pre><code>Plug 'dense-analysis/ale'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': './install.sh'
+    \ }
+</code></pre><p>Restart <em>nvim</em> and run <code>:PlugInstall</code>.</p>
+<h5 id="configuration-1">Configuration</h5>
+<p>Add this to nvim config file(~/.config/nvim/init.vim):</p>
+<pre><code>let g:LanguageClient_serverCommands = { 'haskell': ['hie-wrapper', '--lsp'] }
+</code></pre><p>Now the config(~/.config/nvim/init.vim) should include:</p>
+<pre><code>let g:LanguageClient_serverCommands = { 'haskell': ['hie-wrapper', '--lsp'] }
+
+call plug#begin()
+Plug 'dense-analysis/ale'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': './install.sh'
+    \ }
+call plug#end()
+</code></pre><h4 id="troubleshooting">Troubleshooting</h4>
+<p>[coc.nvim] Got error while processing diagnostics: readCreateProcess: cabal-helper-wrapper “print-build-platform” (exit 1): failed<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<p>While opening a <code>.hs</code> file that is not under a <em>stack</em> project directory, <code>hie-wrapper</code>(a tool for identifying <strong>hie</strong> with specified GHC version) will not use <em>stack ghc</em>, instead it fallbacks to system GHC. So if you run <code>hie-wrapper</code> under non-<em>stack</em> directory, an error will arise:</p>
+<pre><code>2019-11-03 09:56:40.464794427 [ThreadId 4] - run entered for hie-wrapper(hie-wrapper) Version 0.13.0.0, Git revision 38a6febbeeaaf627d932b0314584de16f9fe0a8b (3043 commits) x86_64 ghc-8.6.5
+2019-11-03 09:56:40.468284219 [ThreadId 4] - Current directory:/home/nutr1t07
+2019-11-03 09:56:40.469282644 [ThreadId 4] - Operating system:linux
+2019-11-03 09:56:40.47165505 [ThreadId 4] - Cradle directory:/home/nutr1t07
+2019-11-03 09:56:40.471983891 [ThreadId 4] - Using plain GHC version
+2019-11-03 09:56:40.472241244 [ThreadId 4] - Project GHC version:No System GHC found
+2019-11-03 09:56:40.472486567 [ThreadId 4] - hie exe candidates :[&quot;hie-No System GHC found&quot;,&quot;hie&quot;,&quot;hie&quot;]
+2019-11-03 09:56:40.472856203 [ThreadId 4] - cannot find any hie exe, looked for:hie-No System GHC found, hie, hie
+</code></pre><p>And running under a <em>stack</em> project will not:</p>
+<pre><code>2019-11-03 09:57:59.150831371 [ThreadId 4] - run entered for hie-wrapper(hie-wrapper) Version 0.13.0.0, Git revision 38a6febbeeaaf627d932b0314584de16f9fe0a8b (3043 commits) x86_64 ghc-8.6.5
+2019-11-03 09:57:59.154236705 [ThreadId 4] - Current directory:/home/nutr1t07/a_stack_project
+2019-11-03 09:57:59.155404581 [ThreadId 4] - Operating system:linux
+2019-11-03 09:57:59.488924051 [ThreadId 4] - Cradle directory:/home/nutr1t07/a_stack_project
+2019-11-03 09:57:59.489251508 [ThreadId 4] - Using stack GHC version
+2019-11-03 09:57:59.699420887 [ThreadId 4] - Project GHC version:8.6.5
+2019-11-03 09:57:59.699677886 [ThreadId 4] - hie exe candidates :[&quot;hie-8.6.5&quot;,&quot;hie-8.6&quot;,&quot;hie&quot;]
+2019-11-03 09:57:59.70006366 [ThreadId 4] - found hie exe at:/usr/bin/hie-8.6.5
+2019-11-03 09:57:59.700362808 [ThreadId 4] - args:[]
+2019-11-03 09:57:59.700762353 [ThreadId 4] - launching ....
+
+
+
+2019-11-03 09:57:59.702433004 [ThreadId 4] - Using stack GHC version
+2019-11-03 09:57:59.910601176 [ThreadId 4] - Run entered for HIE(hie-8.6.5) Version 0.13.0.0, Git revision 38a6febbeeaaf627d932b0314584de16f9fe0a8b (3043 commits) x86_64 ghc-8.6.5
+2019-11-03 09:57:59.911223928 [ThreadId 4] - Current directory:/home/nutr1t07/a_stack_project
+2019-11-03 09:57:59.911482391 [ThreadId 4] - args:[]
+</code></pre><p>So you may edit the file under a <em>stack</em> project directory. That will make HIE works properly.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://github.com/DanielG/ghc-mod/commit/e1759484606122c43944ba8e441015ac0a018b35">Officially deprecate ghc-mod (the development tool)</a> <a href="#fnref1">↩</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+
+  </div>
+
+</body>
+</html>

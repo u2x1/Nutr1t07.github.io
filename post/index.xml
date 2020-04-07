@@ -23,6 +23,18 @@ data Result = Result { r_id :: Text , r_tags :: [Text] } The easiest way is to p
     </item>
     
     <item>
+      <title>用例子理解批处理脚本</title>
+      <link>https://nutr1t07.github.io/post/understand-windows-batch-with-example/</link>
+      <pubDate>Thu, 26 Mar 2020 12:54:37 +0000</pubDate>
+      
+      <guid>https://nutr1t07.github.io/post/understand-windows-batch-with-example/</guid>
+      <description>我们来看看如何将目录下的每一个文件加上原目录名的前缀：
+for /f &amp;quot;delims=&amp;quot; %%i in (&#39;dir /ad/b&#39;) do ( :: 遍历子目录 for /f &amp;quot;delims=&amp;quot; %%j in (&#39;dir /b %%i&#39;) do ( :: 遍历子目录下文件 echo %%j | findstr &amp;quot;^%%i&amp;quot; &amp;amp;&amp;amp; (echo No need to rename.) || (move &amp;quot;%%i\\%%j&amp;quot; &amp;quot;%%i\\%%i-%%j&amp;quot;) ) ) 解释 for 循环 看看上面的脚本中的这一句：
+for /f &amp;quot;delims=&amp;quot; %%i in (&#39;dir /ad/b&#39;) do ( 此处for语句的结构是 FOR %variable IN (set) DO command [command-parameters] 。参数的说明如下：
+ %variable: 在遍历中每个(set)中文件的替代符号(只能使用一个字母，否则多余部分会被当成字符串处理) (set): 表示一个或多个文件 (括号不能省去) command: 对于每一个(set)中的文件所要执行的操作 [command-parameters]: 可选的，上述command所要带的参数  当你在脚本文件中声明(%variable)时，请使用%%i而非%i。并注意变量名是区分大小写的(如%%i与%%I是两个不同的替代符)。你可以用Win+R打开cmd,在其中输入语句+空格+/?</description>
+    </item>
+    
+    <item>
       <title>Compiling Statically With Glibc Raises Segfault at Runtime</title>
       <link>https://nutr1t07.github.io/post/compiling-statically-with-glibc-raises-segfault-at-runtime/</link>
       <pubDate>Thu, 12 Mar 2020 03:25:12 +0000</pubDate>
@@ -30,6 +42,17 @@ data Result = Result { r_id :: Text , r_tags :: [Text] } The easiest way is to p
       <guid>https://nutr1t07.github.io/post/compiling-statically-with-glibc-raises-segfault-at-runtime/</guid>
       <description>I’m writing a chatting bot with Haskell and I need to statically compile my program, run it on the server which is running on Ubuntu 18.04 bionic. When I built my stack project with GHC option -optl-static, running it, I got a segfault. Checking the core dump file and I got this:
 Stack trace of thread 26051: #0 0x00007f5ce4cef448 n/a (/lib/x86\_64-linux-gnu/libnss\_files-2.27.so) #1 0x00007f5ce4cf08bd \_nss\_files\_gethostbyname4\_r (/lib/x86\_64-linux-gnu/libnss\_files-2.27.so) #2 0x0000000001a41d66 n/a (/home/nutr1t07/wl) #3 0x0000000001a42c39 n/a (/home/nutr1t07/wl) #4 0x0000000000ddcf91 n/a (/home/nutr1t07/wl) I ran the same program on my PC, it raised a segfault as well.</description>
+    </item>
+    
+    <item>
+      <title>HIE in Nvim on Archlinux</title>
+      <link>https://nutr1t07.github.io/post/hie-in-nvim-on-archlinux/</link>
+      <pubDate>Thu, 19 Dec 2019 07:44:45 +0000</pubDate>
+      
+      <guid>https://nutr1t07.github.io/post/hie-in-nvim-on-archlinux/</guid>
+      <description>HIE(Haskell IDE Engine) is an engine for IDE/Editor integration and was first released on May 3, 2018. Before HIE, there was a project for Haskell programming enrichment which named ghc-mod. But that one was deprecated on Jan 25, 2019.1
+As a modern integration tool for Haskell, HIE comes with a great number of features:
+ Uses LSP, so should be easy to integrate with a wide selection of editors Diagnostics via hlint and GHC warnings/errors Code actions and quick fixes via apply-refact Show type information and documentation(via haddock) on hover List all top-level definitions Automatic completion Formatting via brittany Renaming via HaRe Typo quick fixes Add missing imports (via hsimport)  In this article, I’ll show you how to use HIE with ALE(Asynchronous Lint Engine) or coc.</description>
     </item>
     
     <item>

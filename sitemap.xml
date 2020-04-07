@@ -68,8 +68,18 @@
   </url>
   
   <url>
+    <loc>https://nutr1t07.github.io/post/understand-windows-batch-with-example/</loc>
+    <lastmod>2020-03-26T12:54:37+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://nutr1t07.github.io/post/compiling-statically-with-glibc-raises-segfault-at-runtime/</loc>
     <lastmod>2020-03-12T03:25:12+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nutr1t07.github.io/post/hie-in-nvim-on-archlinux/</loc>
+    <lastmod>2019-12-19T07:44:45+00:00</lastmod>
   </url>
   
   <url>
