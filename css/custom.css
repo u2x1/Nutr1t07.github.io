@@ -1,5 +1,5 @@
-html {
-    overflow-y:scroll;
+body {
+    padding-left: calc(100vw - 100%);
 }
 
 .sidebar{
@@ -40,7 +40,7 @@ nav ul {
     list-style: none outside;
 }
 
-ul { padding: 0; }
+.sidebar ul { padding: 0; }
 
 a { color: #000 }
 

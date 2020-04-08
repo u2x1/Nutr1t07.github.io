@@ -56,15 +56,16 @@ cd haskell-ide-engine
 <p>Install HIE for GHC version 8.6.5 and get the required data-files for HIE (Hoogle DB)</p>
 <pre><code>stack ./install.hs hie-8.6.5
 stack ./install.hs build-data
-</code></pre><h4 id="1-cocnvim">1. coc.nvim</h4>
-<h5 id="install">Install</h5>
+</code></pre><h4 id="using-cocnvim-or-ale">Using coc.nvim or ALE</h4>
+<h5 id="--cocnvim">- coc.nvim</h5>
+<h6 id="install">Install</h6>
 <p>Use <a href="https://github.com/dense-analysis/ale#installation-with-vim-plug">Vim-Plug</a> to install the plugin.
 Add the following content to <code>init.vim</code>:</p>
 <pre><code>call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 </code></pre><p>Then restart <em>nvim</em> and run <code>:PlugInstall</code>.</p>
-<h5 id="configuration">Configuration</h5>
+<h6 id="configuration">Configuration</h6>
 <p>Run <code>:CocConfig</code> in <em>nvim</em> and add the following to your <em>coc</em> config file.</p>
 <pre><code>{
   &quot;languageserver&quot;: {
@@ -88,8 +89,8 @@ call plug#end()
   }
 }
 </code></pre><p>Restart <em>nvim</em>.</p>
-<h4 id="2-ale">2. ALE</h4>
-<h5 id="install-ale-and-languageclient-neovim">Install ALE and LanguageClient-neovim</h5>
+<h5 id="--ale">- ALE</h5>
+<h6 id="install-ale-and-languageclient-neovim">Install ALE and LanguageClient-neovim</h6>
 <p>Also using <code>Vim-Plug</code> to install the two plugins:</p>
 <pre><code>Plug 'dense-analysis/ale'
 Plug 'autozimu/LanguageClient-neovim', {
@@ -97,7 +98,7 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'do': './install.sh'
     \ }
 </code></pre><p>Restart <em>nvim</em> and run <code>:PlugInstall</code>.</p>
-<h5 id="configuration-1">Configuration</h5>
+<h6 id="configuration-1">Configuration</h6>
 <p>Add this to nvim config file(~/.config/nvim/init.vim):</p>
 <pre><code>let g:LanguageClient_serverCommands = { 'haskell': ['hie-wrapper', '--lsp'] }
 </code></pre><p>Now the config(~/.config/nvim/init.vim) should include:</p>

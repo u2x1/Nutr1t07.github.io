@@ -12,6 +12,16 @@
     
     
     <item>
+      <title>CSS Div Shift in Unexpected Way</title>
+      <link>https://nutr1t07.github.io/post/css-div-shift-in-unexpected-way/</link>
+      <pubDate>Wed, 08 Apr 2020 08:46:22 +0800</pubDate>
+      
+      <guid>https://nutr1t07.github.io/post/css-div-shift-in-unexpected-way/</guid>
+      <description>When writing the extremely simple blog theme I got a confusing problem that the position of the sidebar on the left of my front page is not the same as the article page: Pic1. It seems that it&amp;rsquo;s the scroll bar that causes the strange thing happened. When the article is long enough, the scroll bar appears, making the whole page shifts a little bit to the left.
+A straightforward solution is to make the scroll bar always visible or invisible.</description>
+    </item>
+    
+    <item>
       <title>友情链接</title>
       <link>https://nutr1t07.github.io/friends/</link>
       <pubDate>Mon, 06 Apr 2020 19:31:31 +0800</pubDate>
