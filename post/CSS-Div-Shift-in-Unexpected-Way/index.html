@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/custom.css">
+  <link href="https://fonts.googleapis.com/css2?family=PT+Serif&family=Source+Sans+Pro&display=swap" rel="stylesheet">
+
+    <title>CSS Div Shift in Unexpected Way | Nutr1t07's Blog</title>
+  </head>
+
+  <body>
+    <div class="container">
+            <div class="sidebar">
+            <nav>
+                <h3 id="logo">Nutr1t07</h3>
+                <ul>
+                    <li><a href="/">Index</a></li>
+                    <li><a href="/friends/">Friends</a></li>
+                </ul>
+            </nav>
+            &nbsp;
+      </div>
+
+      <div class="content">
+        <h3>CSS Div Shift in Unexpected Way</h3>
+        <p>When writing the extremely simple blog theme I got a confusing problem that the position of the sidebar on the left of my front page is not the same as the article page: <a href="/image/css-div-shift.gif" >Pic1</a>
+. It seems that it's the scroll bar that causes the strange thing happened. When the article is long enough, the scroll bar appears, making the whole page shifts a little bit to the left.</p>
+<p>A straightforward solution is to make the scroll bar always visible or invisible.</p>
+<pre><code>/* 1. Always visible */
+html {
+    overflow-y:scroll;
+}
+
+/* 2. Always invisible*/
+html {
+    scrollbar-width: none;    /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 11 */
+}
+
+html::-webkit-scrollbar {     /** WebKit */
+  display: none;
+}</code></pre>
+<p>Or automatically add <code>padding-left</code> when scroll bar appears:</p>
+<pre><code>body {
+    padding-left: calc(100vw - 100%);
+}</code></pre>
+<p><code>vw</code> stands for <em>viewport width</em>. The difference here between <code>100vw</code> and <code>100%</code> is that <code>100vw</code> includes the width of the scroll bar, while <code>100%</code> does not.</p>
+<h4>Reference</h4>
+<ul>
+<li><a href="https://stackoverflow.com/a/30293718/12279828" >How to prevent scrollbar from repositioning web page? - Rapti - Stack Overflow</a>
+</li><li><a href="https://stackoverflow.com/a/56926685/12279828" >Hide scroll bar, but while still being able to scroll - Murhaf Sousli - Stack Overflow</a>
+</li>
+</ul>
+<p></p>
+      </div>
+    </div>
+  </body>
+</html>
