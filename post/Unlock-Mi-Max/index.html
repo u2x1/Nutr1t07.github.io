@@ -16,7 +16,7 @@
                 <h3 id="logo">Nutr1t07</h3>
                 <ul>
                     <li><a href="/">Index</a></li>
-                    <li><a href="/friends/">Friends</a></li>
+                    <li><a href="/page/friends/">Friends</a></li>
                 </ul>
             </nav>
             &nbsp;
@@ -33,14 +33,13 @@
 <p>若您的小米Max(hydrogen)设备遇到账户锁问题，遵循以下步骤：</p>
 <h5>打开USB调试</h5>
 <ol>
-<li>下载所需文件</li><ul>
-<li><a href="https://drive.google.com/file/d/145HjG7GmHDnxN35e3Wfr708AfV0K7kKc/view" >MI ACCOUNT REMOVE FILE</a>
-</li><li><a href="https://www.xiaomiflash.com/" >MiFlash</a>
-</li>
-</ul>
+<li>下载所需文件</li>
+</ol>
+<p>   - <a href="https://drive.google.com/file/d/145HjG7GmHDnxN35e3Wfr708AfV0K7kKc/view" >MI ACCOUNT REMOVE FILE</a></p>
+<p>   - <a href="https://www.xiaomiflash.com/" >MiFlash</a></p>
+<ol>
 <li>同时按住手机音量加、音量减和电源键进入EDL(Emergency Download)模式，并通过USB将手机与电脑连接。注意：此模式下屏幕不会开启，只能通过启动时的振动判断是否进入EDL模式。</li><li>解压<em>MI ACCOUNT REMOVE FILE</em>，将解压后的文件夹载入<em>MiFlash</em>。点击refresh按钮刷新设备，并点击flash刷入。如图：</li><li>断开USB连接，按住电源键强制重新开机。进入系统后将WLAN与移动数据关闭，否则锁定界面会重新出现。</li><li>在开发者选项中打开“USB调试”。</li>
 </ol>
-<p></p>
 <h5>禁止账号验证活动</h5>
 <ol>
 <li>在电脑上安装adb，并重新连接手机。</li><li>打开cmd，输入<code>adb shell</code>，此时手机出现“允许USB调试吗？”提示，确认即可。</li><li>在cmd中输入</li>
@@ -68,10 +67,12 @@ pm uninstall -k --user 0 com.android.provision  </code></pre>
 能够删除小米账号。[4]</p>
 <ol>
 <li>Fastboot不支持被锁设备的刷机操作，所以需要进入EDL救援模式。进入EDL有多种方式，譬如使用EDL线、拆开手机后盖短接测试点等。不过小米Max似乎可以直接通过同时按住音量加、音量减和电源键进入EDL模式。</li><li>将手机通过USB与电脑连接。此时在<em>设备管理器</em>中端口下应出现<em>Qualcomm HS-USB QDLoader 9008</em>一栏。</li><li>下载上述<em>REMOVE FILE</em>并解压，下载能与EDL交互的<a href="https://www.xiaomiflash.com/" >MiFlash</a>
-。</li><li>打开MiFlash，载入解压后的文件夹并刷入该<em>删除文件</em>。  </li><p>    <img src="/postimage/Screenshot.png" alt="MiFlash" /></p>
+。</li><li>打开MiFlash，载入解压后的文件夹并刷入该<em>删除文件</em>。  </li>
+</ol>
+<p>    <img src="/postimage/Screenshot.png" alt="MiFlash" /></p>
+<ol>
 <li>结束后断开USB连接，长按电源键重启设备。</li>
 </ol>
-<p></p>
 <p>此时进入系统后在短时间内不会锁定，请迅速关闭网络以防“查找设备”服务上线，否则设备将重新上锁。</p>
 <h5>使用adb卸载小米服务[5]</h5>
 <h6>安装adb</h6>
@@ -90,18 +91,11 @@ pm uninstall -k --user 0 com.android.provision</code></pre>
 <ol>
 <li>无法使用小米提供的云服务</li><li>系统性能下降</li><li>可能导致bootloop</li><li>新版本MIUI会不断出现“Finddevice service destroyed”，但不影响使用</li>
 </ol>
-<p></p>
 <p>本文介绍的解决方案是极其简陋的，你可以自行尝试其他方法，如使用第三方Rec完全清除数据。</p>
 <hr>
 <ol>
-<li><a href="http://en.miui.com/thread-307139-1-1.html" >http://en.miui.com/thread-307139-1-1.html</a>
-</li><li><a href="https://www.reddit.com/r/Xiaomi/wiki/edl" >https://www.reddit.com/r/Xiaomi/wiki/edl</a>
-</li><li><a href="http://www.miui.com/forum.php?mod=viewthread&tid=9610315" >http://www.miui.com/forum.php?mod=viewthread&tid=9610315</a>
-</li><li><a href="https://alltechminer.blogspot.com/2019/01/remove-mi-account-on-mi-max-or-2016002.html" >https://alltechminer.blogspot.com/2019/01/remove-mi-account-on-mi-max-or-2016002.html</a>
-</li><li><a href="https://www.youtube.com/watch?v=JoYdVrYM5Lo" >https://www.youtube.com/watch?v=JoYdVrYM5Lo</a>
-</li>
+<li><a href="http://en.miui.com/thread-307139-1-1.html" >http://en.miui.com/thread-307139-1-1.html</a></li><li><a href="https://www.reddit.com/r/Xiaomi/wiki/edl" >https://www.reddit.com/r/Xiaomi/wiki/edl</a></li><li><a href="http://www.miui.com/forum.php?mod=viewthread&tid=9610315" >http://www.miui.com/forum.php?mod=viewthread&tid=9610315</a></li><li><a href="https://alltechminer.blogspot.com/2019/01/remove-mi-account-on-mi-max-or-2016002.html" >https://alltechminer.blogspot.com/2019/01/remove-mi-account-on-mi-max-or-2016002.html</a></li><li><a href="https://www.youtube.com/watch?v=JoYdVrYM5Lo" >https://www.youtube.com/watch?v=JoYdVrYM5Lo</a></li>
 </ol>
-<p></p>
       </div>
     </div>
   </body>

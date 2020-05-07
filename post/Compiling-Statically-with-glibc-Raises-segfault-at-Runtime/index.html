@@ -16,7 +16,7 @@
                 <h3 id="logo">Nutr1t07</h3>
                 <ul>
                     <li><a href="/">Index</a></li>
-                    <li><a href="/friends/">Friends</a></li>
+                    <li><a href="/page/friends/">Friends</a></li>
                 </ul>
             </nav>
             &nbsp;
@@ -46,7 +46,9 @@
 <p><em>"Assume the service name shall be used for a lookup. The code for this service is implemented in a module called `libnss</em>name<code>. On a system supporting shared libraries this is in fact a shared library with the name (for example) </code>libnss<em>name.so.2.`"</em></p>
 <p>So we can conjecture that there should be something wrong with <a href="https://en.wikipedia.org/wiki/Name_Service_Switch" >NSS</a>
 .</p>
-<p>The <strong>Name Service Switch</strong> (NSS) is a facility that provides a variety of sources for common configuration databases and name resolution mechanisms.[^1] Here is what a part of its configuration file(<code>/etc/nsswitch.conf</code>) looks like:</p>
+<p>The <strong>Name Service Switch</strong> (NSS) is a facility that provides a variety of sources for common configuration databases and name resolution mechanisms.<sup id="fnref:1"><a href="#fn:1">1</a>
+</sup>
+ Here is what a part of its configuration file(<code>/etc/nsswitch.conf</code>) looks like:</p>
 <pre><code>passwd: files mymachines systemd
 group: files mymachines systemd
 shadow: files
@@ -59,12 +61,15 @@ networks: files</code></pre>
  for more details.</p>
 <h4>glibc</h4>
 <p><em>glibc</em> uses <a href="http://man7.org/linux/man-pages/man3/dlopen.3.html" >dlopen(3)</a>
-, which is used to load <strong>dynamic shared</strong> objects, to load NSS modules. This requires <strong>at runtime</strong> the shared libraries from the glibc version used for linking, which makes the program need <em>a second copy</em> of the C library. It means the statically linked program has <strong>two</strong> copies of the C library in its <strong>address space</strong>, and they might fight over whose <code>stdout</code> buffer is to be used, who gets to call <code>sbrk</code> with a nonzero argument, that sort of thing.[^2]</p>
+, which is used to load <strong>dynamic shared</strong> objects, to load NSS modules. This requires <strong>at runtime</strong> the shared libraries from the glibc version used for linking, which makes the program need <em>a second copy</em> of the C library. It means the statically linked program has <strong>two</strong> copies of the C library in its <strong>address space</strong>, and they might fight over whose <code>stdout</code> buffer is to be used, who gets to call <code>sbrk</code> with a nonzero argument, that sort of thing.<sup id="fnref:2"><a href="#fn:2">2</a>
+</sup></p>
 <p>There is also <a href="https://sourceware.org/glibc/wiki/FAQ#Even_statically_linked_programs_need_some_shared_libraries_which_is_not_acceptable_for_me.__What_can_I_do.3F" >a FAQ</a>
  on glibc wiki that explained why statically linked programs need shared libraries.</p>
 <p>There must be some advantages for doing so. And the mechanism of <strong>NSS</strong> is also a feature of <code>glibc</code>. I have nothing to say about that.</p>
 <h4>Any Solutions?</h4>
-<p>However, NSS doesn’t seem to be very necessary for me. Another libc <code>musl</code> which does not have NSS[^3] is likely an alternative of <code>glibc</code>. A docker image <a href="https://github.com/utdemir/ghc-musl" >ghc-musl</a>
+<p>However, NSS doesn’t seem to be very necessary for me. Another libc <code>musl</code> which does not have NSS<sup id="fnref:3"><a href="#fn:3">3</a>
+</sup>
+ is likely an alternative of <code>glibc</code>. A docker image <a href="https://github.com/utdemir/ghc-musl" >ghc-musl</a>
  provides <em>GHC</em> compiled with <code>musl</code>, which can be <a href="https://github.com/utdemir/ghc-musl#stack" >easily used on <em>stack</em> projects</a>
 .</p>
 <p>Or use an awesome project <a href="https://github.com/nh2/static-haskell-nix/" >static-haskell-nix</a>
@@ -72,9 +77,15 @@ networks: files</code></pre>
 .</p>
 <h4>Acknowledgements</h4>
 <p><a href="https://mail.haskell.org/pipermail/haskell-cafe/2020-March/131981.html" >Haskell-Cafe</a></p>
-<p>[^1]: <a href="https://en.wikipedia.org/wiki/Name_Service_Switch" >Name Service Switch</a></p>
-<p>[^2]: <a href="https://stackoverflow.com/a/57478728/12279828" >Why is statically linking glibc discouraged?</a></p>
-<p>[^3]: <a href="https://wiki.musl-libc.org/future-ideas.html" >Future Ideas of musl</a></p>
+<div id="footnotes"><hr/><ol>
+<li id="fn:1"><p><a href="https://en.wikipedia.org/wiki/Name_Service_Switch" >Name Service Switch</a>
+<a href="#fnref:1" >↩</a></p></li>
+<li id="fn:2"><p><a href="https://stackoverflow.com/a/57478728/12279828" >Why is statically linking glibc discouraged?</a>
+<a href="#fnref:2" >↩</a></p></li>
+<li id="fn:3"><p><a href="https://wiki.musl-libc.org/future-ideas.html" >Future Ideas of musl</a>
+<a href="#fnref:3" >↩</a></p></li>
+</ol>
+</div>
       </div>
     </div>
   </body>

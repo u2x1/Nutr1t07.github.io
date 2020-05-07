@@ -16,7 +16,7 @@
                 <h3 id="logo">Nutr1t07</h3>
                 <ul>
                     <li><a href="/">Index</a></li>
-                    <li><a href="/friends/">Friends</a></li>
+                    <li><a href="/page/friends/">Friends</a></li>
                 </ul>
             </nav>
             &nbsp;
@@ -25,17 +25,14 @@
       <div class="content">
         <h3>HIE in Nvim on Archlinux</h3>
         <p><a href="https://github.com/haskell/haskell-ide-engine" >HIE</a>
-(Haskell IDE Engine) is an engine for IDE/Editor integration and was first released on May 3, 2018. Before HIE, there was a project for Haskell programming enrichment which named <code>ghc-mod</code>. But that one was deprecated on Jan 25, 2019.[^1]</p>
+(Haskell IDE Engine) is an engine for IDE/Editor integration and was first released on May 3, 2018. Before HIE, there was a project for Haskell programming enrichment which named <code>ghc-mod</code>. But that one was deprecated on Jan 25, 2019.<sup id="fnref:1"><a href="#fn:1">1</a>
+</sup></p>
 <p>As a modern integration tool for Haskell, <strong>HIE</strong> comes with a great number of features:</p>
 <ul>
-<li>Uses LSP, so should be easy to integrate with a wide selection of editors</li><li>Diagnostics via <em>hlint</em> and GHC warnings/errors</li><li>Code actions and quick fixes via <a href="https://github.com/mpickering/apply-refact" >apply-refact</a>
-</li><li>Show type information and documentation(via <a href="https://github.com/haskell/haddock" >haddock</a>
-) on hover</li><li>List all top-level definitions</li><li>Automatic completion</li><li>Formatting via <a href="https://github.com/lspitzner/brittany" >brittany</a>
-</li><li>Renaming via <a href="https://github.com/RefactoringTools/HaRe" >HaRe</a>
-</li><li>Typo quick fixes</li><li>Add missing imports (via <a href="https://github.com/dan-t/hsimport" >hsimport</a>
+<li>Uses LSP, so should be easy to integrate with a wide selection of editors</li><li>Diagnostics via <em>hlint</em> and GHC warnings/errors</li><li>Code actions and quick fixes via <a href="https://github.com/mpickering/apply-refact" >apply-refact</a></li><li>Show type information and documentation(via <a href="https://github.com/haskell/haddock" >haddock</a>
+) on hover</li><li>List all top-level definitions</li><li>Automatic completion</li><li>Formatting via <a href="https://github.com/lspitzner/brittany" >brittany</a></li><li>Renaming via <a href="https://github.com/RefactoringTools/HaRe" >HaRe</a></li><li>Typo quick fixes</li><li>Add missing imports (via <a href="https://github.com/dan-t/hsimport" >hsimport</a>
 )</li>
 </ul>
-<p></p>
 <p>In this article, I’ll show you how to use HIE with <a href="https://github.com/dense-analysis/ale" >ALE</a>
 (Asynchronous Lint Engine) or <a href="https://github.com/neoclide/coc.nvim/" >coc.nvim</a>
  in <strong>nvim</strong>.</p>
@@ -44,7 +41,6 @@
 <p>Please build HIE <strong>from source</strong> instead of installing it from AUR. If you really do that, you may get troubled with problems like <a href="https://github.com/haskell/haskell-ide-engine/issues/483" >the missing of cabal-helper-wrapper</a>
 .</p>
 </blockquote>
-<p></p>
 <h5>Build from source</h5>
 <h5>Download the source code</h5>
 <pre><code>git clone https://github.com/haskell/haskell-ide-engine --recurse-submodules
@@ -113,7 +109,8 @@ Plug &#39;autozimu/LanguageClient-neovim&#39;, {
     \ }
 call plug#end()</code></pre>
 <h4>Troubleshooting</h4>
-<p>[coc.nvim] Got error while processing diagnostics: readCreateProcess: cabal-helper-wrapper “print-build-platform” (exit 1): failed[^1]</p>
+<p>[coc.nvim] Got error while processing diagnostics: readCreateProcess: cabal-helper-wrapper “print-build-platform” (exit 1): failed<sup id="fnref:1"><a href="#fn:1">1</a>
+</sup></p>
 <p>While opening a <code>.hs</code> file that is not under a <em>stack</em> project directory, <code>hie-wrapper</code>(a tool for identifying <strong>hie</strong> with specified GHC version) will not use <em>stack ghc</em>, instead it fallbacks to system GHC. So if you run <code>hie-wrapper</code> under non-<em>stack</em> directory, an error will arise:</p>
 <pre><code>2019-11-03 09:56:40.464794427 [ThreadId 4] - run entered for hie-wrapper(hie-wrapper) Version 0.13.0.0, Git revision 38a6febbeeaaf627d932b0314584de16f9fe0a8b (3043 commits) x86_64 ghc-8.6.5
 2019-11-03 09:56:40.468284219 [ThreadId 4] - Current directory:/home/nutr1t07
@@ -142,8 +139,12 @@ call plug#end()</code></pre>
 2019-11-03 09:57:59.911223928 [ThreadId 4] - Current directory:/home/nutr1t07/a_stack_project
 2019-11-03 09:57:59.911482391 [ThreadId 4] - args:[]</code></pre>
 <p>So you may edit the file under a <em>stack</em> project directory. That will make HIE works properly.</p>
-<p>[^1]: <a href="https://github.com/DanielG/ghc-mod/commit/e1759484606122c43944ba8e441015ac0a018b35" >Officially deprecate ghc-mod (the development tool)</a>
- <a href="#fnref1" >↩</a></p>
+<div id="footnotes"><hr/><ol>
+<li id="fn:1"><p><a href="https://github.com/DanielG/ghc-mod/commit/e1759484606122c43944ba8e441015ac0a018b35" >Officially deprecate ghc-mod (the development tool)</a>
+ <a href="#fnref1" >↩</a>
+<a href="#fnref:1" >↩</a></p></li>
+</ol>
+</div>
       </div>
     </div>
   </body>

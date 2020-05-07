@@ -16,7 +16,7 @@
                 <h3 id="logo">Nutr1t07</h3>
                 <ul>
                     <li><a href="/">Index</a></li>
-                    <li><a href="/friends/">Friends</a></li>
+                    <li><a href="/page/friends/">Friends</a></li>
                 </ul>
             </nav>
             &nbsp;
@@ -40,13 +40,12 @@
 <ul>
 <li><strong>%variable</strong>: 在遍历中每个(set)中文件的替代符号(只能使用<strong>一个</strong>字母，否则多余部分会被当成字符串处理)</li><li><strong>(set)</strong>: 表示一个或多个<strong>文件</strong> (括号<strong>不能</strong>省去)</li><li><strong>command</strong>: 对于每一个(set)中的文件所要执行的操作</li><li><strong>\[command-parameters\]</strong>: <strong>可选</strong>的，上述<code>command</code>所要带的参数</li>
 </ul>
-<p></p>
 <p>当你在脚本文件中声明(%variable)时，请使用<code>%%i</code>而非<code>%i</code>。并注意变量名是<strong>区分大小写</strong>的(如<code>%%i</code>与<code>%%I</code>是两个不同的替代符)。你可以用<code>Win+R</code>打开<code>cmd</code>,在其中输入<code>语句+空格+/?</code>(如<code>for /?</code>)查询帮助文档。</p>
 <p>但是你可能还发现在<code>for</code>的后面还跟着一串<code>/f &quot;delims=&quot;</code>。这里<code>/f</code>是一个指令拓展(此外有/d,/r,/l三种)，当你使用<code>/f</code>时，你可以以如下的结构来使用 <code>for</code> 循环：</p>
 <pre><code>FOR /F [&quot;options&quot;] %variable IN (file-set) DO command [command\-parameters]
 FOR /F [&quot;options&quot;] %variable IN (&#39;string&#39;) DO command [command\-parameters]
 FOR /F [&quot;options&quot;] %variable IN (\`command\`) DO command [command\-parameters]</code></pre>
-<p>上面的语句使用 <code>&quot;delims=&quot;</code> ，其目的是将\<em>定界符\</em>设为空，以防止文件名被默认的定界符(空格)分开。我们使用 <code>(&#39;dir /ad/b&#39;)</code> 作为 <code>(set)</code> ， <code>dir</code> 的用处是获取当前目录及子目录内所有的文件，其选项 <code>/ad</code> 代表我们只需要文件夹， <code>/b</code> 则意味者我们只需要获取文件(夹)名。你可以在cmd中键入 <code>dir /?</code> 查看详细。</p>
+<p>上面的语句使用 <code>&quot;delims=&quot;</code> ，其目的是将_定界符_设为空，以防止文件名被默认的定界符(空格)分开。我们使用 <code>(&#39;dir /ad/b&#39;)</code> 作为 <code>(set)</code> ， <code>dir</code> 的用处是获取当前目录及子目录内所有的文件，其选项 <code>/ad</code> 代表我们只需要文件夹， <code>/b</code> 则意味者我们只需要获取文件(夹)名。你可以在cmd中键入 <code>dir /?</code> 查看详细。</p>
 <h5>执行命令</h5>
 <p>接下来把注意力放在 <code>do</code> 之后的这一行语句：</p>
 <pre><code>echo %%j | findstr &quot;^%%i&quot; &amp;&amp; (echo No need to rename.) || (move &quot;%%i\\%%j&quot; &quot;%%i\\%%i-%%j&quot;)  </code></pre>
@@ -54,12 +53,10 @@ FOR /F [&quot;options&quot;] %variable IN (\`command\`) DO command [command\-par
 <ul>
 <li><strong>&&</strong>: 按顺序执行前后两条命令，当前一条命令<strong>出错</strong>时将<strong>不执行</strong>后面的命令</li><li><strong>||</strong>: 按顺序执行前后两条命令，当前一条命令<strong>正确执行</strong>后将<strong>不执行</strong>后面的命令</li><li><strong>|</strong>: 将前一命令的<strong>输出</strong>作为后一指令的<strong>输入</strong></li>
 </ul>
-<p></p>
 <p>此外还有一些别的符号:</p>
 <ul>
 <li><strong>&</strong>: 按顺序执行多条命令，<strong>不论</strong>命令是否执行成功</li><li><strong>\></strong>: 将前一指令的输出<strong>覆盖</strong>写入后面的文件</li><li><strong>\>></strong>: 将前一指令的输出<strong>追加</strong>写入后面的文件</li>
 </ul>
-<p></p>
 <p>所以我们可以知道上面的那一行语句的意思大概是：  </p>
 <p>用 <code>echo</code> 将 <code>%%j</code> 的内容通过 <code>|</code> 传递给 <code>findstr &quot;^%%i&quot;</code> ，并且如果 <code>findstr</code> 在 <code>%%j</code> 中能够找到以 <code>%%i</code> 开头的内容，那么用 <code>echo</code> 在屏幕上打印"No need to rename."的辅助信息，否则将位于 <code>&quot;%%i</code> 目录下的文件 <code>%%j</code> 移动到 <code>%%i</code> 目录下并重命名为<code>%%i-%%j</code>。</p>
 <p>非常简单。</p>
@@ -68,7 +65,6 @@ FOR /F [&quot;options&quot;] %variable IN (\`command\`) DO command [command\-par
 <ul>
 <li><em>echo [message]</em>: 将 <code>[message]</code> 输出</li><li><em>findstr strings</em>: 查找字符串 <code>strings</code> (支持正则表达式符号 <code>.*^$等等</code> ，使用 <code>findstr /?</code> 查看详细)</li><li><em>move filename destination</em>: 移动并重命名文件或文件夹</li>
 </ul>
-<p></p>
 <p>对于 <code>%%j</code> 和 <code>%%i</code> ，我们知道，它是 <code>(set)</code> 中每一元素的代替符号，意思是说，我们对 <code>%%j</code> ( <code>%%i</code> )进行任何操作，就相当于对其所指代的<code>(set)</code>的每一个元素进行同样的操作。</p>
 <p>举个例子，我们写出一个<em>for</em>循环：<code>for /f &quot;delims=&quot; %%i in (&#39;dir /ad/b&#39;) do move %%i %%iCopy</code>中，我们用<code>dir /ad/b</code>得到以下输出(每一行是文件夹的相对路径)</p>
 <pre><code>文件夹一  
@@ -79,12 +75,8 @@ move 文件夹二 文件夹二Copy</code></pre>
 <p>上面的两条命令都会被执行，结果是 <code>文件夹一</code> 被重命名为 <code>文件夹一Copy</code> ，<code>文件夹二</code> 被重命名为 <code>文件夹二Copy</code>。</p>
 <h4>参考</h4>
 <ul>
-<li><a href="https://bbs.csdn.net/topics/390202675" >用批处理(bat)如何实现读取文件名?-CSDN论坛</a>
-</li><li><a href="http://bbs.bathome.net/thread-15153-1-1.html" >批处理命令findstr如何提取以“我”开头,以“的”结尾部分并保存?</a>
-</li><li><a href="https://blog.csdn.net/iloli/article/details/44339893" >批处理中的&、&&、|、||、>、>>符号-iloli的专栏-CSDN博客</a>
-</li>
+<li><a href="https://bbs.csdn.net/topics/390202675" >用批处理(bat)如何实现读取文件名?-CSDN论坛</a></li><li><a href="http://bbs.bathome.net/thread-15153-1-1.html" >批处理命令findstr如何提取以“我”开头,以“的”结尾部分并保存?</a></li><li><a href="https://blog.csdn.net/iloli/article/details/44339893" >批处理中的&、&&、|、||、>、>>符号-iloli的专栏-CSDN博客</a></li>
 </ul>
-<p></p>
 <h4>致谢</h4>
 <p>感谢 @丶慕忻 提供的想法，本文中的例子出自于他。</p>
       </div>

@@ -16,7 +16,7 @@
                 <h3 id="logo">Nutr1t07</h3>
                 <ul>
                     <li><a href="/">Index</a></li>
-                    <li><a href="/friends/">Friends</a></li>
+                    <li><a href="/page/friends/">Friends</a></li>
                 </ul>
             </nav>
             &nbsp;
@@ -59,12 +59,20 @@ xrandr --auto</code></pre>
 <h5>1. Bumblebee (nvidia, nouveau, intel)</h5>
 <p>Install package <code>bumblebee</code> <code>bbswitch</code> <code>mesa</code> and proper NVIDIA driver.</p>
 <ol>
-<li>Add users to <em>bumblebee</em> group.</li><p>    <code>$ gpasswd -a user bumblebee</code></p>
-<li>Enable <code>bumblebeed.service</code>.</li><p>    <code>$ systemctl enable bumblebeed.service</code></p>
-<li>Configure them in <code>/etc/bumblebee/bumblebee.conf</code>.</li><p>    Modidy the <code>Driver</code> property optionally, then switch the <code>PMMethod</code> from <code>auto</code> to <code>bbswitch</code>.</p>
+<li>Add users to <em>bumblebee</em> group.</li>
+</ol>
+<p>    <code>$ gpasswd -a user bumblebee</code></p>
+<ol>
+<li>Enable <code>bumblebeed.service</code>.</li>
+</ol>
+<p>    <code>$ systemctl enable bumblebeed.service</code></p>
+<ol>
+<li>Configure them in <code>/etc/bumblebee/bumblebee.conf</code>.</li>
+</ol>
+<p>    Modidy the <code>Driver</code> property optionally, then switch the <code>PMMethod</code> from <code>auto</code> to <code>bbswitch</code>.</p>
+<ol>
 <li>Reboot.</li>
 </ol>
-<p></p>
 <p>To enable NVIDIA card, enter:</p>
 <p><code>$ tee /proc/acpi/bbswitch &lt;&lt;&lt; ON</code></p>
 <p>To turn off:</p>
@@ -72,10 +80,17 @@ xrandr --auto</code></pre>
 <h5>2. PRIME (nouveau, intel)</h5>
 <p>Install open-sourced driver <code>xf86-video-nouveau</code> <code>xf86-video-intel</code>.</p>
 <ol>
-<li>Get graphic drivers using now with their <em>id</em>s and <em>name</em>s.</li><p>    <code>$ xrandr --listproviders</code></p>
-<li>Set integrated graphic cards <em>offload</em>.</li><p>    <code>$ xrandr --setprovideroffload &lt;name or id&gt;</code></p>
-<li>Then through <code>DRI_PRIME=1</code>, run applications on high performance cards:</li><p>    <code>$ DRI_PRIME=1 &lt;program&gt;</code></p>
+<li>Get graphic drivers using now with their <em>id</em>s and <em>name</em>s.</li>
 </ol>
+<p>    <code>$ xrandr --listproviders</code></p>
+<ol>
+<li>Set integrated graphic cards <em>offload</em>.</li>
+</ol>
+<p>    <code>$ xrandr --setprovideroffload &lt;name or id&gt;</code></p>
+<ol>
+<li>Then through <code>DRI_PRIME=1</code>, run applications on high performance cards:</li>
+</ol>
+<p>    <code>$ DRI_PRIME=1 &lt;program&gt;</code></p>
 <h5>3. nvidia-xrun</h5>
 <p>See <a href="https://wiki.archlinux.org/index.php/Nvidia-xrun" >nvidia-xrun</a>
 .</p>
