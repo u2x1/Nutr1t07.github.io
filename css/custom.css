@@ -31,6 +31,12 @@ nav ul li a, nav ul li a:visited, nav ul li a:active{
     font-weight: Bold;
 }
 
+blockquote {
+    font-family: "Times New Roman";
+    font-size: 0.9em;
+    font-style: italic;
+}
+
 .post-list li {
     list-style: none outside;
     padding: 0;

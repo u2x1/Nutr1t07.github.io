@@ -30,8 +30,7 @@
 <p>Just remove all NVIDIA package and install <code>xf86-video-intel</code>.</p>
 <h4>NVIDIA</h4>
 <h5>Proprietary Driver</h5>
-<p>First, install package <code>nvidia</code>(for older cards, get it on <a href="https://wiki.archlinux.org/index.php/NVIDIA" >NVIDIA</a>
-) and <code>xorg-xrandr</code>.</p>
+<p>First, install package <code>nvidia</code>(for older cards, get it on <a href="https://wiki.archlinux.org/index.php/NVIDIA" >NVIDIA</a>) and <code>xorg-xrandr</code>.</p>
 <h6>1. Configuration Xorg</h6>
 <p>First we need to get BusID(PCI Address):</p>
 <p><code>$ lspci | egrep &#39;VGA|3D&#39;</code></p>
@@ -92,8 +91,7 @@ xrandr --auto</code></pre>
 </ol>
 <p>    <code>$ DRI_PRIME=1 &lt;program&gt;</code></p>
 <h5>3. nvidia-xrun</h5>
-<p>See <a href="https://wiki.archlinux.org/index.php/Nvidia-xrun" >nvidia-xrun</a>
-.</p>
+<p>See <a href="https://wiki.archlinux.org/index.php/Nvidia-xrun" >nvidia-xrun</a>.</p>
 <h4>Troubleshooting</h4>
 <h5>Hang on DM</h5>
 <p>If Intel hangs on login manager with black screen, you may need to check if the BIOS driver is not compatible with Linux. Try add <code>acpi_osi=&quot;!Windows 2015&quot;</code> or <code>acpi_osi=! acpi_osi=&quot;Windows 2009&quot;</code> to <code>GRUB_CMDLINE_LINUX</code> in <code>/etc/default/grub</code>.</p>

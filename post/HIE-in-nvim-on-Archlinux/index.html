@@ -24,22 +24,16 @@
 
       <div class="content">
         <h3>HIE in Nvim on Archlinux</h3>
-        <p><a href="https://github.com/haskell/haskell-ide-engine" >HIE</a>
-(Haskell IDE Engine) is an engine for IDE/Editor integration and was first released on May 3, 2018. Before HIE, there was a project for Haskell programming enrichment which named <code>ghc-mod</code>. But that one was deprecated on Jan 25, 2019.<sup id="fnref:1"><a href="#fn:1">1</a>
+        <p><a href="https://github.com/haskell/haskell-ide-engine" >HIE</a>(Haskell IDE Engine) is an engine for IDE/Editor integration and was first released on May 3, 2018. Before HIE, there was a project for Haskell programming enrichment which named <code>ghc-mod</code>. But that one was deprecated on Jan 25, 2019.<sup id="fnref:1"><a href="#fn:1">1</a>
 </sup></p>
 <p>As a modern integration tool for Haskell, <strong>HIE</strong> comes with a great number of features:</p>
 <ul>
-<li>Uses LSP, so should be easy to integrate with a wide selection of editors</li><li>Diagnostics via <em>hlint</em> and GHC warnings/errors</li><li>Code actions and quick fixes via <a href="https://github.com/mpickering/apply-refact" >apply-refact</a></li><li>Show type information and documentation(via <a href="https://github.com/haskell/haddock" >haddock</a>
-) on hover</li><li>List all top-level definitions</li><li>Automatic completion</li><li>Formatting via <a href="https://github.com/lspitzner/brittany" >brittany</a></li><li>Renaming via <a href="https://github.com/RefactoringTools/HaRe" >HaRe</a></li><li>Typo quick fixes</li><li>Add missing imports (via <a href="https://github.com/dan-t/hsimport" >hsimport</a>
-)</li>
+<li>Uses LSP, so should be easy to integrate with a wide selection of editors</li><li>Diagnostics via <em>hlint</em> and GHC warnings/errors</li><li>Code actions and quick fixes via <a href="https://github.com/mpickering/apply-refact" >apply-refact</a></li><li>Show type information and documentation(via <a href="https://github.com/haskell/haddock" >haddock</a>) on hover</li><li>List all top-level definitions</li><li>Automatic completion</li><li>Formatting via <a href="https://github.com/lspitzner/brittany" >brittany</a></li><li>Renaming via <a href="https://github.com/RefactoringTools/HaRe" >HaRe</a></li><li>Typo quick fixes</li><li>Add missing imports (via <a href="https://github.com/dan-t/hsimport" >hsimport</a>)</li>
 </ul>
-<p>In this article, I’ll show you how to use HIE with <a href="https://github.com/dense-analysis/ale" >ALE</a>
-(Asynchronous Lint Engine) or <a href="https://github.com/neoclide/coc.nvim/" >coc.nvim</a>
- in <strong>nvim</strong>.</p>
+<p>In this article, I’ll show you how to use HIE with <a href="https://github.com/dense-analysis/ale" >ALE</a>(Asynchronous Lint Engine) or <a href="https://github.com/neoclide/coc.nvim/" >coc.nvim</a> in <strong>nvim</strong>.</p>
 <h4>HIE</h4>
 <blockquote>
-<p>Please build HIE <strong>from source</strong> instead of installing it from AUR. If you really do that, you may get troubled with problems like <a href="https://github.com/haskell/haskell-ide-engine/issues/483" >the missing of cabal-helper-wrapper</a>
-.</p>
+<p>Please build HIE <strong>from source</strong> instead of installing it from AUR. If you really do that, you may get troubled with problems like <a href="https://github.com/haskell/haskell-ide-engine/issues/483" >the missing of cabal-helper-wrapper</a>.</p>
 </blockquote>
 <h5>Build from source</h5>
 <h5>Download the source code</h5>
@@ -55,8 +49,7 @@ stack ./install.hs build-data</code></pre>
 <h4>Using coc.nvim or ALE</h4>
 <h5>- coc.nvim</h5>
 <h6>Install</h6>
-<p>Use <a href="https://github.com/dense-analysis/ale#installation-with-vim-plug" >Vim-Plug</a>
- to install the plugin.</p>
+<p>Use <a href="https://github.com/dense-analysis/ale#installation-with-vim-plug" >Vim-Plug</a> to install the plugin.</p>
 <p>Add the following content to <code>init.vim</code>:</p>
 <pre><code>call plug#begin()
 Plug &#39;neoclide/coc.nvim&#39;, {&#39;branch&#39;: &#39;release&#39;}
@@ -140,9 +133,7 @@ call plug#end()</code></pre>
 2019-11-03 09:57:59.911482391 [ThreadId 4] - args:[]</code></pre>
 <p>So you may edit the file under a <em>stack</em> project directory. That will make HIE works properly.</p>
 <div id="footnotes"><hr/><ol>
-<li id="fn:1"><p><a href="https://github.com/DanielG/ghc-mod/commit/e1759484606122c43944ba8e441015ac0a018b35" >Officially deprecate ghc-mod (the development tool)</a>
- <a href="#fnref1" >↩</a>
-<a href="#fnref:1" >↩</a></p></li>
+<li id="fn:1"><p><a href="https://github.com/DanielG/ghc-mod/commit/e1759484606122c43944ba8e441015ac0a018b35" >Officially deprecate ghc-mod (the development tool)</a> <a href="#fnref1" >↩</a><a href="#fnref:1" >↩</a></p></li>
 </ol>
 </div>
       </div>
