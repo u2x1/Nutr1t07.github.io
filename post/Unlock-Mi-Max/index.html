@@ -29,7 +29,7 @@
 <p>似乎这种情况是随机出现的，为了突击检查你的手机属不属于你。然而锁机的做法并没有什么用处，你不能指望这个锁能让那些捡到手机不还的人放弃这部手机。</p>
 <p>这部小米Max在给到他手中他之前，已经用他爸爸的弃用的手机号绑定了小米账号，而他爸早就忘了当时注册的时候填了个什么密码，所以从官方渠道解决锁定问题会相当麻烦。</p>
 <h4>TL;DR</h4>
-<p><strong>免责声明</strong>： 此操作<strong>有风险</strong>，任何依照本文章步骤操作导致的问题由用户自身承担。  </p>
+<p><strong>免责声明</strong>： 此操作<strong>有风险</strong>，任何依照本文章步骤操作导致的问题由用户自身承担。</p>
 <p>若您的小米Max(hydrogen)设备遇到账户锁问题，遵循以下步骤：</p>
 <h5>打开USB调试</h5>
 <ol>
@@ -44,10 +44,10 @@
 <ol>
 <li>在电脑上安装adb，并重新连接手机。</li><li>打开cmd，输入<code>adb shell</code>，此时手机出现“允许USB调试吗？”提示，确认即可。</li><li>在cmd中输入</li>
 </ol>
-<pre><code>adb shell  
-pm uninstall -k --user 0 com.xiaomi.finddevice  
-pm uninstall -k --user 0 com.xiaomi.account  
-pm uninstall -k --user 0 com.android.provision  </code></pre>
+<pre><code>adb shell
+pm uninstall -k --user 0 com.xiaomi.finddevice
+pm uninstall -k --user 0 com.xiaomi.account
+pm uninstall -k --user 0 com.android.provision</code></pre>
 <h4>尝试</h4>
 <h5>官方Rec清除数据</h5>
 <p>算了，这用脑子想想就能知道不可能解决问题。未解开Bootloader刷入第三方Rec之前，不管用什么方法清除数据，都会不可避免地保留最后一次登陆的小米账户数据。</p>
