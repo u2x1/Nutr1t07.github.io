@@ -69,7 +69,7 @@ vt.global_cursor_default=
 + 64 if you dislike having the background the same as the
      foreground.</code></pre>
 <p>The "<code>+16</code> for software cursor" is to mean, that in the range of <code>0</code>~<code>15</code>, you are using a hardware cursor. The value of the second and the third argument will always be <code>0</code> and you won't be able to change the default cursor color.</p>
-<p>In the range of <code>48</code>~<code>63</code>(range 0~15 +16 +32), you get a cursor that background color is always the same, which is, a NON-BLINKING cursor!</p>
+<p>In the range of <code>48</code>~<code>63</code>(range <code>0</code>~<code>15</code> <code>+16</code> <code>+32</code>), you get a cursor that background color is always the same, which is, a NON-BLINKING cursor!</p>
 <p>And in <code>112</code>~<code>127</code>, maybe it makes the foreground color not the same as the background one, letting the character be visible. I'm not sure about this. But anyway, it's also a NON-BLINKING cursor!</p>
 <h5>The Second and the Third Argument</h5>
 <p>I'm putting them together because they actually do the same thing. In the third argument you set the color sequence of 8 bits. And in the second argument you change the sequence using XOR.</p>
