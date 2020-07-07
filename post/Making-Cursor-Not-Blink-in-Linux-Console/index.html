@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="/css/custom.css">
   <link href="https://fonts.googleapis.com/css2?family=PT+Serif&family=Source+Sans+Pro&display=swap" rel="stylesheet">
 
-    <title>Making Cursor Non-blinking in Linux Console | Nutr1t07's Blog</title>
+    <title>Making Cursor Not Blink in Linux Console | Nutr1t07's Blog</title>
   </head>
 
   <body>
@@ -23,7 +23,7 @@
       </div>
 
       <div class="content">
-        <h3>Making Cursor Non-blinking in Linux Console</h3>
+        <h3>Making Cursor Not Blink in Linux Console</h3>
         <p>I am not a fan of blinking cursors. The cursor, blinking endlessly, always reminds me of the shitty codes I'm writing, the ugly interface I'm facing, as well as my pitiful time wasted when I'm thinking. Anyway, I decided to turn it off.</p>
 <p>Comparing to terminal emulator, the cursor appearance in the Linux console (which is, not to enter the desktop environment) is rather difficult to configure. There is no direct configuration file that can be modified to change its behavior. I found a <a href="http://www.friendlyarm.net/forum/topic/2998" >post</a> which said that there are some kernel parameters, such as <code>vt.global_cursor_default</code>, <code>vt.cur_default</code>, that can affect the cursor on boot, and thus the Linux console. Their descriptions as follows:</p>
 <pre><code>vt.cur_default= [VT] Default cursor shape.
@@ -78,7 +78,7 @@ vt.global_cursor_default=
 <pre><code>0000 0000 -- Argument 2
 0001 0000 -- Argument 3</code></pre>
 <p>XORing them, we get a bit sequence as <code>0001 0000</code>. The most significant bits of both the background group and the foreground group are set to zero. So this is, as well, a NON-BLINKING cursor! Meanwhile, the background color group is <code>001</code> and the foreground one is <code>000</code>. Each bit in the group stands for red, green, and blue (RGB), so through <code>001</code>, we get a cursor that having its background color blue.</p>
-<h4>Apply Them on Boot</h4>
+<h4>Apply to GRUB</h4>
 <p>The kernel parameter that sets the default cursor shape has a format of <code>0xCCBBAA</code>. Because it's hexadecimal, the corresponding parameter to <code>echo -e &#39;\033[?17;0;32c&#39;</code> is <code>vt.cur_default=0x200011</code></p>
 <p>We need to add them to the kernel argument field (<code>GRUB_CMDLINE_LINUX_DEFAULT</code>) in the default GRUB configuration file (at <code>/etc/default/grub</code>), and then regenerate it using <code>grub-mkconfig -o /boot/grub/grub.cfg</code>.</p>
 <h4>Reference</h4>
