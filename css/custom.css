@@ -2,7 +2,7 @@ body {
     padding-left: calc(100vw - 100%);
 }
 
-.sidebar{
+.sidebar {
     float: left;
     width: 160px;
 }
@@ -10,7 +10,7 @@ body {
 .content {
   float: left;
   width: 740px;
-  font-family: 'Source Sans Pro';
+  font-family: 'DejaVu Sans';
   padding-left: 60px;
 }
 
@@ -27,8 +27,7 @@ nav {
 
 nav ul li a, nav ul li a:visited, nav ul li a:active{
     text-decoration: none;
-    font-family: 'Source Sans Pro';
-    font-weight: Bold;
+    font-family: 'DejaVu Sans';
 }
 
 blockquote {
@@ -92,7 +91,8 @@ pre > code {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: "PT Serif", serif;
+    font-family: "Times New Roman", serif;
+    font-weight: lighter;
 }
 
 h1 { font-size: 46px; line-height: 50px; margin-bottom: 14px;}

@@ -1,52 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
-      <loc>https://nutr1t07.github.io/post/Making-Cursor-Not-Blink-in-Linux-Console/</loc>
+      <loc>https://nutr1t07.github.io/</loc>
+      <lastmod>2020-07-19</lastmod>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://nutr1t07.github.io/post/making-cursor-not-blink-in-linux-console/</loc>
       <lastmod>2020-07-04</lastmod>
       <priority>0.6</priority>
    </url>
    <url>
-      <loc>https://nutr1t07.github.io/post/Building-a-Blog/</loc>
+      <loc>https://nutr1t07.github.io/post/building-a-blog/</loc>
       <lastmod>2020-04-26</lastmod>
       <priority>0.6</priority>
    </url>
    <url>
-      <loc>https://nutr1t07.github.io/post/CSS-Div-Shift-in-Unexpected-Way/</loc>
+      <loc>https://nutr1t07.github.io/post/css-div-shift-in-unexpected-way/</loc>
       <lastmod>2020-04-08</lastmod>
       <priority>0.6</priority>
    </url>
    <url>
-      <loc>https://nutr1t07.github.io/post/Aeson-Parsing-Tips/</loc>
+      <loc>https://nutr1t07.github.io/post/aeson-parsing-tips/</loc>
       <lastmod>2020-04-04</lastmod>
       <priority>0.6</priority>
    </url>
    <url>
-      <loc>https://nutr1t07.github.io/post/Understand-Windows-Batch-with-Example/</loc>
+      <loc>https://nutr1t07.github.io/post/understand-windows-batch-with-example/</loc>
       <lastmod>2020-03-26</lastmod>
       <priority>0.6</priority>
    </url>
    <url>
-      <loc>https://nutr1t07.github.io/post/Compiling-Statically-with-glibc-Raises-segfault-at-Runtime/</loc>
+      <loc>https://nutr1t07.github.io/post/compiling-statically-with-glibc-raises-segfault-at-runtime/</loc>
       <lastmod>2020-03-12</lastmod>
       <priority>0.6</priority>
    </url>
    <url>
-      <loc>https://nutr1t07.github.io/post/HIE-in-nvim-on-Archlinux/</loc>
+      <loc>https://nutr1t07.github.io/post/hie-in-nvim-on-archlinux/</loc>
       <lastmod>2019-12-19</lastmod>
       <priority>0.6</priority>
    </url>
    <url>
-      <loc>https://nutr1t07.github.io/post/Dopamine-and-Myopia-Development/</loc>
+      <loc>https://nutr1t07.github.io/post/dopamine-and-myopia-development/</loc>
       <lastmod>2019-08-31</lastmod>
       <priority>0.6</priority>
    </url>
    <url>
-      <loc>https://nutr1t07.github.io/post/Enable-Night-Color-for-KDE-on-Archlinux/</loc>
+      <loc>https://nutr1t07.github.io/post/enable-night-color-for-kde-on-archlinux/</loc>
       <lastmod>2019-08-17</lastmod>
       <priority>0.6</priority>
    </url>
    <url>
-      <loc>https://nutr1t07.github.io/post/Unlock-Mi-Max/</loc>
+      <loc>https://nutr1t07.github.io/post/unlock-mi-max/</loc>
       <lastmod>2019-08-09</lastmod>
       <priority>0.6</priority>
    </url>
