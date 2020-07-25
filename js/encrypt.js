@@ -2,10 +2,10 @@ var real_origin = "";
 function decrypt() {
   var passwd = document.getElementById("passwd").value;
   if (real_origin == "") {
-    real_origin = document.getElementById("article-content").innerText;
+    real_origin = document.getElementById("article-content").innerHTML;
   }
   var newStr = "";
-  for (i = 0; i < origin.length; i++) {
+  for (i = 0; i < real_origin.length; i++) {
     newStr = newStr + String.fromCharCode(real_origin.charCodeAt(i) - passwd.charCodeAt(i % passwd.length));
   }
   document.getElementById("article-content").innerHTML = newStr;
