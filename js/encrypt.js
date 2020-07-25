@@ -2,7 +2,7 @@ var real_origin = "";
 function decrypt() {
   var passwd = document.getElementById("passwd").value;
   if (real_origin == "") {
-    real_origin = document.getElementById("article-content").innerHTML;
+    real_origin = document.getElementById("article-content").innerText;
   }
   var newStr = "";
   for (i = 0; i < real_origin.length; i++) {
