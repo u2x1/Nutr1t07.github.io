@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="/css/custom.css">
   <link href="https://fonts.geekzu.org/css2?family=PT+Serif&family=Source+Sans+Pro&display=swap" rel="stylesheet">
 
+    
     <title>用例子理解批处理脚本 | Nutr1t07's Blog</title>
   </head>
 
@@ -19,12 +20,29 @@
                                       <li><a href="/page/friends/">Friends</a></li>
                   
                 </ul>
+
+                                <div id="outline" class="outline">
+                  <text>Outline</text>
+                  <ul>
+<li><a href="#hdr:0">解释</a></li>
+<ul>
+<li><a href="#hdr:1">for 循环</a></li>
+<li><a href="#hdr:2">执行命令</a></li>
+<li><a href="#hdr:3">一些细节</a></li>
+</ul><li><a href="#hdr:4">参考</a></li>
+<li><a href="#hdr:5">致谢</a></li>
+
+                </div>
+                
+
             </nav>
             &nbsp;
       </div>
 
-      <div class="content">
-        <h3>用例子理解批处理脚本</h3>
+      <div id="article" class="content">
+        <h3 id="article-title">用例子理解批处理脚本</h3>
+        
+        <div id="article-content">
         <p>我们来看看如何将目录下的每一个文件加上原目录名的前缀：</p>
 <pre><code>for /f &quot;delims=&quot; %%i in (&#39;dir /ad/b&#39;) do (
  :: 遍历子目录
@@ -33,8 +51,8 @@
  echo %%j | findstr &quot;^%%i&quot; &amp;&amp; (echo No need to rename.) || (move &quot;%%i\\%%j&quot; &quot;%%i\\%%i-%%j&quot;)
  )
 )</code></pre>
-<h4>解释</h4>
-<h5>for 循环</h5>
+<h4 id="hdr:0">解释</h4>
+<h5 id="hdr:1">for 循环</h5>
 <p>看看上面的脚本中的这一句：</p>
 <pre><code>for /f &quot;delims=&quot; %%i in (&#39;dir /ad/b&#39;) do (</code></pre>
 <p>此处for语句的结构是 <code>FOR %variable IN (set) DO command [command-parameters]</code> 。参数的说明如下：</p>
@@ -47,7 +65,7 @@
 FOR /F [&quot;options&quot;] %variable IN (&#39;string&#39;) DO command [command\-parameters]
 FOR /F [&quot;options&quot;] %variable IN (\`command\`) DO command [command\-parameters]</code></pre>
 <p>上面的语句使用 <code>&quot;delims=&quot;</code> ，其目的是将_定界符_设为空，以防止文件名被默认的定界符(空格)分开。我们使用 <code>(&#39;dir /ad/b&#39;)</code> 作为 <code>(set)</code> ， <code>dir</code> 的用处是获取当前目录及子目录内所有的文件，其选项 <code>/ad</code> 代表我们只需要文件夹， <code>/b</code> 则意味者我们只需要获取文件(夹)名。你可以在cmd中键入 <code>dir /?</code> 查看详细。</p>
-<h5>执行命令</h5>
+<h5 id="hdr:2">执行命令</h5>
 <p>接下来把注意力放在 <code>do</code> 之后的这一行语句：</p>
 <pre><code>echo %%j | findstr &quot;^%%i&quot; &amp;&amp; (echo No need to rename.) || (move &quot;%%i\\%%j&quot; &quot;%%i\\%%i-%%j&quot;)  </code></pre>
 <p>它实际上是多条命令组合在一起的。我们来看看一些特殊符号的作用：</p>
@@ -61,7 +79,7 @@ FOR /F [&quot;options&quot;] %variable IN (\`command\`) DO command [command\-par
 <p>所以我们可以知道上面的那一行语句的意思大概是：  </p>
 <p>用 <code>echo</code> 将 <code>%%j</code> 的内容通过 <code>|</code> 传递给 <code>findstr &quot;^%%i&quot;</code> ，并且如果 <code>findstr</code> 在 <code>%%j</code> 中能够找到以 <code>%%i</code> 开头的内容，那么用 <code>echo</code> 在屏幕上打印"No need to rename."的辅助信息，否则将位于 <code>&quot;%%i</code> 目录下的文件 <code>%%j</code> 移动到 <code>%%i</code> 目录下并重命名为<code>%%i-%%j</code>。</p>
 <p>非常简单。</p>
-<h5>一些细节</h5>
+<h5 id="hdr:3">一些细节</h5>
 <p>让我们来看看每一条命令的详细：</p>
 <ul>
 <li><em>echo [message]</em>: 将 <code>[message]</code> 输出</li><li><em>findstr strings</em>: 查找字符串 <code>strings</code> (支持正则表达式符号 <code>.*^$等等</code> ，使用 <code>findstr /?</code> 查看详细)</li><li><em>move filename destination</em>: 移动并重命名文件或文件夹</li>
@@ -74,12 +92,14 @@ FOR /F [&quot;options&quot;] %variable IN (\`command\`) DO command [command\-par
 <pre><code>move 文件夹一 文件夹一Copy
 move 文件夹二 文件夹二Copy</code></pre>
 <p>上面的两条命令都会被执行，结果是 <code>文件夹一</code> 被重命名为 <code>文件夹一Copy</code> ，<code>文件夹二</code> 被重命名为 <code>文件夹二Copy</code>。</p>
-<h4>参考</h4>
+<h4 id="hdr:4">参考</h4>
 <ul>
 <li><a href="https://bbs.csdn.net/topics/390202675" >用批处理(bat)如何实现读取文件名?-CSDN论坛</a></li><li><a href="http://bbs.bathome.net/thread-15153-1-1.html" >批处理命令findstr如何提取以“我”开头,以“的”结尾部分并保存?</a></li><li><a href="https://blog.csdn.net/iloli/article/details/44339893" >批处理中的&、&&、|、||、>、>>符号-iloli的专栏-CSDN博客</a></li>
 </ul>
-<h4>致谢</h4>
+<h4 id="hdr:5">致谢</h4>
 <p>感谢 @丶慕忻 提供的想法，本文中的例子出自于他。</p>
+
+        </div>
       </div>
     </div>
   </body>

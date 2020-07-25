@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="/css/custom.css">
   <link href="https://fonts.geekzu.org/css2?family=PT+Serif&family=Source+Sans+Pro&display=swap" rel="stylesheet">
 
+    
     <title>Archlinux Configurations on Laptops | Nutr1t07's Blog</title>
   </head>
 
@@ -19,33 +20,56 @@
                                       <li><a href="/page/friends/">Friends</a></li>
                   
                 </ul>
+
+                                <div id="outline" class="outline">
+                  <text>Outline</text>
+                  <ul>
+<li><a href="#hdr:0">WIFI</a></li>
+<ul>
+<li><a href="#hdr:1">Stop Other Running Network Service</a></li>
+<li><a href="#hdr:2">Enable NetworkManager Service</a></li>
+<li><a href="#hdr:3">Connect to WIFI</a></li>
+</ul><li><a href="#hdr:4">Touchpad</a></li>
+<ul>
+<li><a href="#hdr:5">Wayland</a></li>
+<li><a href="#hdr:6">Xorg</a></li>
+</ul><li><a href="#hdr:7">Brightness</a></li>
+<ul>
+<li><a href="#hdr:8">Get Max Brightness</a></li>
+<li><a href="#hdr:9">Set Brightness (Root permission required)</a></li>
+
+                </div>
+                
+
             </nav>
             &nbsp;
       </div>
 
-      <div class="content">
-        <h3>Archlinux Configurations on Laptops</h3>
+      <div id="article" class="content">
+        <h3 id="article-title">Archlinux Configurations on Laptops</h3>
+        
+        <div id="article-content">
         <p>There are a lot of differences between the installation and configurations on laptops and desktop computers.</p>
-<h4>WIFI</h4>
+<h4 id="hdr:0">WIFI</h4>
 <p>To enable WIFI function, the simplest way is using <em>NetworkManager</em>.</p>
 <p><code>sudo pacman -S wpa_supplicant networkamanager</code></p>
-<h5>Stop Other Running Network Service</h5>
+<h5 id="hdr:1">Stop Other Running Network Service</h5>
 <p>If you are using wifi-menu, execute the following command in terminal:</p>
 <p><code>systemctl stop netctl</code></p>
 <p>Otherwise, check <code>systemctl --type=service</code> and stop other network service.</p>
-<h5>Enable NetworkManager Service</h5>
+<h5 id="hdr:2">Enable NetworkManager Service</h5>
 <p>To make the service start on boot, execute:</p>
 <p><code>systemctl enable NetworkManager</code></p>
 <p>To start the service now:</p>
 <p><code>systemctl start NetworkManager</code></p>
-<h5>Connect to WIFI</h5>
+<h5 id="hdr:3">Connect to WIFI</h5>
 <p>Use <code>nmtui</code> which is in NetworkManager.</p>
-<h4>Touchpad</h4>
+<h4 id="hdr:4">Touchpad</h4>
 <p>Install <code>libinput</code> package.</p>
 <p>Executing the command <code>libinput list-devices</code> will output the devices with their features.</p>
-<h5>Wayland</h5>
+<h5 id="hdr:5">Wayland</h5>
 <p>No need to create configuration file, just configurate them on the desktop enviroment.</p>
-<h5>Xorg</h5>
+<h5 id="hdr:6">Xorg</h5>
 <p>Create <code>30-touchpad.conf</code> file under <code>/etc/X11/xorg.conf.d/</code>.</p>
 <p>Add the following content to <code>30-touchpad.conf</code>:</p>
 <pre><code>Section &quot;InputClass&quot;
@@ -56,15 +80,17 @@
  Option &quot;NaturalScrolling&quot; &quot;true&quot;
 EndSection</code></pre>
 <p>Options can be found at <a href="https://jlk.fjfi.cvut.cz/arch/manpages/man/libinput.4" >libinput4</a></p>
-<h4>Brightness</h4>
+<h4 id="hdr:7">Brightness</h4>
 <p>Get the backlight folder name <em>bln</em>.</p>
 <p><code>ls /sys/class/backlight/</code></p>
-<h5>Get Max Brightness</h5>
+<h5 id="hdr:8">Get Max Brightness</h5>
 <p><code>cat /sys/class/backlight/bln/max_brightness</code></p>
 <p>(replace the <em>bln</em> with your actual folder name)</p>
-<h5>Set Brightness (Root permission required)</h5>
+<h5 id="hdr:9">Set Brightness (Root permission required)</h5>
 <p>To set the brightness to 1000, execute:</p>
 <p><code>echo 1000 &gt; /sys/class/backlight/bln/brightness</code></p>
+
+        </div>
       </div>
     </div>
   </body>

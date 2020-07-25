@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="/css/custom.css">
   <link href="https://fonts.geekzu.org/css2?family=PT+Serif&family=Source+Sans+Pro&display=swap" rel="stylesheet">
 
+    
     <title>Graphics Driver Configuration on Computers with NVIDIA and Intel | Nutr1t07's Blog</title>
   </head>
 
@@ -19,20 +20,46 @@
                                       <li><a href="/page/friends/">Friends</a></li>
                   
                 </ul>
+
+                                <div id="outline" class="outline">
+                  <text>Outline</text>
+                  <ul>
+<li><a href="#hdr:0">Intel</a></li>
+<li><a href="#hdr:1">NVIDIA</a></li>
+<ul>
+<li><a href="#hdr:2">Proprietary Driver</a></li>
+<ul>
+<li><a href="#hdr:3">1. Configuration Xorg</a></li>
+<li><a href="#hdr:4">2. Configure Display Managers (Optional)</a></li>
+</ul><li><a href="#hdr:5">Open-source Driver</a></li>
+</ul><li><a href="#hdr:6">NVIDIA and Intel</a></li>
+<ul>
+<li><a href="#hdr:7">1. Bumblebee (nvidia, nouveau, intel)</a></li>
+<li><a href="#hdr:8">2. PRIME (nouveau, intel)</a></li>
+<li><a href="#hdr:9">3. nvidia-xrun</a></li>
+</ul><li><a href="#hdr:10">Troubleshooting</a></li>
+<ul>
+<li><a href="#hdr:11">Hang on DM</a></li>
+
+                </div>
+                
+
             </nav>
             &nbsp;
       </div>
 
-      <div class="content">
-        <h3>Graphics Driver Configuration on Computers with NVIDIA and Intel</h3>
+      <div id="article" class="content">
+        <h3 id="article-title">Graphics Driver Configuration on Computers with NVIDIA and Intel</h3>
+        
+        <div id="article-content">
         <p>If you are installing Linux on computer which carries both NVIDIA GPU and Intel integrated GPU, then there are a lot things to do before you can enter GUI.</p>
 <p>To start with, you must decide which GPU to use between the two, or enalbe the <em>NVIDIA Optimus</em> in order to use two GPUs at the same time.</p>
-<h4>Intel</h4>
+<h4 id="hdr:0">Intel</h4>
 <p>Just remove all NVIDIA package and install <code>xf86-video-intel</code>.</p>
-<h4>NVIDIA</h4>
-<h5>Proprietary Driver</h5>
+<h4 id="hdr:1">NVIDIA</h4>
+<h5 id="hdr:2">Proprietary Driver</h5>
 <p>First, install package <code>nvidia</code>(for older cards, get it on <a href="https://wiki.archlinux.org/index.php/NVIDIA" >NVIDIA</a>) and <code>xorg-xrandr</code>.</p>
-<h6>1. Configuration Xorg</h6>
+<h6 id="hdr:3">1. Configuration Xorg</h6>
 <p>First we need to get BusID(PCI Address):</p>
 <p><code>$ lspci | egrep &#39;VGA|3D&#39;</code></p>
 <p>The PCI address is like <code>01:00.0</code> in the front of the line. Then turn it into BusId format <code>#:#:#</code>, for <code>01:00.0</code>, it is <code>1:0:0</code>.</p>
@@ -50,13 +77,13 @@ EndSection</code></pre>
 <p>Then add the following content to <code>~/.xinitrc</code>(optional if using display managers):</p>
 <pre><code>xrandr --setprovideroutputsource modesetting NVIDIA-0
 xrandr --auto</code></pre>
-<h6>2. Configure Display Managers (Optional)</h6>
+<h6 id="hdr:4">2. Configure Display Managers (Optional)</h6>
 <p>Add what you added to <code>~/.xinitrc</code> to DM’s startup shell.</p>
-<h5>Open-source Driver</h5>
+<h5 id="hdr:5">Open-source Driver</h5>
 <p>Install package <code>xf86-video-nouveau</code>, follow the steps above and change the “Driver” property in <code>/etc/X11/xorg.conf</code> to “nouveau”.</p>
-<h4>NVIDIA and Intel</h4>
+<h4 id="hdr:6">NVIDIA and Intel</h4>
 <p>If you wish to use the two GPUs mixly, there are three solutions to do that.</p>
-<h5>1. Bumblebee (nvidia, nouveau, intel)</h5>
+<h5 id="hdr:7">1. Bumblebee (nvidia, nouveau, intel)</h5>
 <p>Install package <code>bumblebee</code> <code>bbswitch</code> <code>mesa</code> and proper NVIDIA driver.</p>
 <ol>
 <li>Add users to <em>bumblebee</em> group.</li>
@@ -77,7 +104,7 @@ xrandr --auto</code></pre>
 <p><code>$ tee /proc/acpi/bbswitch &lt;&lt;&lt; ON</code></p>
 <p>To turn off:</p>
 <p><code>$ tee /proc/acpi/bbswitch &lt;&lt;&lt; OFF</code></p>
-<h5>2. PRIME (nouveau, intel)</h5>
+<h5 id="hdr:8">2. PRIME (nouveau, intel)</h5>
 <p>Install open-sourced driver <code>xf86-video-nouveau</code> <code>xf86-video-intel</code>.</p>
 <ol>
 <li>Get graphic drivers using now with their <em>id</em>s and <em>name</em>s.</li>
@@ -91,10 +118,10 @@ xrandr --auto</code></pre>
 <li>Then through <code>DRI_PRIME=1</code>, run applications on high performance cards:</li>
 </ol>
 <p>    <code>$ DRI_PRIME=1 &lt;program&gt;</code></p>
-<h5>3. nvidia-xrun</h5>
+<h5 id="hdr:9">3. nvidia-xrun</h5>
 <p>See <a href="https://wiki.archlinux.org/index.php/Nvidia-xrun" >nvidia-xrun</a>.</p>
-<h4>Troubleshooting</h4>
-<h5>Hang on DM</h5>
+<h4 id="hdr:10">Troubleshooting</h4>
+<h5 id="hdr:11">Hang on DM</h5>
 <p>If Intel hangs on login manager with black screen, you may need to check if the BIOS driver is not compatible with Linux. Try add <code>acpi_osi=&quot;!Windows 2015&quot;</code> or <code>acpi_osi=! acpi_osi=&quot;Windows 2009&quot;</code> to <code>GRUB_CMDLINE_LINUX</code> in <code>/etc/default/grub</code>.</p>
 <p>Like this:</p>
 <pre><code>\# GRUB boot loader configuration
@@ -103,6 +130,8 @@ GRUB\_TIMEOUT=3
 GRUB\_DISTRIBUTOR=&quot;Arch&quot;
 GRUB\_CMDLINE\_LINUX\_DEFAULT=&quot;loglevel=3 quiet acpi\_osi=! acpi\_osi=&#39;Windows 2009&#39;&quot;
 GRUB\_CMDLINE\_LINUX=&quot;&quot;</code></pre>
+
+        </div>
       </div>
     </div>
   </body>

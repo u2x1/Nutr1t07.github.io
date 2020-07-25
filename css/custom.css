@@ -7,7 +7,10 @@ body {
     width: 160px;
 }
 
+.sidebar ul { padding: 0; }
+
 .content {
+  word-wrap: break-word;
   float: left;
   width: 740px;
   font-family: 'Source Sans Pro';
@@ -20,6 +23,10 @@ body {
     width: 960px;
 }
 
+nav ul {
+    list-style: none outside;
+}
+
 nav {
     position: fixed;
     width: 160px;
@@ -30,6 +37,18 @@ nav ul li a, nav ul li a:visited, nav ul li a:active{
     font-family: 'Source Sans Pro';
     font-weight: Bold;
 }
+
+.outline {
+    margin-top: 50%;
+}
+
+.outline ul { padding-left: 5px; list-style: circle}
+
+.outline ul li a, .outline ul li a:visited, .outline ul li a:active{
+  padding-left: 3px;
+  text-decoration: underline;
+}
+.outline text { font-weight: bold; font-size: large; }
 
 blockquote {
     font-family: "Times New Roman";
@@ -57,19 +76,15 @@ p img {
     box-shadow: 0 1px 6px;
 }
 
-nav ul {
-    list-style: none outside;
-}
-
-.sidebar ul { padding: 0; }
 
 a { color: #000 }
 
 /* Mobile */
 @media only screen and (max-width: 767px) {
-    .container {width: 300px; padding-top: 0;}
-    .content   {width: 300px; padding-left: 0;}
-    .sidebar { width: 300px; }
+    .container { width: 300px; padding-top: 0;}
+    .content   { width: 300px; padding-left: 0;}
+    .sidebar   { width: 300px; }
+    .outline   { margin-top: 0; }
     p img { max-width: 250px; }
     nav {
       position: relative;

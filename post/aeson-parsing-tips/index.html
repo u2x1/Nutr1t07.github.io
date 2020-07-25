@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="/css/custom.css">
   <link href="https://fonts.geekzu.org/css2?family=PT+Serif&family=Source+Sans+Pro&display=swap" rel="stylesheet">
 
+    
     <title>Aeson Parsing Tips | Nutr1t07's Blog</title>
   </head>
 
@@ -19,13 +20,25 @@
                                       <li><a href="/page/friends/">Friends</a></li>
                   
                 </ul>
+
+                                <div id="outline" class="outline">
+                  <text>Outline</text>
+                  <ul>
+<li><a href="#hdr:0">Array with Objects</a></li>
+<li><a href="#hdr:1">Field with different types</a></li>
+
+                </div>
+                
+
             </nav>
             &nbsp;
       </div>
 
-      <div class="content">
-        <h3>Aeson Parsing Tips</h3>
-        <h5>Array with Objects</h5>
+      <div id="article" class="content">
+        <h3 id="article-title">Aeson Parsing Tips</h3>
+        
+        <div id="article-content">
+        <h5 id="hdr:0">Array with Objects</h5>
 <p>Suppose we have the JSON data:</p>
 <pre><code>{
   &quot;media_id&quot;: &quot;981538&quot;,
@@ -74,7 +87,7 @@ parseJSON = withObject &quot;Result&quot; $ \v -&gt; Result
     traverse (.: &quot;name&quot;) tagObjs</code></pre>
 <p>Then remove <em>do</em> block:</p>
 <pre><code>(v .: &quot;tags&quot;) :: Parser Array &gt;&gt;= traverse parseJSON . toList &gt;&gt;= traverse (.: &quot;name&quot;)</code></pre>
-<h5>Field with different types</h5>
+<h5 id="hdr:1">Field with different types</h5>
 <pre><code>&quot;result&quot;: [ {
     &quot;id&quot;: 1531017
     &quot;media_id&quot;: &quot;148011&quot;
@@ -96,6 +109,8 @@ instance FromJSON Result where
   parseJSON = withObject &quot;Result&quot; $ \v -&gt; Result
     &lt;$&gt; ((v .: &quot;id&quot;) &gt;&gt;= parseId)
     &lt;*&gt; (v .: &quot;media_id&quot;)</code></pre>
+
+        </div>
       </div>
     </div>
   </body>
