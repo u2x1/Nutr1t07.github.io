@@ -23,16 +23,14 @@
 
                                 <div id="outline" class="outline">
                   <text>Outline</text>
-                  <div class="outline-ul">
-                  <ul>
+                  <div class="outline-ul"><ul>
 <li><a href="#hdr:0">The Escape Sequence</a></li>
 <ul>
 <li><a href="#hdr:1">The First Argument</a></li>
 <li><a href="#hdr:2">The Second and the Third Argument</a></li>
 </ul><li><a href="#hdr:3">Apply to GRUB</a></li>
 <li><a href="#hdr:4">Reference</a></li>
-
-                  </div>
+</div>
                 </div>
                 
 
@@ -43,8 +41,7 @@
       <div id="article" class="content">
         <h3 id="article-title">Making Cursor Not Blink in Linux Console</h3>
         
-        <div id="article-content">
-        <p>I am not a fan of blinking cursors. The cursor, blinking endlessly, always reminds me of the shitty codes I'm writing, the ugly interface I'm facing, as well as my pitiful time wasted when I'm thinking. Anyway, I decided to turn it off.</p>
+        <div id="article-content"><p>I am not a fan of blinking cursors. The cursor, blinking endlessly, always reminds me of the shitty codes I'm writing, the ugly interface I'm facing, as well as my pitiful time wasted when I'm thinking. Anyway, I decided to turn it off.</p>
 <p>Comparing to terminal emulator, the cursor appearance in the Linux console (which is, not to enter the desktop environment) is rather difficult to configure. There is no direct configuration file that can be modified to change its behavior. I found a <a href="http://www.friendlyarm.net/forum/topic/2998" >post</a> which said that there are some kernel parameters, such as <code>vt.global_cursor_default</code>, <code>vt.cur_default</code>, that can affect the cursor on boot, and thus the Linux console. Their descriptions as follows:</p>
 <pre><code>vt.cur_default= [VT] Default cursor shape.
                 Format: 0xCCBBAA, where AA, BB, and CC are the same as
@@ -106,8 +103,7 @@ vt.global_cursor_default=
 <ul>
 <li><a href="https://www.kernel.org/doc/html/v4.10/admin-guide/kernel-parameters.html" >The kernel’s command-line parameters - The Linux Kernel</a></li><li><a href="https://linuxgazette.net/137/anonymous.html" >Cursor Appearance in the Linux Console - Linux Gazette</a></li>
 </ul>
-
-        </div>
+</div>
       </div>
     </div>
   </body>

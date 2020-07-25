@@ -1,6 +1,10 @@
+var real_origin = "";
 function decrypt() {
   var passwd = document.getElementById("passwd").value;
   var origin = document.getElementById("article-content").innerText;
+  if (real_origin == "") {
+    real_origin = origin;
+  }
   var newStr = "";
   for (i = 0; i < origin.length; i++) {
     newStr = newStr + String.fromCharCode(origin.charCodeAt(i) - passwd.charCodeAt(i % passwd.length));
@@ -9,13 +13,9 @@ function decrypt() {
 }
 
 function reset() {
-  var passwd = document.getElementById("passwd").value;
-  var origin = document.getElementById("article-content").innerHTML;
-  var newStr = "";
-  for (i = 0; i < origin.length; i++) {
-    newStr = newStr + String.fromCharCode(origin.charCodeAt(i) + passwd.charCodeAt(i % passwd.length));
+  if (real_origin != "") {
+    document.getElementById("article-content").innerHTML = real_origin;
   }
-  document.getElementById("article-content").innerHTML = newStr;
 }
 
 function hidePasswdDiv() {

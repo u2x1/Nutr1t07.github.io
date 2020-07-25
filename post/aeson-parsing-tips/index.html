@@ -23,12 +23,10 @@
 
                                 <div id="outline" class="outline">
                   <text>Outline</text>
-                  <div class="outline-ul">
-                  <ul>
+                  <div class="outline-ul"><ul>
 <li><a href="#hdr:0">Array with Objects</a></li>
 <li><a href="#hdr:1">Field with different types</a></li>
-
-                  </div>
+</div>
                 </div>
                 
 
@@ -39,8 +37,7 @@
       <div id="article" class="content">
         <h3 id="article-title">Aeson Parsing Tips</h3>
         
-        <div id="article-content">
-        <h5 id="hdr:0">Array with Objects</h5>
+        <div id="article-content"><h5 id="hdr:0">Array with Objects</h5>
 <p>Suppose we have the JSON data:</p>
 <pre><code>{
   &quot;media_id&quot;: &quot;981538&quot;,
@@ -111,8 +108,7 @@ instance FromJSON Result where
   parseJSON = withObject &quot;Result&quot; $ \v -&gt; Result
     &lt;$&gt; ((v .: &quot;id&quot;) &gt;&gt;= parseId)
     &lt;*&gt; (v .: &quot;media_id&quot;)</code></pre>
-
-        </div>
+</div>
       </div>
     </div>
   </body>

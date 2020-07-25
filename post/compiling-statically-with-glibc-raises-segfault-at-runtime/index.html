@@ -23,14 +23,12 @@
 
                                 <div id="outline" class="outline">
                   <text>Outline</text>
-                  <div class="outline-ul">
-                  <ul>
+                  <div class="outline-ul"><ul>
 <li><a href="#hdr:0">NSS (Name Service Switch)</a></li>
 <li><a href="#hdr:1">glibc</a></li>
 <li><a href="#hdr:2">Any Solutions?</a></li>
 <li><a href="#hdr:3">Acknowledgements</a></li>
-
-                  </div>
+</div>
                 </div>
                 
 
@@ -41,8 +39,7 @@
       <div id="article" class="content">
         <h3 id="article-title">Compiling Statically With Glibc Raises Segfault at Runtime</h3>
         
-        <div id="article-content">
-        <p>I’m writing a chatting bot with Haskell and I need to statically compile my program, run it on the server which is running on <strong>Ubuntu 18.04 bionic</strong>. When I built my <em>stack</em> project with GHC option <code>-optl-static</code>, running it, I got a <em>segfault</em>. Checking the core dump file and I got this:</p>
+        <div id="article-content"><p>I’m writing a chatting bot with Haskell and I need to statically compile my program, run it on the server which is running on <strong>Ubuntu 18.04 bionic</strong>. When I built my <em>stack</em> project with GHC option <code>-optl-static</code>, running it, I got a <em>segfault</em>. Checking the core dump file and I got this:</p>
 <pre><code>Stack trace of thread 26051:
 #0  0x00007f5ce4cef448 n/a (/lib/x86\_64-linux-gnu/libnss\_files-2.27.so)
 #1  0x00007f5ce4cf08bd \_nss\_files\_gethostbyname4\_r (/lib/x86\_64-linux-gnu/libnss\_files-2.27.so)
@@ -100,8 +97,7 @@ networks: files</code></pre>
 
 </ol>
 </div>
-
-        </div>
+</div>
       </div>
     </div>
   </body>

@@ -23,8 +23,7 @@
 
                                 <div id="outline" class="outline">
                   <text>Outline</text>
-                  <div class="outline-ul">
-                  <ul>
+                  <div class="outline-ul"><ul>
 <li><a href="#hdr:0">解释</a></li>
 <ul>
 <li><a href="#hdr:1">for 循环</a></li>
@@ -32,8 +31,7 @@
 <li><a href="#hdr:3">一些细节</a></li>
 </ul><li><a href="#hdr:4">参考</a></li>
 <li><a href="#hdr:5">致谢</a></li>
-
-                  </div>
+</div>
                 </div>
                 
 
@@ -44,8 +42,7 @@
       <div id="article" class="content">
         <h3 id="article-title">用例子理解批处理脚本</h3>
         
-        <div id="article-content">
-        <p>我们来看看如何将目录下的每一个文件加上原目录名的前缀：</p>
+        <div id="article-content"><p>我们来看看如何将目录下的每一个文件加上原目录名的前缀：</p>
 <pre><code>for /f &quot;delims=&quot; %%i in (&#39;dir /ad/b&#39;) do (
  :: 遍历子目录
  for /f &quot;delims=&quot; %%j in (&#39;dir /b %%i&#39;) do (
@@ -100,8 +97,7 @@ move 文件夹二 文件夹二Copy</code></pre>
 </ul>
 <h4 id="hdr:5">致谢</h4>
 <p>感谢 @丶慕忻 提供的想法，本文中的例子出自于他。</p>
-
-        </div>
+</div>
       </div>
     </div>
   </body>
