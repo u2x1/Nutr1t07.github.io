@@ -1,13 +1,12 @@
 var real_origin = "";
 function decrypt() {
   var passwd = document.getElementById("passwd").value;
-  var origin = document.getElementById("article-content").innerText;
   if (real_origin == "") {
-    real_origin = origin;
+    real_origin = document.getElementById("article-content").innerText;
   }
   var newStr = "";
   for (i = 0; i < origin.length; i++) {
-    newStr = newStr + String.fromCharCode(origin.charCodeAt(i) - passwd.charCodeAt(i % passwd.length));
+    newStr = newStr + String.fromCharCode(real_origin.charCodeAt(i) - passwd.charCodeAt(i % passwd.length));
   }
   document.getElementById("article-content").innerHTML = newStr;
 }
