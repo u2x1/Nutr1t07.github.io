@@ -42,7 +42,7 @@ nav ul li a, nav ul li a:visited, nav ul li a:active{
     margin-top: 50%;
 }
 
-.outline ul { padding-left: 5px; list-style: circle}
+.outline ul { padding-left: 7px; list-style: circle}
 
 .outline ul li a, .outline ul li a:visited, .outline ul li a:active{
   padding-left: 3px;
@@ -81,12 +81,15 @@ a { color: #000 }
 
 /* Mobile */
 @media only screen and (max-width: 767px) {
-    .container { width: 300px; padding-top: 0;}
-    .content   { width: 300px; padding-left: 0;}
-    .sidebar   { width: 300px; }
-    .outline   { margin-top: 0; }
+    .container  { width: 300px; padding-top: 0;}
+    .content    { width: 300px; padding-left: 0;}
+    .sidebar    { width: 300px; }
+    .outline    { margin-top: 0; border: 2px dashed; }
+    .outline .outline-ul { margin-left: 10%; }
+    .outline ul { text-align: left; }
     p img { max-width: 250px; }
     nav {
+      width: 300px;
       position: relative;
       text-align: center;
       margin: 0 auto;
