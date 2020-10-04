@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+        <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/custom.css">
+    <link href="https://fonts.geekzu.org/css2?family=PT+Serif&family=Source+Sans+Pro&display=swap" rel="stylesheet">
+
+    
+    <title>Differences between writeValue() and writeLong() | Nutr1t07's Blog</title>
+  </head>
+
+  <body>
+    <div class="container">
+        <div class="sidebar">
+    <nav>
+      <h3 id="logo">Nutr1t07</h3>
+      <ul>
+              <li><a href="/">Index</a></li>
+              <li><a href="/page/friends/">Friends</a></li>
+      
+      </ul>
+
+            <div id="outline" class="outline">
+        <text>Outline</text>
+        <div class="outline-ul"><ul>
+<li><a href="#hdr:0">Reference</a></li>
+</div>
+      </div>
+      
+
+    </nav>
+    &nbsp;
+  </div>
+
+      <div id="article" class="content">
+        <h3 id="article-title">Differences between writeValue() and writeLong()</h3>
+        
+        <div id="article-content"><p>This is kind of confusing ... When I was using Quick Fix (<code>Alt+Enter</code>) to auto-generate the methods of Parcelable interface for my <code>Event</code> data class below, it filled the initializer of the nullable <code>Long?</code> with <code>parcel.readValue(Long::class.java.classLoader) as? Long</code>.</p>
+<pre><code>data class Event(
+    @PrimaryKey(autoGenerate = true) val id: Long?,
+) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readValue(Long::class.java.classLoader) as? Long,
+    )
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeValue(id)
+}</code></pre>
+<p>But I didn't know what did that mean. So I just randomly replaced the it with <code>writeLong(id ?: 999)</code> in <code>writeToParcel()</code> method.</p>
+<pre><code>override fun writeToParcel(parcel: Parcel, flags: Int) {
+    parcel.writeLong(id ?: 999)
+}</code></pre>
+<p>When I passed an Event object to another activity through Intent and accessing it using <code>intent.extras?.get()</code>, two exceptions raised. One is <code>ClassNotFoundException</code> when it tried to read a <code>Long</code> value through <code>readValue(Long::class.java.classLoader)</code> from Parcelable, the other is <code>TypeCastException</code> as I wanted to cast the parcelable to my class <code>Event</code>.</p>
+<p>So what is the difference between <code>writeLong()</code> and <code>writeValue()</code> as well as <code>readValue()</code> and <code>readLong()</code>? If you check the <a href="https://github.com/aosp-mirror/platform_frameworks_base/blob/3bdbf644d61f46b531838558fabbd5b990fc4913/core/java/android/os/Parcel.java#L1186" >source code</a> of <code>writeValue()</code>, you will see that <code>writeValue()</code> is actually a wrapper of <code>writeXX()</code>. If we call <code>writeValue()</code> to write a <code>Long</code> value, it first writes an Int <code>VAL_LONG</code> to <em>parcel</em> by <code>writeInt()</code> to represent its value type, then the real Long value by <code>writeLong()</code>.</p>
+<pre><code>public final void writeValue(Object v) {
+    if (v == null) {
+        writeInt(VAL_NULL);
+    } else if (v instanceof String) {
+        writeInt(VAL_STRING);
+        writeString((String) v);
+    // ...
+    } else if (v instanceof Long) {
+        writeInt(VAL_LONG);
+        writeLong((Long) v);
+    }
+    // ...
+}
+
+public final Object readValue(ClassLoader loader) {
+    int type = readInt();
+
+    switch (type) {
+    case VAL_NULL:
+        return null;
+
+    // ...
+
+    case VAL_LONG:
+        return readLong();
+
+    // ...
+    default:
+        int off = dataPosition() - 4;
+        throw new RuntimeException(
+            &quot;Parcel &quot; + this + &quot;: Unmarshalling unknown type code &quot; +
+              type + &quot; at offset &quot; + off);
+    }
+}</code></pre>
+<p>For that reason, when we call <code>writeLong()</code> to write a <code>Long</code> value but use <code>readValue()</code> to read that Long, it ends up regarding the actual <code>Long</code> value we wrote as the value type, and performing correspond the <code>readXX()</code> function.</p>
+<h4 id="hdr:0">Reference</h4>
+<ul>
+<li><a href="https://stackoverflow.com/questions/5905105/how-to-serialize-null-value-when-using-parcelable-interface/10769887#10769887" >Stack Overflow - How to serialize null value when using Parcelable interface</a></li>
+</ul>
+</div>
+      </div>
+    </div>
+  </body>
+</html>

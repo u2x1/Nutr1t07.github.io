@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
   <head>
-      <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/css/custom.css">
-  <link href="https://fonts.geekzu.org/css2?family=PT+Serif&family=Source+Sans+Pro&display=swap" rel="stylesheet">
+        <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/custom.css">
+    <link href="https://fonts.geekzu.org/css2?family=PT+Serif&family=Source+Sans+Pro&display=swap" rel="stylesheet">
 
     
     <title>HIE in Nvim on Archlinux | Nutr1t07's Blog</title>
@@ -12,44 +12,49 @@
 
   <body>
     <div class="container">
-            <div class="sidebar">
-            <nav>
-                <h3 id="logo">Nutr1t07</h3>
-                <ul>
-                                      <li><a href="/">Index</a></li>
-                                      <li><a href="/page/friends/">Friends</a></li>
-                  
-                </ul>
+        <div class="sidebar">
+    <nav>
+      <h3 id="logo">Nutr1t07</h3>
+      <ul>
+              <li><a href="/">Index</a></li>
+              <li><a href="/page/friends/">Friends</a></li>
+      
+      </ul>
 
-                                <div id="outline" class="outline">
-                  <text>Outline</text>
-                  <div class="outline-ul"><ul>
+            <div id="outline" class="outline">
+        <text>Outline</text>
+        <div class="outline-ul"><ul>
 <li><a href="#hdr:0">HIE</a></li>
 <ul>
 <li><a href="#hdr:1">Build from source</a></li>
 <li><a href="#hdr:2">Download the source code</a></li>
-</ul><li><a href="#hdr:3">Build</a></li>
+</ul>
+<li><a href="#hdr:3">Build</a></li>
 <ul>
 <li><a href="#hdr:4">Download a Stackage-LTS and an appropriate GHC.</a></li>
 <li><a href="#hdr:5">Install specific GHC Version</a></li>
-</ul><li><a href="#hdr:6">Using coc.nvim or ALE</a></li>
+</ul>
+<li><a href="#hdr:6">Using coc.nvim or ALE</a></li>
 <ul>
 <li><a href="#hdr:7">coc.nvim</a></li>
 <ul>
 <li><a href="#hdr:8">Install</a></li>
 <li><a href="#hdr:9">Configuration</a></li>
-</ul><li><a href="#hdr:10">ALE</a></li>
+</ul>
+<li><a href="#hdr:10">ALE</a></li>
 <ul>
 <li><a href="#hdr:11">Install ALE and LanguageClient-neovim</a></li>
 <li><a href="#hdr:12">Configuration</a></li>
-</ul></ul><li><a href="#hdr:13">Troubleshooting</a></li>
+</ul>
+</ul>
+<li><a href="#hdr:13">Troubleshooting</a></li>
 </div>
-                </div>
-                
-
-            </nav>
-            &nbsp;
       </div>
+      
+
+    </nav>
+    &nbsp;
+  </div>
 
       <div id="article" class="content">
         <h3 id="article-title">HIE in Nvim on Archlinux</h3>
@@ -116,9 +121,9 @@ call plug#end()</code></pre>
 <p>Also using <code>Vim-Plug</code> to install the two plugins:</p>
 <pre><code>Plug &#39;dense-analysis/ale&#39;
 Plug &#39;autozimu/LanguageClient-neovim&#39;, {
-    \ &#39;branch&#39;: &#39;next&#39;,
-    \ &#39;do&#39;: &#39;./install.sh&#39;
-    \ }</code></pre>
+     &#39;branch&#39;: &#39;next&#39;,
+     &#39;do&#39;: &#39;./install.sh&#39;
+}</code></pre>
 <p>Restart <em>nvim</em> and run <code>:PlugInstall</code>.</p>
 <h6 id="hdr:12">Configuration</h6>
 <p>Add this to nvim config file(~/.config/nvim/init.vim):</p>
@@ -129,9 +134,9 @@ Plug &#39;autozimu/LanguageClient-neovim&#39;, {
 call plug#begin()
 Plug &#39;dense-analysis/ale&#39;
 Plug &#39;autozimu/LanguageClient-neovim&#39;, {
-    \ &#39;branch&#39;: &#39;next&#39;,
-    \ &#39;do&#39;: &#39;./install.sh&#39;
-    \ }
+     &#39;branch&#39;: &#39;next&#39;,
+     &#39;do&#39;: &#39;./install.sh&#39;
+}
 call plug#end()</code></pre>
 <h4 id="hdr:13">Troubleshooting</h4>
 <p>[coc.nvim] Got error while processing diagnostics: readCreateProcess: cabal-helper-wrapper “print-build-platform” (exit 1): failed<sup id="fnref:1"><a href="#fn:1">1</a>
