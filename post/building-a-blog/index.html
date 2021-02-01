@@ -1,53 +1,61 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
   <head>
-        <meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/custom.css">
-    <link href="https://fonts.geekzu.org/css2?family=PT+Serif&family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link href="https://fonts.geekzu.org/css2?family=PT+Serif&amp;family=Source+Sans+Pro&amp;display=swap" rel="stylesheet">
 
-    
     <title>Building a Blog | Nutr1t07's Blog</title>
   </head>
 
   <body>
     <div class="container">
-        <div class="sidebar">
-    <nav>
-      <h3 id="logo">Nutr1t07</h3>
-      <ul>
-              <li><a href="/">Index</a></li>
-              <li><a href="/page/friends/">Friends</a></li>
-      
-      </ul>
-
-            <div id="outline" class="outline">
-        <text>Outline</text>
-        <div class="outline-ul"><ul>
-<li><a href="#hdr:0">Markdown</a></li>
-<li><a href="#hdr:1">Template</a></li>
-<li><a href="#hdr:2">Preview website</a></li>
-<li><a href="#hdr:3">End</a></li>
+      <div class="sidebar">
+        <nav>
+            <h3 id="logo">Nutr1t07</h3>
+            <ul>
+                    <li><a href="/">Index</a></li>
+                    <li><a href="/friends">Friends</a></li>
+            
+            </ul>
+        <div id="outline" class="outline">
+            <text>Outline</text>
+            <div class="outline-ul"><ul>
+	<li><a href="#hdr:0">Motivation</a></li>
+<li><a href="#hdr:1">Implementation</a></li>
+<ul>
+	<li><a href="#hdr:2">Markdown</a></li>
+<li><a href="#hdr:3">Template</a></li>
+<li><a href="#hdr:4">Website Preview</a></li>
+</ul>
+<li><a href="#hdr:5">End</a></li>
+</ul>
+</ul>
+</ul>
 </div>
-      </div>
-      
+        </div>
 
-    </nav>
-    &nbsp;
-  </div>
+        </nav>
+        &nbsp;
+</div>
 
-      <div id="article" class="content">
+      <div class="content">
         <h3 id="article-title">Building a Blog</h3>
         
-        <div id="article-content"><p>Several days ago, I lost all my article sources with Hexo. Since I have been using Hexo for so long, and I still have all the article content, I switched to Hugo. But unfortunately I couldn't find a theme that looked good to me. I remembered reading <a href="http://www.stephendiehl.com/posts/decade.html" >a blog post</a> by <em>Stephen Diehl</em> and I fell in love with the blog style. It doesn't seem to be very hard to build a theme like that. So with <a href="https://gohugo.io/templates/introduction/" >Hugo Templates</a>, I wrote a theme which was almost completely copied from his blog. It was really simple and graceful. After a while I was thinking about writing my own static blog generator using the templating method the same as Hugo.</p>
+
+
+        <div id="article-content"><h4 id="hdr:0">Motivation</h4>
+<p>I lost all my article sources with Hexo a couple of days ago. Since I have been using Hexo for so long, and I still have all the article content, I switched to Hugo. But unfortunately I couldn't find a theme that looked good to me. I remembered reading a blog <a href="http://www.stephendiehl.com/posts/decade.html" >post</a> by <em>Stephen Diehl</em> and I fell in love with the blog style. It doesn't seem to be very hard to build a theme like that. With <a href="https://gohugo.io/templates/introduction/" >Hugo Templates</a>, I wrote a theme which was almost completely copied from his blog. It was really simple and graceful. After a while I was thinking about writing my own static blog generator using the templating method the same as Hugo.</p>
+<h4 id="hdr:1">Implementation</h4>
 <p>It won't be that hard. The whole process can be divided into 3 parts:</p>
 <ol>
 <li>Convert Markdown posts to HTML</li><li>Generate HTML files according to specified templates</li><li>Copy static files</li>
 </ol>
 <p>The rather difficult task of these is to parse Markdown and custom templates. But it's still not a problem because I only write what I need instead of building the whole universe.</p>
-<h4 id="hdr:0">Markdown</h4>
+<h5 id="hdr:2">Markdown</h5>
 <p>To convert Markdowns to HTMLs, it's needed to first convert it into AST (Abstract syntax tree), and then generate HTML from ASTs. This will make it easy to write and debug most of the time.</p>
-<p>There are some block elements in Markdown syntax: <em>paragrah</em>, <em>code block</em>, <em>blockquote</em>, <em>ordered list</em>, and <em>unordered list</em>. It means these elements can contain other various Markdown elements and even nested into each other, in contrast to <em>italic</em>, <em>bold</em>, and elements that have a fixed form and can not contain other elements. This is the <strong>main</strong> problem in parsing Markdown: nested elements.</p>
+<p>There are some block elements in Markdown syntax: paragrah, code block, blockquote, ordered list, and unordered list. It means these elements can contain other various Markdown elements and even nested into each other, in contrast to italic, bold, and elements that have a fixed form and can not contain other elements. This is the main problem in parsing Markdown: nested elements.</p>
 <p>A simple solution is to parse text in a <em>Parser</em>:</p>
 <pre><code>blockquotes :: Parser MDElem
 blockquotes = do
@@ -58,22 +66,22 @@ blockquotes = do
     Left _ -&gt; return (Blockquotes [PlainText text])
   where
     takePrefix = word8 62 &lt;* many (word8 32)</code></pre>
-<p>On the above example you can see that the <code>text</code> is taken out and fed to <code>parseOnly (some mdElem)</code>, which execute another parsing process the text in the parent parsing. But it's important here to use <code>(some mdElem)</code> instead of <code>(many mdElem)</code>. Because once you apply <code>(many blockquotes)</code> above, it leads to an infinite parser for <code>parseOnly (many _) _</code> always return a <code>Right [_]</code>.</p>
-<h4 id="hdr:1">Template</h4>
-<p>With the previous experience parsing Markdown, it should be pretty easy. Parse template into AST as well, but convert the AST with extra <code>Object</code> maps to replace the variable.</p>
-<p>The types of extra resources should be designed in <code>Map</code>s.</p>
+<p>On the above example you can see that the text is taken out and fed to <code>parseOnly (some mdElem)</code>, which execute another parsing process the text in the parent parsing. But it's important here to use <code>(some mdElem)</code> instead of <code>(many mdElem)</code>. Because once you apply (many blockquotes) above, it leads to an infinite parser for <code>(parseOnly (many _) _)</code> always return a <code>(Right [_])</code>.</p>
+<h5 id="hdr:3">Template</h5>
+<p>With the previous experience of parsing Markdown, this should be easy. Parse template into AST as well, but convert the AST with extra <code>Object</code> maps to replace the variable.</p>
+<p>The types of extra resources should be designed in Maps.</p>
 <pre><code>data ObjectTree = ObjNode (Map ByteString ObjectTree)
                 | ObjListNode [Map ByteString ObjectTree]
                 | ObjLeaf ByteString
   deriving (Show)</code></pre>
 <p>The types of template statement can be designed like this:</p>
 <pre><code>data Stmt = DotStmt ByteString [ByteString]    -- global.post.content -&gt; DotStmt &quot;global&quot; [&quot;post&quot;, &quot;content&quot;]
-          | ForeachStmt ByteString Stmt [Stmt] -- foreach x in global.posts -&gt; ForeachStmt &quot;x&quot; (DotStmt global.posts) (_)    (You need an &quot;end&quot; statement to close the foreach statement; statements between foreach and end will be stored into the last argument)
+          | ForeachStmt ByteString Stmt [Stmt] -- foreach x in global.posts -&gt; ForeachStmt &quot;x&quot; (DotStmt global.posts) (_)
           | PartialStmt ByteString
           | Raw ByteString
   deriving (Show)</code></pre>
 <p>When it's time to convert AST back into HTML, feed the conversion function with extra resources in the type of <code>ObjectTree</code>.</p>
-<h4 id="hdr:2">Preview website</h4>
+<h5 id="hdr:4">Website Preview</h5>
 <p>Except for generating the HTML files, running the website locally is sometimes needed. So I built a handy HTTP server with socket. It doesn't look pretty good, but it works anyway.</p>
 <pre><code>runHTTPServer :: FilePath -&gt; IO ()
 runHTTPServer path = do
@@ -110,11 +118,13 @@ runTCPServer host port server = withSocketsDo $ do
     loop sock = forever $ do
       (conn, _peer) &lt;- accept sock
       void $ forkFinally (server conn) (const $ gracefulClose conn 5000)</code></pre>
-<h4 id="hdr:3">End</h4>
-<p>I have put the <a href="https://github.com/Nutr1t07/gcwdr" >source code</a> on Github.</p>
-<p>This blog is completely generated by it, BTW.</p>
+<h4 id="hdr:5">End</h4>
+<p>The <a href="https://github.com/Nutr1t07/gcwdr" >source code</a> is available on Github.</p>
 </div>
       </div>
     </div>
+    
+
+
   </body>
 </html>

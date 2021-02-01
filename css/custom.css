@@ -40,6 +40,7 @@ nav ul li a, nav ul li a:visited, nav ul li a:active{
 
 .outline {
     margin-top: 50%;
+    font-size: 80%;
 }
 
 .outline ul { padding-left: 7px; list-style: circle}
@@ -101,6 +102,7 @@ pre {
     margin: 10px;
     margin-right: 25px;
     overflow: auto;
+    border: groove;
 }
 
 pre > code {

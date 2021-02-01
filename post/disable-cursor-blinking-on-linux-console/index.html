@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/custom.css">
+    <link href="https://fonts.geekzu.org/css2?family=PT+Serif&amp;family=Source+Sans+Pro&amp;display=swap" rel="stylesheet">
+
+    <title>Disable Cursor Blinking on Linux Console | Nutr1t07's Blog</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="sidebar">
+        <nav>
+            <h3 id="logo">Nutr1t07</h3>
+            <ul>
+                    <li><a href="/">Index</a></li>
+                    <li><a href="/friends">Friends</a></li>
+            
+            </ul>
+        <div id="outline" class="outline">
+            <text>Outline</text>
+            <div class="outline-ul"><ul>
+	<li><a href="#hdr:0">The Escape Sequence</a></li>
+<li><a href="#hdr:1">The First Argument</a></li>
+<ul>
+	<li><a href="#hdr:2">GRUB</a></li>
+</ul>
+<li><a href="#hdr:3">Reference</a></li>
+</ul>
+</ul>
+</ul>
+</div>
+        </div>
+
+        </nav>
+        &nbsp;
+</div>
+
+      <div class="content">
+        <h3 id="article-title">Disable Cursor Blinking on Linux Console</h3>
+        
+
+
+        <div id="article-content"><p>I am not a fan of blinking cursors. The cursor, blinking endlessly, always reminds me of the shitty codes I'm writing, the ugly interface I'm facing, as well as my pitiful time wasted when I'm thinking. Anyway, I decided to turn it off.</p>
+<p>Comparing to terminal emulator, the cursor appearance in the Linux console (which is, not to enter the desktop environment) is rather difficult to configure. There is no direct configuration file that can be modified to change its behavior. I found a <a href="http://www.friendlyarm.net/forum/topic/2998" >post</a> which said that there are some kernel parameters, such as vt.global<em>cursor</em>default, vt.cur_default, that can affect the cursor on boot, and thus the Linux console. Their descriptions as follows:</p>
+<pre><code>vt.cur_default= [VT] Default cursor shape.
+                Format: 0xCCBBAA, where AA, BB, and CC are the same as
+                the parameters of the &lt;Esc&gt;[?A;B;Cc escape sequence;
+                see VGA-softcursor.txt. Default: 2 = underline.
+
+vt.global_cursor_default=
+                [VT]
+                Format=&lt;-1|0|1&gt;
+                Set system-wide default for whether a cursor
+                is shown on new VTs. Default is -1,
+                i.e. cursors will be created by default unless
+                overridden by individual drivers. 0 will hide
+                cursors, 1 will display them.</code></pre>
+<p>Settings to vt.global<em>cursor</em>default only determine whether cursors show or hide, while vt.cur_default , for the default cursor shape, seems to have more flexible options. But when I tried to read <a href="https://www.kernel.org/doc/html/latest/admin-guide/vga-softcursor.html" >VGA-softcursor.txt</a> I got sort of confused. Some many terminologies and usages were beyond my knowledge. But I'll still try my best to describe it.</p>
+<h4 id="hdr:0">The Escape Sequence</h4>
+<p>The cursor appearance is controlled, by the sequence <ESC>[?1;2;3c. The first argument changes the cursor size, and the rest is for cursor color.</p>
+<p>You can try them in Linux console by entering echo -e '\033[?1;2;3c'. For example,</p>
+<blockquote>
+<p>To get normal blinking underline(2 for the first argument), use:</p>
+<pre><code>echo -e &#39;\033[?2c&#39;</code></pre>
+<p>To get blinking block(2 for the first argument), use:</p>
+<pre><code>echo -e &#39;\033[?6c&#39;</code></pre>
+<p>To get red non-blinking block(17 for the first argument, 0 for the second, 64 for the third), use:</p>
+<pre><code>echo -e &#39;\033[?17;0;64c&#39;</code></pre>
+
+</blockquote>
+<h4 id="hdr:1">The First Argument</h4>
+<p>In the first argument you specify cursor size:</p>
+<pre><code>0=default
+1=invisible
+2=underline,
+3=lower_third
+4=lower_half
+5=two_thirds
+6=full block
+7=full block
+...
+15=full block
+
++ 16 if you want the software cursor to be applied
++ 32 if you want to always change the background color
++ 64 if you dislike having the background the same as the
+     foreground.</code></pre>
+<p>The "+16 for software cursor" is to mean, that in the range of 0~15, you are using a hardware cursor. The value of the second and the third argument will always be 0 and you won't be able to change the default cursor color.</p>
+<p>In the range of 48~63(range 0~15 +16 +32), you get a cursor that background color is always the same, which is, a NON-BLINKING cursor!</p>
+<p>And in 112~127, maybe it makes the foreground color not the same as the background one, letting the character be visible. I'm not sure about this. But anyway, it's also a NON-BLINKING cursor!</p>
+<p>The Second and the Third Argument</p>
+<p>I'm putting them together because they actually do the same thing. In the third argument you set the color sequence of 8 bits. And in the second argument you change the sequence using XOR.</p>
+<p>On standard VGA, the high four bits and the low four bits specify the background and foreground color, respectively. The most significant bit in each four bits is for highlight (maybe blinking).</p>
+<p>Assume that we have 0 for Argument 2, and 16 for Argument 3, so we have the two-bit sequence as follows:</p>
+<pre><code>0000 0000 -- Argument 2
+0001 0000 -- Argument 3</code></pre>
+<p>XORing them, we get a bit sequence as 0001 0000. The most significant bits of both the background group and the foreground group are set to zero. So this is, as well, a NON-BLINKING cursor! Meanwhile, the background color group is 001 and the foreground one is 000. Each bit in the group stands for red, green, and blue (RGB), so through 001, we get a cursor that having its background color blue.</p>
+<h5 id="hdr:2">GRUB</h5>
+<p>The kernel parameter that sets the default cursor shape has a format of 0xCCBBAA. Because it's hexadecimal, the corresponding parameter to <code>echo -e &#39;\033[?17;0;32c&#39;</code> is <code>vt.cur_default=0x200011</code></p>
+<p>We need to add them to the kernel argument field <code>(GRUB_CMDLINE_LINUX_DEFAULT)</code> in the default GRUB configuration file (at <code>/etc/default/grub</code>), and then regenerate it using <code>grub-mkconfig -o /boot/grub/grub.cfg</code>.</p>
+<h4 id="hdr:3">Reference</h4>
+<ul>
+<li><a href="https://www.kernel.org/doc/html/v4.10/admin-guide/kernel-parameters.html" >The kernel’s command-line parameters - The Linux Kernel</a></li>
+</ul>
+<p>- <a href="https://linuxgazette.net/137/anonymous.html" >Cursor Appearance in the Linux Console - Linux Gazette</a></p>
+</div>
+      </div>
+    </div>
+    
+
+
+  </body>
+</html>
