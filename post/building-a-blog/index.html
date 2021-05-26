@@ -1,27 +1,25 @@
-<!DOCTYPE html>
 <html lang="zh-cn">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/css/custom.css">
-    <link href="https://fonts.geekzu.org/css2?family=PT+Serif&amp;family=Source+Sans+Pro&amp;display=swap" rel="stylesheet">
-
-    <title>Building a Blog | Nutr1t07's Blog</title>
-  </head>
-
-  <body>
-    <div class="container">
-      <div class="sidebar">
-        <nav>
-            <h3 id="logo">Nutr1t07</h3>
-            <ul>
-                    <li><a href="/">Index</a></li>
-                    <li><a href="/page/friends/">Friends</a></li>
+    <head>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/custom.css">
+<title>Nutr1t07's Blog</title>
+<script type="application/javascript" src="/js/encrypt.js"></script>
+<link href="https://fonts.geekzu.org/css2?family=PT+Serif&amp;family=Source+Sans+Pro&amp;display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+          <div class="sidebar">
+    <nav id="menu" class="menu">
+        <h3>Nutr1t07</h3>
+        <ul>
+                        <li><a href="/">Index</a></li>
+                        <li><a href="/page/friends/">Friends</a></li>
             
-            </ul>
+        </ul>
         <div id="outline" class="outline">
-            <text>Outline</text>
-            <div class="outline-ul"><ul>
+        <text>Outline</text>
+    <ul>
 	<li><a href="#hdr:0">Motivation</a></li>
 <li><a href="#hdr:1">Implementation</a></li>
 <ul>
@@ -33,22 +31,21 @@
 </ul>
 </ul>
 </ul>
+
+    </div>
+    
+    </nav>
+    &nbsp;
 </div>
-        </div>
-
-        </nav>
-        &nbsp;
-</div>
-
-      <div class="content">
-        <h3 id="article-title">Building a Blog</h3>
-        
-
-
-        <div id="article-content"><h4 id="hdr:0">Motivation</h4>
-<p>I lost all my article sources with Hexo a couple of days ago. Since I have been using Hexo for so long, and I still have all the article content, I switched to Hugo. But unfortunately I couldn't find a theme that looked good to me. I remembered reading a blog <a href="http://www.stephendiehl.com/posts/decade.html" >post</a> by <em>Stephen Diehl</em> and I fell in love with the blog style. It doesn't seem to be very hard to build a theme like that. With <a href="https://gohugo.io/templates/introduction/" >Hugo Templates</a>, I wrote a theme which was almost completely copied from his blog. It was really simple and graceful. After a while I was thinking about writing my own static blog generator using the templating method the same as Hugo.</p>
+  <div id="article" class="content">
+  <h3 id="article-title">Building a Blog (2020-04-26)</h3>
+  
+  
+  <div id="article-content">
+  <h4 id="hdr:0">Motivation</h4>
+<p>I lost all my article sources with Hexo a couple of days ago. Since I have been using Hexo for so long, and I still have all the article content, I switched to Hugo. But unfortunately I couldn't find a theme that looked good to me. I remembered reading <a href="http://www.stephendiehl.com/posts/decade.html" >a blog post</a> by <em>Stephen Diehl</em> and I fell in love with the blog theme. It doesn't seem to be very hard to build a theme like that. With <a href="https://gohugo.io/templates/introduction/" >Hugo Templates</a>, I wrote a theme which was almost completely copied from his blog. It was really simple and graceful. After a while I was thinking about writing my own static blog generator using the templating method the same as Hugo.</p>
 <h4 id="hdr:1">Implementation</h4>
-<p>It won't be that hard. The whole process can be divided into 3 parts:</p>
+<p>The whole process can be divided into 3 parts:</p>
 <ol>
 <li>Convert Markdown posts to HTML</li><li>Generate HTML files according to specified templates</li><li>Copy static files</li>
 </ol>
@@ -56,7 +53,7 @@
 <h5 id="hdr:2">Markdown</h5>
 <p>To convert Markdowns to HTMLs, it's needed to first convert it into AST (Abstract syntax tree), and then generate HTML from ASTs. This will make it easy to write and debug most of the time.</p>
 <p>There are some block elements in Markdown syntax: paragrah, code block, blockquote, ordered list, and unordered list. It means these elements can contain other various Markdown elements and even nested into each other, in contrast to italic, bold, and elements that have a fixed form and can not contain other elements. This is the main problem in parsing Markdown: nested elements.</p>
-<p>A simple solution is to parse text in a <em>Parser</em>:</p>
+<p>A simple solution is to parse text in a Parser:</p>
 <pre><code>blockquotes :: Parser MDElem
 blockquotes = do
   cnt &lt;- length &lt;$&gt; lookAhead (some takePrefix)
@@ -66,9 +63,9 @@ blockquotes = do
     Left _ -&gt; return (Blockquotes [PlainText text])
   where
     takePrefix = word8 62 &lt;* many (word8 32)</code></pre>
-<p>On the above example you can see that the text is taken out and fed to <code>parseOnly (some mdElem)</code>, which execute another parsing process the text in the parent parsing. But it's important here to use <code>(some mdElem)</code> instead of <code>(many mdElem)</code>. Because once you apply (many blockquotes) above, it leads to an infinite parser for <code>(parseOnly (many _) _)</code> always return a <code>(Right [_])</code>.</p>
+<p>On the above example you can see that the text is taken out and fed to <code>parseOnly (some mdElem)</code>, which execute another parsing process the text in the parent parsing. But it's important here to use <code>(some mdElem)</code> instead of <code>(many mdElem)</code>. Because once you apply <code>(many blockquotes)</code> above, it leads to an infinite parser for <code>(parseOnly (many _) _)</code> always return a <code>(Right [_])</code>.</p>
 <h5 id="hdr:3">Template</h5>
-<p>With the previous experience of parsing Markdown, this should be easy. Parse template into AST as well, but convert the AST with extra <code>Object</code> maps to replace the variable.</p>
+<p>With the previous experience of parsing Markdown, this should be easy. Parse template into AST as well, but convert the AST with extra Object maps to replace the variable.</p>
 <p>The types of extra resources should be designed in Maps.</p>
 <pre><code>data ObjectTree = ObjNode (Map ByteString ObjectTree)
                 | ObjListNode [Map ByteString ObjectTree]
@@ -120,11 +117,18 @@ runTCPServer host port server = withSocketsDo $ do
       void $ forkFinally (server conn) (const $ gracefulClose conn 5000)</code></pre>
 <h4 id="hdr:5">End</h4>
 <p>The <a href="https://github.com/Nutr1t07/gcwdr" >source code</a> is available on Github.</p>
-</div>
-      </div>
-    </div>
-    
 
+  </div>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-151389248-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  </body>
+  gtag('config', 'UA-151389248-1');
+</script>
+
+  </div>
+</body>
 </html>

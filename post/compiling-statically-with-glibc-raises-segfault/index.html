@@ -1,46 +1,43 @@
-<!DOCTYPE html>
 <html lang="zh-cn">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/css/custom.css">
-    <link href="https://fonts.geekzu.org/css2?family=PT+Serif&amp;family=Source+Sans+Pro&amp;display=swap" rel="stylesheet">
-
-    <title>Compiling Statically With Glibc Raises Segfault at Runtime | Nutr1t07's Blog</title>
-  </head>
-
-  <body>
-    <div class="container">
-      <div class="sidebar">
-        <nav>
-            <h3 id="logo">Nutr1t07</h3>
-            <ul>
-                    <li><a href="/">Index</a></li>
-                    <li><a href="/page/friends/">Friends</a></li>
+    <head>
+        <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/custom.css">
+<title>Nutr1t07's Blog</title>
+<script type="application/javascript" src="/js/encrypt.js"></script>
+<link href="https://fonts.geekzu.org/css2?family=PT+Serif&amp;family=Source+Sans+Pro&amp;display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+          <div class="sidebar">
+    <nav id="menu" class="menu">
+        <h3>Nutr1t07</h3>
+        <ul>
+                        <li><a href="/">Index</a></li>
+                        <li><a href="/page/friends/">Friends</a></li>
             
-            </ul>
+        </ul>
         <div id="outline" class="outline">
-            <text>Outline</text>
-            <div class="outline-ul"><ul>
+        <text>Outline</text>
+    <ul>
 	<li><a href="#hdr:0">NSS (Name Service Switch)</a></li>
 <li><a href="#hdr:1">glibc</a></li>
 <li><a href="#hdr:2">Solution?</a></li>
 <li><a href="#hdr:3">Acknowledgements</a></li>
 </ul>
 </ul>
+
+    </div>
+    
+    </nav>
+    &nbsp;
 </div>
-        </div>
-
-        </nav>
-        &nbsp;
-</div>
-
-      <div class="content">
-        <h3 id="article-title">Compiling Statically With Glibc Raises Segfault at Runtime</h3>
-        
-
-
-        <div id="article-content"><p>I’m writing a chatting bot with Haskell and I need to statically compile my program, run it on the server which is running on Ubuntu 18.04 bionic. When I built my stack project with GHC option <code>-optl-static</code>, running it, I got a segfault. Checking the core dump file and I got this:</p>
+  <div id="article" class="content">
+  <h3 id="article-title">Compiling Statically With Glibc Raises Segfault at Runtime (2020-03-12)</h3>
+  
+  
+  <div id="article-content">
+  <p>I’m writing a chatting bot with Haskell and I need to statically compile my program, run it on the server which is running on <code>Ubuntu 18.04 bionic</code>. When I built my stack project with GHC option <code>-optl-static</code>, running it, I got a segfault. Checking the core dump file and I got this:</p>
 <pre><code>Stack trace of thread 26051:
 #0  0x00007f5ce4cef448 n/a (/lib/x86\_64-linux-gnu/libnss\_files-2.27.so)
 #1  0x00007f5ce4cf08bd \_nss\_files\_gethostbyname4\_r (/lib/x86\_64-linux-gnu/libnss\_files-2.27.so)
@@ -59,13 +56,13 @@
 <h4 id="hdr:0">NSS (Name Service Switch)</h4>
 <blockquote>
 <p>29.2.1 Services in the NSS configuration File (from <a href="https://www.gnu.org/software/libc/manual/html_node/Services-in-the-NSS-configuration.html#Services-in-the-NSS-configuration" >glibc manual</a>):</p>
-<p>Assume the service name shall be used for a lookup. The code for this service is implemented in a module called libnss<em>name. On a system supporting shared libraries this is in fact a shared library with the name (for example) libnss</em>name.so.2.</p>
+<p>Assume the service name shall be used for a lookup. The code for this service is implemented in a module called libnssname. On a system supporting shared libraries this is in fact a shared library with the name (for example) libnssname.so.2.</p>
 
 </blockquote>
-<p>So we can conjecture that there should be something wrong with <a href="https://en.wikipedia.org/wiki/Name_Service_Switch" >NSS</a>.</p>
-<p>The Name Service Switch (NSS) is a facility that provides a variety of sources for common configuration databases and name resolution mechanisms.<sup id="fnref:1"><a href="#fn:1">1</a>
+<p>So we can conjecture that there should be something wrong with NSS.</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Name_Service_Switch" >Name Service Switch (NSS)</a> is a facility that provides a variety of sources for common configuration databases and name resolution mechanisms<sup id="fnref:1"><a href="#fn:1">1</a>
 </sup>
- Here is what a part of its configuration file <code>(/etc/nsswitch.conf)</code> looks like:</p>
+. Here is what a part of its configuration file (<code>/etc/nsswitch.conf</code>) looks like:</p>
 <pre><code>passwd: files mymachines systemd
 group: files mymachines systemd
 shadow: files
@@ -74,21 +71,21 @@ publickey: files
 
 hosts: files mymachines myhostname resolve [!UNAVAIL=return] dns
 networks: files</code></pre>
-<p>Its configuration is of the pattern <code>database: &lt;service&gt;</code>. NSS would attempt to use the services in order of them to resolve queries on the specified database. Check <a href="http://man7.org/linux/man-pages/man5/nsswitch.conf.5.html" >this manual</a> for more details.</p>
+<p>Its configuration is of the pattern <code>database: &lt;service&gt;</code>. NSS would attempt to use the services in order of them to resolve queries on the specified database. You should check <a href="http://man7.org/linux/man-pages/man5/nsswitch.conf.5.html" >this manual</a> for more details.</p>
 <h4 id="hdr:1">glibc</h4>
-<p>glibc uses <a href="http://man7.org/linux/man-pages/man3/dlopen.3.html" >dlopen</a>, which is used to load dynamic shared objects, to load NSS modules. This requires at runtime the shared libraries from the glibc version used for linking, which makes the program need a second copy of the C library. It means the statically linked program has two copies of the C library in its address space, and they might fight over whose stdout buffer is to be used, who gets to call sbrk with a nonzero argument, that sort of thing.<sup id="fnref:2"><a href="#fn:2">2</a>
+<p><code>glibc</code> uses <a href="http://man7.org/linux/man-pages/man3/dlopen.3.html" >dlopen</a>, which is used to load dynamic shared objects, to load NSS modules. This requires at runtime the shared libraries from the glibc version used for linking, which makes the program need a second copy of the C library. It means the statically linked program has two copies of the C library in its address space, and they might fight over whose stdout buffer is to be used, who gets to call sbrk with a nonzero argument, that sort of thing.<sup id="fnref:2"><a href="#fn:2">2</a>
 </sup>
 </p>
-<p>There is also <a href="https://sourceware.org/glibc/wiki/FAQ#Even_statically_linked_programs_need_some_shared_libraries_which_is_not_acceptable_for_me.__What_can_I_do.3F" >a FAQ</a> on glibc wiki that explained why statically linked programs need shared libraries.</p>
+<p>There is also a <a href="https://sourceware.org/glibc/wiki/FAQ#Even_statically_linked_programs_need_some_shared_libraries_which_is_not_acceptable_for_me.__What_can_I_do.3F" >FAQ page</a> on glibc wiki that explained why statically linked programs need shared libraries.</p>
 <p>There must be some advantages for doing so. And the mechanism of NSS is also a feature of glibc. I have nothing to say about that.</p>
 <h4 id="hdr:2">Solution?</h4>
 <p>However, NSS doesn’t seem to be very necessary for me. Another libc musl which does not have NSS<sup id="fnref:3"><a href="#fn:3">3</a>
 </sup>
- is likely an alternative of <code>glibc</code>. A docker image <a href="https://github.com/utdemir/ghc-musl" >ghc-musl</a> provides GHC compiled with musl, which can be <a href="https://github.com/utdemir/ghc-musl#stack" >easily used on stack projects</a>.</p>
-<p>Or use an awesome project <a href="https://github.com/nh2/static-haskell-nix/" >static-haskell-nix</a> to build static binaries with <a href="https://nixos.org/nix/" >Nix</a>.</p>
+ is likely an alternative of glibc. A docker image <a href="https://github.com/utdemir/ghc-musl" >ghc-musl</a> provides GHC compiled with musl, which can be easily used on stack projects.</p>
+<p>Or use an awesome project static-haskell-nix to build static binaries with Nix.</p>
 <h4 id="hdr:3">Acknowledgements</h4>
 <ul>
-<li><a href="https://mail.haskell.org/pipermail/haskell-cafe/2020-March/131981.html" >Using GHC option '-optl-static' causes segfault - Haskell-cafe </a></li>
+<li><a href="https://mail.haskell.org/pipermail/haskell-cafe/2020-March/131981.html" >Using GHC option '-optl-static' causes segfault - Haskell-cafe</a></li>
 </ul>
 <div id="footnotes"><hr/><ol>
 <li id="fn:1"><p><a href="https://en.wikipedia.org/wiki/Name_Service_Switch" >Name Service Switch</a>  <a href="#fnref:1" >↩</a></p>
@@ -100,11 +97,18 @@ networks: files</code></pre>
 
 </ol>
 </div>
-</div>
-      </div>
-    </div>
-    
 
+  </div>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-151389248-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  </body>
+  gtag('config', 'UA-151389248-1');
+</script>
+
+  </div>
+</body>
 </html>

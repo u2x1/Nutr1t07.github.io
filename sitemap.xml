@@ -2,13 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
       <loc>https://nutr1t07.github.io/</loc>
-      <lastmod>2021-02-01</lastmod>
+      <lastmod>2021-05-26</lastmod>
       <priority>0.8</priority>
-   </url>
-   <url>
-      <loc>https://nutr1t07.github.io/post/wordpress-on-archlinux/</loc>
-      <lastmod>2021-01-28</lastmod>
-      <priority>0.6</priority>
    </url>
    <url>
       <loc>https://nutr1t07.github.io/post/differences-between-writevalue-and-writelong/</loc>
@@ -31,33 +26,13 @@
       <priority>0.6</priority>
    </url>
    <url>
-      <loc>https://nutr1t07.github.io/post/aeson-notes/</loc>
-      <lastmod>2020-04-04</lastmod>
-      <priority>0.6</priority>
-   </url>
-   <url>
-      <loc>https://nutr1t07.github.io/post/understand-windows-batch-with-example/</loc>
-      <lastmod>2020-03-26</lastmod>
-      <priority>0.6</priority>
-   </url>
-   <url>
       <loc>https://nutr1t07.github.io/post/compiling-statically-with-glibc-raises-segfault/</loc>
       <lastmod>2020-03-12</lastmod>
       <priority>0.6</priority>
    </url>
    <url>
-      <loc>https://nutr1t07.github.io/post/uefi-boot-on-old-computers/</loc>
+      <loc>https://nutr1t07.github.io/post/uefi-on-old/</loc>
       <lastmod>2019-06-16</lastmod>
-      <priority>0.6</priority>
-   </url>
-   <url>
-      <loc>https://nutr1t07.github.io/post/unlock-mi-max/</loc>
-      <lastmod>2019-06-16</lastmod>
-      <priority>0.6</priority>
-   </url>
-   <url>
-      <loc>https://nutr1t07.github.io/page/friends/</loc>
-      <lastmod>2021-01-28</lastmod>
       <priority>0.6</priority>
    </url>
 </urlset>
