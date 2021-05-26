@@ -1,0 +1,15 @@
+title = "Nutr1t07's Blog"
+url   = "https://nutr1t07.github.io/"
+
+outputDir = "public/"
+themeDir  = "theme/"
+articleDir = "content/"
+localServerPort = 4000
+
+[[menu]]
+  name = "Index"
+  loc  = "/"
+  
+[[menu]]
+  name = "Friends"
+  loc  = "/page/friends/"

@@ -1,0 +1,26 @@
+<html lang="zh-cn">
+  <head>
+      [- partial head.html -]
+  </head>
+
+    <body>
+        <div class="container">
+            [- partial sidebar.html -]
+            <div class="post-list content">
+
+            [- foreach x in this.categories -]
+              <h3> [- x.cateName -] </h3>
+      
+              [- foreach y in x.posts -]
+              <li>
+                <a href="[- y.relLink -]">[- y.title -]</a>
+                <span class="date"> - [- y.date -]</span>
+              </li>
+            [- end -]
+           [- end -]
+            </div>
+        </div>
+      
+    </body>
+</html>
+      
